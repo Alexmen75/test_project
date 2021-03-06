@@ -11,18 +11,19 @@ namespace Test
         static int sum = 0;
         static void Main(string[] args)
         {
-            Console.WriteLine("1-Рандомные числа\n2-ручной ввод цифр\n0-выход");
-            int[] num = new int[10];
+            Console.WriteLine("1-Рандомные числа\n2-ручной ввод цифр\n0-выход");//Enter после ввода числа нажимать не нужно 
+            int[] num = new int[10];// Объявляем массив
             
-            Random rand_num = new Random();
-            ConsoleKey key;
-            key = Console.ReadKey(true).Key;
+            Random rand_num = new Random();//создаем переменную рандома
 
-            switch (key)
+            ConsoleKey key;// переменная, которая хранит информацию о нажатой клавише
+
+            key = Console.ReadKey(true).Key;// открываем доступ для считывания
+            Console.Clear();// отчищаем консоль для красоты 
+            switch (key)// проверяем выбранное значение
             {
                 case ConsoleKey.D1:
                 case ConsoleKey.NumPad1:
-                    Console.Clear();
                     Console.WriteLine("Вы выбрали рандом\n");
                     //Console.WriteLine("Вы выбрали ручной ввод");
                     for (int i = 0; i<10;i++)
@@ -34,7 +35,6 @@ namespace Test
                     break;
                 case ConsoleKey.D2:
                 case ConsoleKey.NumPad2:
-                    Console.Clear();
                     Console.WriteLine("Вы выбрали ручной ввод\n");
                     for (int i = 0; i < 10; i++)
                     {
