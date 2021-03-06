@@ -14,7 +14,7 @@ namespace Test
             Console.WriteLine("1-Рандомные числа\n2-ручной ввод цифр\n0-выход");//Enter после ввода числа нажимать не нужно
             Console.ForegroundColor = ConsoleColor.Green;
             Console.SetCursorPosition(0, 28);
-            Console.Write("После нажатия клавиши с нужной цифрой Enter нажимать не нужно");
+            Console.Write("После выбора Enter нажимать не нужно");
             Console.SetCursorPosition(0, 3);
             Console.ForegroundColor = ConsoleColor.Gray;
             int[] num = new int[10];// Объявляем массив
