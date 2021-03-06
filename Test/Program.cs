@@ -11,7 +11,12 @@ namespace Test
         static int sum = 0;
         static void Main(string[] args)
         {
-            Console.WriteLine("1-Рандомные числа\n2-ручной ввод цифр\n0-выход");//Enter после ввода числа нажимать не нужно 
+            Console.WriteLine("1-Рандомные числа\n2-ручной ввод цифр\n0-выход");//Enter после ввода числа нажимать не нужно
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.SetCursorPosition(0, 28);
+            Console.Write("После нажатия клавиши с нужной цифрой Enter нажимать не нужно");
+            Console.SetCursorPosition(0, 3);
+            Console.ForegroundColor = ConsoleColor.Gray;
             int[] num = new int[10];// Объявляем массив
             
             Random rand_num = new Random();//создаем переменную рандома
@@ -25,7 +30,6 @@ namespace Test
                 case ConsoleKey.D1:
                 case ConsoleKey.NumPad1:
                     Console.WriteLine("Вы выбрали рандом\n");
-                    //Console.WriteLine("Вы выбрали ручной ввод");
                     for (int i = 0; i<10;i++)
                     {
                         num[i] = rand_num.Next(0, 100);
