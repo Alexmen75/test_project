@@ -86,7 +86,6 @@ namespace Test
                                 Console.Write("\t\t\t\t\t\t\t\t\t\t\t");//Да , все еще отвратительно, зато вывод красивый
                                 Console.SetCursorPosition(0, Cursor_T - 1);
                             }
-
                         }
                         break;
 
@@ -105,8 +104,13 @@ namespace Test
                 Console.SetCursorPosition(50, 6);
                 Console.Write($"сумма всех чисел равна: {sum}   ");
                 sum = 0;
+                Console.SetCursorPosition(0, 28);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("Для продолжения нажмите любую клавишу");
+                Console.ForegroundColor = ConsoleColor.Gray;
                 Console.ReadKey();
                 Console.Clear();
+                
             }
         }
         public static void check_num(int num)
