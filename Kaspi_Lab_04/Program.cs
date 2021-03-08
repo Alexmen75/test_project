@@ -26,22 +26,23 @@ namespace Kaspi_Lab_04
     }
     public class Elevator
     {
+        //переменные для перехвата позиции курсора
         public int Cursor_Left;
         public int Cursor_Top;
 
-        private int Floors = 10;
-        internal int Floor_stay = 1;
-        internal int People_in = 0;
-        private int Load_capacity = 5;
+        private int Floors = 10;// количество этажей
+        internal int Floor_stay = 1;// Позиция лифта по этажам
+        internal int People_in = 0;// количество людей в лифте
+        private int Load_capacity = 5;// максимально допустимое количество людей в лифте
 
-        private bool Door_closed = true;
-        private bool In_Moove = false;
+        private bool Door_closed = true;// состояние дверей
+        private bool In_Moove = false;// состояние лифта
 
-        public void Elevator_Call(int floor_call)
+        public void Elevator_Call(int floor_call)// метод вызова лифта 
         {
 
             ConsoleInfo();
-            if (floor_call < 0 || floor_call > Floors)
+            if (floor_call < 0 || floor_call > Floors)// проверка существования заданного этажа
             {
                 Console.WriteLine("такого этажа не существует");
                 return;
@@ -50,28 +51,28 @@ namespace Kaspi_Lab_04
             {
                 Elivator_moove(floor_call);
             }
-            if (floor_call == Floor_stay)
+            if (floor_call == Floor_stay)// на нужном ли этаже находится лифт 
             {
                 
-                Door_closed = false;
-                People_in_out();
+                Door_closed = false;// открываются двери
+                People_in_out();// количество людей зашло/вышло
                 ConsoleInfo();
-                Door_closed = true;
+                Door_closed = true;//двери закрылись
                 ConsoleInfo();
             }
         }
 
 
-        public void Elivator_moove(int floor_call)
+        public void Elivator_moove(int floor_call)//Метод движения лифта 
         {
             ConsoleInfo();
-            if (People_in > Load_capacity)
+            if (People_in > Load_capacity)// если количество людей в лифте превышает допустимое значение
             {
                 
-                People_in_out(People_in);
+                People_in_out(People_in);// автоматический выводит лишних людей 
                 ConsoleInfo();
             }
-            if (Door_closed==false)
+            if (Door_closed==false)// проверка состояния двери
             {
                 ConsoleInfo();
                 Console.WriteLine("Дверь открыта, Лифт ехать не может");
@@ -79,35 +80,35 @@ namespace Kaspi_Lab_04
                 return;
             }
 
-            int move = Floor_stay - floor_call < 0 ? (+1) : (-1);
-            In_Moove = true;
-            while (Floor_stay != floor_call)
+            int move = Floor_stay - floor_call < 0 ? (+1) : (-1);// проверка направления движения лифта
+            In_Moove = true;// лифт движется 
+            while (Floor_stay != floor_call)// движется, пока этаж лифта не будет равен нужному 
             {
-                Thread.Sleep(800);
+                Thread.Sleep(800);// просто для симуляции
                 Floor_stay += move;
                 Console.WriteLine($"Лифт на {Floor_stay}");
                 ConsoleInfo();
             }
-            In_Moove = false;
+            In_Moove = false;// движение прекращено
             ConsoleInfo();
         }
 
 
-        public void People_in_out()
+        public void People_in_out()//Метод входа/выхода людей 
         {
 
             ConsoleInfo();
-            if (In_Moove==true)
+            if (In_Moove==true)// нельзя зайти, если лифт движется 
             {
                 Console.WriteLine("Лифт движется, посадка невозможна");
                 return;
             }
-            if (People_in != 0)
+            if (People_in != 0)// если количество людей не равно 0 то 
             {
                 ConsoleInfo();
                 Console.WriteLine("Количество вышедших людей");
                 People_in -= Int32.Parse(Console.ReadLine());
-                if( People_in<0)
+                if( People_in<0)// если вышло больше людей, чем было, то онулировать значение 
                 {
                     People_in = 0;
                 }
@@ -123,7 +124,7 @@ namespace Kaspi_Lab_04
             ConsoleInfo();
 
         }
-        public void People_in_out(int peopl_in)
+        public void People_in_out(int peopl_in)// Метод убирающий лишних людей 
         {
             ConsoleInfo();
             Console.WriteLine("слишком много людей в лифте");
@@ -132,7 +133,7 @@ namespace Kaspi_Lab_04
         }
 
 
-        public void ConsoleInfo()
+        public void ConsoleInfo()//Метод вывода состояния лифта в реальном времени 
         {
             Cursor_Left = Console.CursorLeft;
             Cursor_Top = Console.CursorTop;
