@@ -19,7 +19,7 @@ namespace Kaspi_Lab_04
                 
                 Console.WriteLine("Введите этаж");
                 elevator.ConsoleInfo();
-                elevator.Elevator_Call(Int32.Parse(Console.ReadLine()));
+                elevator.Call(Int32.Parse(Console.ReadLine()));
             }
         }
         
@@ -38,7 +38,7 @@ namespace Kaspi_Lab_04
         private bool Door_closed = true;// состояние дверей
         private bool In_Moove = false;// состояние лифта
 
-        public void Elevator_Call(int floor_call)// метод вызова лифта 
+        public void Call(int floor_call)// метод вызова лифта 
         {
 
             ConsoleInfo();
@@ -106,7 +106,7 @@ namespace Kaspi_Lab_04
             if (People_in != 0)// если количество людей не равно 0 то 
             {
                 ConsoleInfo();
-                Console.WriteLine("Количество вышедших людей");
+                Console.Write("Количество вышедших людей: ");
                 People_in -= Int32.Parse(Console.ReadLine());
                 if( People_in<0)// если вышло больше людей, чем было, то онулировать значение 
                 {
@@ -116,7 +116,7 @@ namespace Kaspi_Lab_04
             }
 
             ConsoleInfo();
-            Console.WriteLine("Количество вошедших людей");
+            Console.Write("Количество вошедших людей: ");
             People_in += Int32.Parse(Console.ReadLine());
             ConsoleInfo();
             //Console.WriteLine("Введите этаж");
@@ -129,6 +129,7 @@ namespace Kaspi_Lab_04
             ConsoleInfo();
             Console.WriteLine("слишком много людей в лифте");
             People_in -= People_in - Load_capacity;
+            Console.WriteLine("Лишние люди вышли");
             ConsoleInfo();
         }
 
@@ -162,7 +163,6 @@ namespace Kaspi_Lab_04
                 Console.WriteLine($"Людей в лифте: {People_in}");
                 Console.WriteLine($"Двери: {(Door_closed == true ? ("Закрыты") : ("Открыты"))}");
                 Console.WriteLine($"Состояние лифта: {(In_Moove == true ? ("В движении") : ("Стоит"))}");*/
-
             }
             Console.SetCursorPosition(Cursor_Left, Cursor_Top);
             //Thread.Sleep(800);
