@@ -49,7 +49,7 @@ namespace Kaspi_Lab_04
             }
             else
             {
-                Elivator_moove(floor_call);
+                Moove(floor_call);
             }
             if (floor_call == Floor_stay)// на нужном ли этаже находится лифт 
             {
@@ -63,7 +63,7 @@ namespace Kaspi_Lab_04
         }
 
 
-        public void Elivator_moove(int floor_call)//Метод движения лифта 
+        public void Moove(int floor_call)//Метод движения лифта 
         {
             ConsoleInfo();
             if (People_in > Load_capacity)// если количество людей в лифте превышает допустимое значение

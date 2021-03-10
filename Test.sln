@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaspi_Lab_04", "Kaspi_Lab_04\Kaspi_Lab_04.csproj", "{F3CC0A37-B8F1-496B-B2D0-78C8881A6B03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaspiLab05", "KaspiLab05\KaspiLab05.csproj", "{302AC552-3F22-414E-A73F-27241CEF9EDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F3CC0A37-B8F1-496B-B2D0-78C8881A6B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3CC0A37-B8F1-496B-B2D0-78C8881A6B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3CC0A37-B8F1-496B-B2D0-78C8881A6B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{302AC552-3F22-414E-A73F-27241CEF9EDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{302AC552-3F22-414E-A73F-27241CEF9EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{302AC552-3F22-414E-A73F-27241CEF9EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{302AC552-3F22-414E-A73F-27241CEF9EDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
