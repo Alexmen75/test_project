@@ -47,6 +47,7 @@
     <Compile Include="Objects\ClosedStorage.cs" />
     <Compile Include="Objects\Employee.cs" />
     <Compile Include="Objects\OpenStorage.cs" />
+    <Compile Include="Objects\Person.cs" />
     <Compile Include="Objects\Product.cs" />
     <Compile Include="Objects\Storage.cs" />
     <Compile Include="Program.cs" />

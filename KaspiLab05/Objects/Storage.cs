@@ -10,10 +10,15 @@ namespace KaspiLab05.Objects
     {
         internal string adress;
         internal int sqгare;
-        internal string manager;
+        internal Person manager;
         readonly public List<Product> products = new List<Product>() { null };
         readonly public List<int> product_count = new List<int>() { 0 };
         //internal bool is_Open;
+
+
+
+        abstract public bool Add_product(Product prod, int count);
+
 
         public decimal Cost_ptoduct()
         {
@@ -23,6 +28,7 @@ namespace KaspiLab05.Objects
                 sum += products[i].cost * product_count[i];
             }
             return sum;
+            
         }
 
         public Tuple<Product, int> Search_SKU(int SKU)
@@ -39,7 +45,36 @@ namespace KaspiLab05.Objects
 
         public void Set_Manager()
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public bool Transfer(Storage storage, Product prod, int count) //получился гавнокод , какие альтернативные способы решения можно использовать ? 
+        {
+            for (int i = 1; i < products.Count(); i++)
+            {
+                if (prod.SKU == products[i].SKU)
+                {
+                    if (product_count[i]>= count)
+                    {
+                        product_count[i] -= count;
+                        if (storage.Add_product(prod,count)==true)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            product_count[i] += count;
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+            }
+            return false;
         }
     }
 }

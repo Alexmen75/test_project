@@ -10,27 +10,39 @@ namespace KaspiLab05
     class Program
     {
         static Random rand = new Random();
+
+        static Random S = new Random();
+        static Random N = new Random();
+        static Random P = new Random();
+
         static void Main(string[] args)
         {
+            string[] surname = new string[5] {"Букин", "Софиулин","Кузнецов","Ледошляп","Захаранс"};
+            string[] name = new string[5] { "Генадий", "Анатолий", "Игорь", "Артем", "Максим" };
+            string[] patronymic = new string[5] { "Артемович", "Михайлович", "Алесандрович", "Русланович", "Павлович" };
+
             Storage Damu_Logistic = new ClosedStorage() { adress = " Где-то за городом", sqгare = 230};
             Storage ZIP_Logistic = new OpenStorage() { adress = " Достык 128", sqгare = 530};
             Storage Admart = new ClosedStorage() { adress = "Казыбаева 61а", sqгare = 320 };
 
+
+
+            for(int i = 0; i<4;i++)
+            {
+                Person Damu = new Employee(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)], i);
+            }
+            
+
             List<Storage> storages = new List<Storage>() { Damu_Logistic, ZIP_Logistic, Admart };
 
 
-            Product whater = new Liquid() { SKU = 123412, cost = 100, name = "BonAqua", description = "Водичка" , storage=Admart };
-            Product cola = new Liquid() { SKU = 123945, cost = 150, name = "Coca-Cola", description = "Счастье к нам приходит", storage = Damu_Logistic};
+            Product whater = new Liquid(123412, "BonAqua", 100, "Водичка",ZIP_Logistic);
+            Product cola = new Liquid(123945,"Coca-Cola", 150 , "Счастье к нам приходит", Damu_Logistic);
+            Product buckwheat = new Granular( 62356, "King food",  110,"Греча простая", Admart) ;
+            Product rice = new Granular( 68932, "King food", 120 , "Рис королей", Damu_Logistic) { };
 
-            Product buckwheat = new Granular() { SKU = 62356, cost = 110, name = "King food", description = "Греча простая", storage = ZIP_Logistic };
-            Product rice = new Granular() { SKU = 68932, cost = 120, name = "King food", description = "Рис королей", storage = Admart};
-
-            Product cookies= new Solid() { SKU = 823949, cost = 330, name = "Nestle Oreo", description = "Оторви, обмакни, лизни", storage = ZIP_Logistic };
-            Product chips = new Solid() { SKU = 67654, cost = 420, name = "Lays", description = "Чепсики", storage = Damu_Logistic};
-
-
-            
-
+            Product cookies= new Solid(823949, "Nestle Oreo", 330, "Оторви, обмакни, лизни", ZIP_Logistic);
+            Product chips = new Solid(67654, "Lays chips", 420, "Чепсики", Admart) ;
 
             while (true)
             {
@@ -47,24 +59,29 @@ namespace KaspiLab05
                 for (int num=1; num<storages[check].products.Count;num++) // Вывод исправлю и сделаю более читаемым
                 {
                     var p = storages[check].products;
-                    if (p[num] is Liquid liquid)
-                    {
-                        Console.WriteLine("\t {0}\t {1}\t {2}тнг/{3}\t{4}{3}\t {5}", liquid.SKU, liquid.name, liquid.cost, liquid.unit, storages[check].product_count[num], liquid.description);
-                    }
-                    else if(p[num] is Granular granular)
-                    {
-                        Console.WriteLine("\t {0}\t {1}\t {2}тнг/{3}\t{4}{3}\t {5}", granular.SKU, granular.name, granular.cost, granular.unit, storages[check].product_count[num], granular.description);
-                    }
-                    else if (p[num] is Solid solid)
-                    {
-                        Console.WriteLine("\t {0}\t {1}\t {2}тнг/{3}\t{4}{3}\t {5}", solid.SKU, solid.name, solid.cost, solid.unit, storages[check].product_count[num], solid.description);
-                    }
+
+                        //Console.WriteLine("\t {0}\t {1}\t {2}тнг/{3}\t{4}{3}\t {5}", liquid.SKU, liquid.name, liquid.cost, liquid.unit, storages[check].product_count[num], liquid.description);
+                        Console.Write("\t " + p[num].SKU);
+                        Console.Write("\t " + p[num].name);
+                        Console.Write("\t " + p[num].cost);
+                        if (p[num] is Liquid liquid)
+                        {
+                             Console.Write("/" + liquid.unit);
+                        }
+                        else if (p[num] is Solid solid)
+                        {
+                            Console.Write("/" + solid.unit);
+                        }
+                        else if (p[num] is Granular granular)
+                        {
+                            Console.Write("/" + granular.unit);
+                        }
+                        Console.Write("\t\t " + storages[check].product_count[num]);
+                        Console.Write("\t\t " + p[num].description+"\n");
+
+
                     
                 }
-                
-
-
-
             }
         }
     }
