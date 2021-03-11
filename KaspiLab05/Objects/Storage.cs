@@ -21,7 +21,7 @@ namespace KaspiLab05.Objects
         {
             if (prod is Granular)
             {
-                if (is_Open==true)
+                if (is_Open)
                 {
                     return false;
                 }
