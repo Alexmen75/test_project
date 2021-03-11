@@ -15,14 +15,14 @@ namespace KaspiLab05.Objects
     }
     class Liquid : Product
     {
-        string unit = "Л";
+        public string unit = "Л";
     }
     class Granular : Product
     {
-        string unit = "КГ";
+        public string unit = "КГ";
     }
     class Solid : Product
     {
-        string unit = "ШТ";
+        public string unit = "ШТ";
     }
 }
