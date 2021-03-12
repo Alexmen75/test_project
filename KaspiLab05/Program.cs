@@ -25,15 +25,16 @@ namespace KaspiLab05
             Storage ZIP_Logistic = new OpenStorage() { adress = " Достык 128", sqгare = 530};
             Storage Admart = new ClosedStorage() { adress = "Казыбаева 61а", sqгare = 320 };
 
+           // Damu_Logistic.manager = new Person(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
+            //ZIP_Logistic.manager = new Person(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
+            //Admart.manager = new Person(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
 
-
-            for(int i = 0; i<4;i++)
-            {
-                Person Damu = new Employee(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)], i);
-            }
-            
 
             List<Storage> storages = new List<Storage>() { Damu_Logistic, ZIP_Logistic, Admart };
+
+            Damu_Logistic.Set_Manager(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
+            ZIP_Logistic.Set_Manager(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
+            Admart.Set_Manager(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
 
 
             Product whater = new Liquid(123412, "BonAqua", 100, "Водичка",ZIP_Logistic);
@@ -53,7 +54,7 @@ namespace KaspiLab05
                 Console.WriteLine("Адрес: {0}",storages[check].adress);
                 Console.WriteLine("Площадь: {0}", storages[check].sqгare);
                 Console.WriteLine("Тип склада: {0}", (storages[check] is OpenStorage? ("Открытый"):("Закрытый")));
-                Console.WriteLine("Ответственный: {0}", storages[check].manager);
+                Console.WriteLine("Ответственный: {0} {1} {2}", storages[check].manager.surname, storages[check].manager.name, storages[check].manager.patronymic);
                 Console.WriteLine("Список продуктов:");
                 Console.WriteLine("\t SKU\t Наименование\t Цена за ед\t Количество\t Описание\n");
                 for (int num=1; num<storages[check].products.Count;num++) // Вывод исправлю и сделаю более читаемым
@@ -79,9 +80,9 @@ namespace KaspiLab05
                         Console.Write("\t\t " + storages[check].product_count[num]);
                         Console.Write("\t\t " + p[num].description+"\n");
 
-
-                    
                 }
+                Console.SetCursorPosition(0, 30);
+                Console.Write("1- Поиск товара\t2-Сумма всех товаров\t3-Добавить товар\t4-Переместить товар");
             }
         }
     }

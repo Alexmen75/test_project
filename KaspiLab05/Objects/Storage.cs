@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace KaspiLab05.Objects
 {
-   abstract class Storage : IStorage
+    abstract class Storage : IStorage
     {
         internal string adress;
         internal int sqгare;
-        internal Person manager;
+        public Person manager = new Person("","","");
         readonly public List<Product> products = new List<Product>() { null };
         readonly public List<int> product_count = new List<int>() { 0 };
         //internal bool is_Open;
@@ -29,6 +29,7 @@ namespace KaspiLab05.Objects
             }
             return sum;
             
+            
         }
 
         public Tuple<Product, int> Search_SKU(int SKU)
@@ -43,10 +44,11 @@ namespace KaspiLab05.Objects
             return Tuple.Create(products[0], 0);//вроде здоровый человек, а костылями пользуюсь, как это исправить ?
         }
 
-        public void Set_Manager()
+        public void Set_Manager(string S, string N, string P)
         {
-            
+            manager = new Person(S, N, P);
         }
+
 
         public bool Transfer(Storage storage, Product prod, int count) //получился гавнокод , какие альтернативные способы решения можно использовать ? 
         {

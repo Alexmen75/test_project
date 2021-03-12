@@ -11,6 +11,6 @@ namespace KaspiLab05
     {
         Tuple<Product, int> Search_SKU(int SKU);
         decimal Cost_ptoduct();
-        void Set_Manager();
+        void Set_Manager(string S, string N, string P);
     }
 }

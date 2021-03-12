@@ -8,7 +8,7 @@ namespace KaspiLab05.Objects
 {
     class Person
     {
-        string name, surname, patronymic;
+        public string name, surname, patronymic;
 
         public Person(string s,string n, string p)
         {
