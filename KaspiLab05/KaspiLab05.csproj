@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IStorage.cs" />
+    <Compile Include="Objects\Adress.cs" />
     <Compile Include="Objects\ClosedStorage.cs" />
     <Compile Include="Objects\Employee.cs" />
     <Compile Include="Objects\OpenStorage.cs" />
