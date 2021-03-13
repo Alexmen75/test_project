@@ -23,13 +23,13 @@ namespace KaspiLab05
 
 
 
-            Storage Damu_Logistic = new ClosedStorage() { sqгare = 230};
-            Storage ZIP_Logistic = new OpenStorage() { sqгare = 530};
-            Storage Admart = new ClosedStorage() {  sqгare = 320 };
+            Storage Damu_Logistic = new ClosedStorage() { sqгare = 230, storage_ID = 1};
+            Storage ZIP_Logistic = new OpenStorage() { sqгare = 530, storage_ID=2};
+            Storage Admart = new ClosedStorage() {  sqгare = 320, storage_ID=3};
 
 
 
-            List<Storage> storages = new List<Storage>() { Damu_Logistic, ZIP_Logistic, Admart };
+            List<Storage> storages = new List<Storage>() { Damu_Logistic,ZIP_Logistic,Admart };
 
 
 
@@ -55,21 +55,20 @@ namespace KaspiLab05
                 }
             }
 
-            Product whater = new Liquid(123412, "BonAqua", 100, "Водичка",ZIP_Logistic);
-            Product cola = new Liquid(123945,"Coca-Cola", 150 , "Счастье к нам приходит", Damu_Logistic);
+            Product whater = new Liquid(123412, "BonAqua", 100, "Водичка",ref ZIP_Logistic);
+            Product cola = new Liquid(123945,"Coca-Cola", 150 , "Счастье к нам приходит",ref Damu_Logistic);
 
 
 
-            Product buckwheat = new Granular( 62356, "King buckwheat",  110,"Греча простая", Admart) ;
-            Product rice = new Granular( 68932, "King rice", 120 , "Рис королей", Damu_Logistic) { };
+            Product buckwheat = new Granular( 62356, "King buckwheat",  110,"Греча простая",ref Admart) ;
+            Product rice = new Granular( 68932, "King rice", 120 , "Рис королей",ref  Damu_Logistic) { };
 
 
 
-            Product cookies= new Solid(823949, "Nestle Oreo", 330, "Оторви, обмакни, лизни", ZIP_Logistic);
-            Product chips = new Solid(67654, "Lays chips", 420, "Чепсики", Admart) ;
+            Product cookies= new Solid(823949, "Nestle Oreo", 330, "Оторви, обмакни, лизни",ref ZIP_Logistic);
+            Product chips = new Solid(67654, "Lays chips", 420, "Чепсики",ref Admart) ;
 
-
-            Product burger = new Solid(42069, "Burger king", 990, "Women belongs in the kitchen", storages[rand.Next(0, 3)]);// Sorry, i just like memes
+            Product burger = new Solid(42069, "Burger king", 990, "Women belongs in the kitchen",ref ZIP_Logistic);// Sorry, i just like memes
 
 
 
@@ -92,7 +91,7 @@ namespace KaspiLab05
                 {
                     Console.Write("\t " + Prod.Key.SKU);
                     Console.Write("\t " + Prod.Key.name);
-                    Console.Write("\t " + Prod.Key.cost);
+                    Console.Write("\t " + Prod.Key.cost+"тнг");
                     if (Prod.Key is Liquid liquid)
                     {
                         Console.Write("/" + liquid.unit);
@@ -105,23 +104,72 @@ namespace KaspiLab05
                     {
                         Console.Write("/" + granular.unit);
                     }
-                    Console.Write("\t\t " + Prod.Value);
+                    Console.Write("\t " + Prod.Value);
                     Console.Write("\t\t " + Prod.Key.description + "\n");
                 }
 
+                Console.WriteLine("\n\n Общая сумма товаров:   " + storages[select].Cost_ptoduct()+"тнг");
 
 
-                
-                Console.SetCursorPosition(0, 30);
-                Console.Write("1- Поиск товара\t2-Сумма всех товаров\t3-Добавить товар\t4-Переместить товар");
-                /*switch(Convert.ToInt32(Console.ReadKey()))
+
+                Console.SetCursorPosition(0, 25);
+                Console.Write("1- Поиск товара\t2-Добавить товар\t3-Переместить товар");
+                int check = Convert.ToInt32(Console.ReadLine());
+                int SKU;
+                Console.Clear();
+                switch (check)
                 {
+                   
                     case 1:
                         {
-                            if (storages[check].Search_SKU(Convert.ToInt32(Console.ReadLine()))
+                            Console.WriteLine("Введите SKU");
+                            SKU = Convert.ToInt32(Console.ReadLine());
+                            if (storages[select].Search_SKU(SKU)==null)
+                            {
+                                Console.WriteLine("Указанного товара нет на данном складе");
+                                Console.WriteLine("Найти товар на других складах?\t1-Да\t2-Нет");
+                                if (Convert.ToInt32(Console.ReadLine())==1)
+                                {
+                                    foreach (Storage S in storages)//есть вариант, как это улучшить, займусь этим завтра
+                                    {
+                                        Tuple<Product,int> found_prod = S.Search_SKU(SKU);
+                                        if (found_prod!=null)
+                                        {
+                                            Console.WriteLine(S.adress+ ":" + found_prod.Item1.name +" " + found_prod.Item2);//Добавлю имя склада
+                                            if (found_prod.Item1 is Liquid liquid)
+                                            {
+                                                Console.Write(liquid.unit);
+                                            }
+                                            else if (found_prod.Item1 is Solid solid)
+                                            {
+                                                Console.Write(solid.unit);
+                                            }
+                                            else if (found_prod.Item1 is Granular granular)
+                                            {
+                                                Console.Write(granular.unit);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine(S.adress + ": Данного товара нет");
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine();
+                            }
                             break;
                         }
-                }*/
+                    case 2:
+                        {
+                            Console.WriteLine("Введите SKU товара, который хотите добавить");
+                            SKU =Convert.ToInt32( Console.ReadLine());
+                            
+                            break;
+                        }
+                }
             }
         }
     }

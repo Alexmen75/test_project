@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace KaspiLab05.Objects
 {
 
@@ -21,14 +20,14 @@ namespace KaspiLab05.Objects
         public decimal cost;
         public string description;
         public Storage storage;
-        //List<Storage> storages = new List<Storage>();
+        public List<Storage> storages = new List<Storage>();
 
     }
     class Liquid : Product
     {
        public Unit unit = Unit.L;
         
-        public Liquid(int code, string n, decimal c, string d, Storage s)
+        public Liquid(int code, string n, decimal c, string d,ref Storage s)
         {
             
             this.SKU = code;
@@ -36,7 +35,7 @@ namespace KaspiLab05.Objects
             this.cost=c;
             this.description=d;
             this.storage=s;
-            Product Prod = this as Product ;
+            Product Prod = this;
             if (s is OpenStorage open)
             {
                 open.Add_product(ref Prod , rand.Next(0, 30));
@@ -45,20 +44,22 @@ namespace KaspiLab05.Objects
             {
                 closed.Add_product(ref Prod, rand.Next(0,30));
             }
+            storages.Add(s);
+            
         }
     }
     class Granular : Product
     {
        public Unit unit = Unit.Kg;
         
-        public Granular(int code, string n, decimal c, string d, Storage s)
+        public Granular(int code, string n, decimal c, string d,ref Storage s)
         {
             this.SKU = code;
             this.name = n;
             this.cost = c;
             this.description = d;
             this.storage = s;
-            Product Prod = this as Product;
+            Product Prod = this;
             if (s is OpenStorage open)
             {
                 open.Add_product(ref Prod, rand.Next(1, 30));
@@ -73,14 +74,14 @@ namespace KaspiLab05.Objects
     {
        public Unit unit = Unit.Pc;
         
-        public Solid(int code, string n, decimal c, string d, Storage s)
+        public Solid(int code, string n, decimal c, string d,ref Storage s)
         {
             this.SKU = code;
             this.name = n;
             this.cost = c;
             this.description = d;
             this.storage = s;
-            Product Prod = this as Product;
+            Product Prod = this;
             if (s is OpenStorage open)
             {
                 open.Add_product(ref Prod, rand.Next(1, 30));

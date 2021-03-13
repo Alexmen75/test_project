@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace KaspiLab05.Objects
 {
     abstract class Storage : IStorage
     {
+        public int storage_ID; 
         internal int sqгare;
         internal Adress adress;
         public Person manager;
         public Employee[] employees = new Employee[4];
         public Dictionary<Product,int> products = new Dictionary<Product,int>();
-        
 
         abstract public bool Add_product(ref Product prod, int count);
 
