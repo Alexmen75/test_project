@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 
 namespace KaspiLab05.Objects
 {
+    enum post
+    {
+        Manager,
+        Storekeeper,
+        Driver,
+        Loader
+
+    }
     class Employee : Person
     {
-        public Employee(string s, string n, string p) : base(s, n, p)
+       public post pos = new post();
+        public Employee(string s, string n, string p, post Pos) : base(s, n, p)
         {
-
+            pos = Pos;
         }
     }
 }
