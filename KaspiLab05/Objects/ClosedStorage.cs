@@ -8,18 +8,17 @@ namespace KaspiLab05.Objects
 {
     class ClosedStorage : Storage
     {
-       override public bool Add_product(Product prod, int count)
+       override public bool Add_product(ref Product prod, int count)
         {
-            for (int i = 1; i < products.Count(); i++)
+            foreach (KeyValuePair<Product, int> P in products)
             {
-                if (prod.SKU == products[i].SKU)
+                if (prod.SKU == P.Key.SKU)
                 {
-                    product_count[i] += count;
+                    products[P.Key] += count;
                     return true;
                 }
             }
-            products.Add(prod);
-            product_count.Add(count);
+            products.Add(prod, count);
             return true;
         }
         

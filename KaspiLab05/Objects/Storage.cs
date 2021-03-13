@@ -8,75 +8,73 @@ namespace KaspiLab05.Objects
 {
     abstract class Storage : IStorage
     {
-        internal string adress;
         internal int sqгare;
-        public Person manager = new Person("","","");
-        readonly public List<Product> products = new List<Product>() { null };
-        readonly public List<int> product_count = new List<int>() { 0 };
-        //internal bool is_Open;
+        internal Adress adress;
+        public Person manager;
+        public Employee[] employees = new Employee[4];
+        public Dictionary<Product,int> products = new Dictionary<Product,int>();
+        
 
-
-
-        abstract public bool Add_product(Product prod, int count);
+        abstract public bool Add_product(ref Product prod, int count);
 
 
         public decimal Cost_ptoduct()
         {
             decimal sum = 0;
-            for (int i = 0; i < products.Count();i++)
+            foreach (KeyValuePair<Product,int> prod in products)
             {
-                sum += products[i].cost * product_count[i];
+                sum += prod.Key.cost * prod.Value;
             }
             return sum;
-            
-            
         }
 
         public Tuple<Product, int> Search_SKU(int SKU)
         {
-            for (int i = 0; i < products.Count(); i++)
+            foreach (KeyValuePair<Product, int> prod in products)
             {
-                if(products[i].SKU == SKU )
+                if(prod.Key.SKU==SKU)
                 {
-                    return Tuple.Create(products[i], product_count[i]);
+                    return Tuple.Create(prod.Key, 0);
                 }
             }
-            return Tuple.Create(products[0], 0);//вроде здоровый человек, а костылями пользуюсь, как это исправить ?
+            return null;//вроде здоровый человек, а костылями пользуюсь, как это исправить ?
         }
 
         public void Set_Manager(string S, string N, string P)
         {
-            manager = new Person(S, N, P);
+            manager = new Employee(S, N, P, 0);
+            employees[0] = (Employee)manager;
+        }
+
+        public void Set_Employee(string S, string N, string P, post pos)
+        {
+            employees[(int)pos] = new Employee(S, N, P, pos);
         }
 
 
-        public bool Transfer(Storage storage, Product prod, int count) //получился гавнокод , какие альтернативные способы решения можно использовать ? 
+        public bool Transfer(Storage storage,ref Product prod, int count) //получился гавнокод , какие альтернативные способы решения можно использовать ? 
         {
-            for (int i = 1; i < products.Count(); i++)
+            foreach (KeyValuePair<Product,int> P in products)
             {
-                if (prod.SKU == products[i].SKU)
+                if (prod.SKU == P.Key.SKU)
                 {
-                    if (product_count[i]>= count)
+                    if (P.Value>=count)
                     {
-                        product_count[i] -= count;
-                        if (storage.Add_product(prod,count)==true)
+                        products[P.Key] -= count;
+                        if (storage.Add_product(ref prod, count) == true)
                         {
                             return true;
                         }
                         else
                         {
-                            product_count[i] += count;
+                            products[P.Key] += count;
                             return false;
                         }
                     }
-                    else
-                    {
-                        return false;
-                    }
                 }
-
             }
             return false;
+            
         }
     }
 }
