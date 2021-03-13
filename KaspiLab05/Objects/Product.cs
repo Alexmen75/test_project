@@ -36,13 +36,14 @@ namespace KaspiLab05.Objects
             this.cost=c;
             this.description=d;
             this.storage=s;
+            Product Prod = this as Product ;
             if (s is OpenStorage open)
             {
-                open.Add_product(this, rand.Next(0, 30));
+                open.Add_product(ref Prod , rand.Next(0, 30));
             }
             else if( s is ClosedStorage closed)
             {
-                closed.Add_product(this, rand.Next(0,30));
+                closed.Add_product(ref Prod, rand.Next(0,30));
             }
         }
     }
@@ -57,13 +58,14 @@ namespace KaspiLab05.Objects
             this.cost = c;
             this.description = d;
             this.storage = s;
+            Product Prod = this as Product;
             if (s is OpenStorage open)
             {
-                open.Add_product(this, rand.Next(1, 30));
+                open.Add_product(ref Prod, rand.Next(1, 30));
             }
             else if (s is ClosedStorage closed)
             {
-                closed.Add_product(this, rand.Next(1, 30));
+                closed.Add_product(ref Prod, rand.Next(1, 30));
             }
         }
     }
@@ -78,13 +80,14 @@ namespace KaspiLab05.Objects
             this.cost = c;
             this.description = d;
             this.storage = s;
+            Product Prod = this as Product;
             if (s is OpenStorage open)
             {
-                open.Add_product(this, rand.Next(1, 30));
+                open.Add_product(ref Prod, rand.Next(1, 30));
             }
             else if (s is ClosedStorage closed)
             {
-                closed.Add_product(this, rand.Next(1, 30));
+                closed.Add_product(ref Prod, rand.Next(1, 30));
             }
         }
     }
