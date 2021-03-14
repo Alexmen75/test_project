@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KaspiLab05;
 namespace KaspiLab05.Objects
 {
 
@@ -12,8 +13,10 @@ namespace KaspiLab05.Objects
         Kg,
         Pc
     }
-     class Product
+    
+    class Product
     {
+
         public static Random rand = new Random();
         public int SKU;
         public string name;
@@ -21,6 +24,7 @@ namespace KaspiLab05.Objects
         public string description;
         public Storage storage;
         public List<Storage> storages = new List<Storage>();
+        
 
     }
     class Liquid : Product
@@ -45,7 +49,7 @@ namespace KaspiLab05.Objects
                 closed.Add_product(ref Prod, rand.Next(0,30));
             }
             storages.Add(s);
-            
+            Program.list_prod.Add(Prod);
         }
     }
     class Granular : Product
@@ -68,6 +72,8 @@ namespace KaspiLab05.Objects
             {
                 closed.Add_product(ref Prod, rand.Next(1, 30));
             }
+            storages.Add(s);
+            Program.list_prod.Add(Prod);
         }
     }
     class Solid : Product
@@ -90,6 +96,8 @@ namespace KaspiLab05.Objects
             {
                 closed.Add_product(ref Prod, rand.Next(1, 30));
             }
+            storages.Add(s);
+            Program.list_prod.Add(Prod);
         }
     }
 }
