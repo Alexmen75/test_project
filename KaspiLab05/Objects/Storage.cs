@@ -9,14 +9,17 @@ namespace KaspiLab05.Objects
 {
     abstract class Storage : IStorage
     {
-        public int storage_ID; 
+        public string name; 
         internal int sqгare;
         internal Adress adress;
         public Person manager;
         public Employee[] employees = new Employee[4];
         public Dictionary<Product,int> products = new Dictionary<Product,int>();
+        
 
         abstract public bool Add_product(ref Product prod, int count);
+        abstract public bool Add_product(Product prod, int count);
+
 
 
         public decimal Cost_ptoduct()
@@ -35,10 +38,10 @@ namespace KaspiLab05.Objects
             {
                 if(prod.Key.SKU==SKU)
                 {
-                    return Tuple.Create(prod.Key, 0);
+                    return Tuple.Create(prod.Key, prod.Value);
                 }
             }
-            return null;//вроде здоровый человек, а костылями пользуюсь, как это исправить ?
+            return null;
         }
 
         public void Set_Manager(string S, string N, string P)
@@ -53,7 +56,7 @@ namespace KaspiLab05.Objects
         }
 
 
-        public bool Transfer(Storage storage,ref Product prod, int count) //получился гавнокод , какие альтернативные способы решения можно использовать ? 
+        public bool Transfer(Storage storage,Product prod, int count) 
         {
             foreach (KeyValuePair<Product,int> P in products)
             {
