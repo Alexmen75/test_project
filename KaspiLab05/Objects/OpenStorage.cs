@@ -26,6 +26,10 @@ namespace KaspiLab05.Objects
             products.Add(prod,count);
             return true;
         }
-        
+
+        public override bool Add_product(Product prod, int count)
+        {
+            return Add_product(ref prod, count);
+        }
     }
 }
