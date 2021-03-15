@@ -12,7 +12,8 @@ namespace KaspiLab05.Objects
         {
             if (prod is Granular)
             {
-                ArgumentException ex = new ArgumentException("Недопустимый вид товара");
+                ArgumentException ex = new ArgumentException($"На складе {name} нельзя хранить товар данного типа", name);// как это работает ?? почему name  в выходной строке
+                                                                                                                          //выводиться как Имя параметра ??
                 throw ex;
             }
             foreach (KeyValuePair<Product, int> P in products)

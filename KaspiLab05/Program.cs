@@ -218,9 +218,6 @@ namespace KaspiLab05
                                     }
 
                                 }
-                                Console.WriteLine("Нажмите любую кнопку для продолжения");
-                                Console.ReadKey();
-                                Console.Clear();
                                 break;
                             }
                         case 3:
@@ -250,9 +247,6 @@ namespace KaspiLab05
                                 Console.Write(sum + "\n");
 
                                 sum = 0;
-                                Console.WriteLine("Нажмите любую кнопку для продолжения");
-                                Console.ReadKey();
-                                Console.Clear();
                                 break;
                             }
                     }
