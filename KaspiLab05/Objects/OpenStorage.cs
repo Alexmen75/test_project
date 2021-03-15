@@ -12,8 +12,8 @@ namespace KaspiLab05.Objects
         {
             if (prod is Granular)
             {
-               // Transfer(,prod, count);
-                return false;
+                ArgumentException ex = new ArgumentException("Недопустимый вид товара");
+                throw ex;
             }
             foreach (KeyValuePair<Product, int> P in products)
             {
