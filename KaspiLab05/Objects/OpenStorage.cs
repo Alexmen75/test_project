@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KaspiLab05.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,9 @@ namespace KaspiLab05.Objects
     {
        override public bool Add_product(ref Product prod, int count)
         {
-            if (prod is Granular)
-            {
-                ArgumentException ex = new ArgumentException($"На складе {name} нельзя хранить товар данного типа", name);// как это работает ?? почему name  в выходной строке
-                                                                                                                          //выводиться как Имя параметра ??
-                throw ex;
-            }
+
+            Exception_type ex = new Exception_type(prod,this.name);
+
             foreach (KeyValuePair<Product, int> P in products)
             {
                 if (prod.SKU==P.Key.SKU )

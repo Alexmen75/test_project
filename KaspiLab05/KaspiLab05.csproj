@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\Product_exception.cs" />
     <Compile Include="IStorage.cs" />
     <Compile Include="Objects\Adress.cs" />
     <Compile Include="Objects\ClosedStorage.cs" />

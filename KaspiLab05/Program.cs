@@ -1,4 +1,5 @@
-﻿using KaspiLab05.Objects;
+﻿using KaspiLab05.Exceptions;
+using KaspiLab05.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -257,13 +258,13 @@ namespace KaspiLab05
                     Console.WriteLine(ex.Message);
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
-                catch(FormatException ex)
+                catch(Product_exception ex)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(ex.Message);
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
-                finally
+                finally//Нашел применение этой функции ))
                 {
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadKey();
