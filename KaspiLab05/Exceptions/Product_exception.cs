@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace KaspiLab05.Exceptions
 {
+    
     class Product_exception : Exception
       
     {
@@ -17,14 +18,10 @@ namespace KaspiLab05.Exceptions
     }
     class Exception_type
     {
-        bool type;
-        public Exception_type(Product P, string name)
+        
+        public static bool Check_type(Product P)
         {
-            type = P is Granular;
-            if (type)
-            {
-                Product_exception ex = new Product_exception("Недопустимый вид товара для данного склада "+ name);
-            }
+            return P is Granular;
         }
             
     }

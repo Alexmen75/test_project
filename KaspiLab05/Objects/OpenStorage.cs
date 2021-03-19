@@ -9,10 +9,21 @@ namespace KaspiLab05.Objects
 {
     class OpenStorage : Storage
     {
-       override public bool Add_product(ref Product prod, int count)
+        public static Predicate<Product> check;
+        override public bool Add_product(ref Product prod, int count)
         {
+            check = Exception_type.Check_type;
+            if (check(prod))
+            {
+                return false;
+            }
+            //Exception_type ex = new Exception_type(prod,this.name);
 
-            Exception_type ex = new Exception_type(prod,this.name);
+            /*Exception_type check = new Exception_type();
+            if (check.Check_type(prod))
+            {
+                return false;
+            }*/
 
             foreach (KeyValuePair<Product, int> P in products)
             {

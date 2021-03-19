@@ -1,5 +1,6 @@
 ﻿using KaspiLab05.Exceptions;
 using KaspiLab05.Objects;
+using KaspiLab05.Storage_Event;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace KaspiLab05
         public static List<Product> list_prod = new List<Product>();
         static int cursor_L;
         static int cursor_T;
+
+       
         static void Main(string[] args)
         {
 
@@ -73,21 +76,13 @@ namespace KaspiLab05
 
             Product cookies= new Solid(823949, "Nestle Oreo", 330, "Оторви, обмакни, лизни",ref ZIP_Logistic);
             Product chips = new Solid(67654, "Lays chips", 420, "Чепсики",ref Admart) ;
-
             Product burger = new Solid(42069, "Burger king", 990, "Women belongs in the kitchen",ref ZIP_Logistic);// Sorry, i just like memes
 
-            //KeyValuePair<Product,int> pro = Damu_Logistic.products.First();
-            //Console.WriteLine(list_prod[1].cost);
-           // Console.WriteLine(pro.Key.cost);
-            // cola.cost = 200;
-            //Console.WriteLine(pro.Key.cost);
-            //Console.WriteLine(list_prod[1].cost);
 
             while (true)
             {
                 try
                 {
-
 
                     Console.WriteLine("Выберите склад");
                     Console.WriteLine("1-Damu Logistic\n2-ZIP Logistic\n3 Admart");
@@ -134,6 +129,7 @@ namespace KaspiLab05
                     int check = Convert.ToInt32(Console.ReadLine());
                     int SKU;
                     int count;
+                    storages[select].AddProd += Storage_event.TransferProductHandler;
                     switch (check)
                     {
                         case 0:
@@ -233,8 +229,9 @@ namespace KaspiLab05
                                     Console.WriteLine(i + 1 + " " + storages[i].name);
                                 }
                                 check = Convert.ToInt32(Console.ReadLine()) - 1;
+                               
                                 storages[select].Transfer(storages[check], storages[select].Search_SKU(SKU).Item1, count);
-                                // buckwheat.cost = 20; просто поверка ссылки
+                                storages[select].AddProd -= Storage_event.TransferProductHandler;
                                 break;
                             }
                         case 4:
@@ -251,6 +248,7 @@ namespace KaspiLab05
                                 break;
                             }
                     }
+                    storages[select].AddProd -= Storage_event.TransferProductHandler;
                 }
                 catch(ArgumentException ex)
                 {
@@ -272,5 +270,7 @@ namespace KaspiLab05
                 }
             }
         }
+
+ 
     }
 }

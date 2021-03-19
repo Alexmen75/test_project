@@ -24,80 +24,46 @@ namespace KaspiLab05.Objects
         public string description;
         public Storage storage;
         public List<Storage> storages = new List<Storage>();
-        
+        public Unit unit;
+        public Product(int code, string n, decimal c, string d, ref Storage s)
+        {
+            unit = Unit.L;
+            this.SKU = code;
+            this.name = n;
+            this.cost = c;
+            this.description = d;
+            this.storage = s;
+            Product Prod = this;
+            if (s is OpenStorage open)
+            {
+                open.Add_product(ref Prod, rand.Next(0, 30));
+            }
+            else if (s is ClosedStorage closed)
+            {
+                closed.Add_product(ref Prod, rand.Next(0, 30));
+            }
+            storages.Add(s);
+            Program.list_prod.Add(Prod);
+        }
+
 
     }
     class Liquid : Product
     {
-       public Unit unit = Unit.L;
-        
-        public Liquid(int code, string n, decimal c, string d,ref Storage s)
+        public Liquid(int code, string n, decimal c, string d, ref Storage s) : base(code, n, c, d, ref s)
         {
-            
-            this.SKU = code;
-            this.name=n;
-            this.cost=c;
-            this.description=d;
-            this.storage=s;
-            Product Prod = this;
-            if (s is OpenStorage open)
-            {
-                open.Add_product(ref Prod , rand.Next(0, 30));
-            }
-            else if( s is ClosedStorage closed)
-            {
-                closed.Add_product(ref Prod, rand.Next(0,30));
-            }
-            storages.Add(s);
-            Program.list_prod.Add(Prod);
         }
     }
     class Granular : Product
     {
-       public Unit unit = Unit.Kg;
-        
-        public Granular(int code, string n, decimal c, string d,ref Storage s)
+        public Granular(int code, string n, decimal c, string d, ref Storage s) : base(code, n, c, d, ref s)
         {
-            this.SKU = code;
-            this.name = n;
-            this.cost = c;
-            this.description = d;
-            this.storage = s;
-            Product Prod = this;
-            if (s is OpenStorage open)
-            {
-                open.Add_product(ref Prod, rand.Next(1, 30));
-            }
-            else if (s is ClosedStorage closed)
-            {
-                closed.Add_product(ref Prod, rand.Next(1, 30));
-            }
-            storages.Add(s);
-            Program.list_prod.Add(Prod);
         }
     }
     class Solid : Product
     {
-       public Unit unit = Unit.Pc;
-        
-        public Solid(int code, string n, decimal c, string d,ref Storage s)
+        public Solid(int code, string n, decimal c, string d, ref Storage s) : base(code, n, c, d, ref s)
         {
-            this.SKU = code;
-            this.name = n;
-            this.cost = c;
-            this.description = d;
-            this.storage = s;
-            Product Prod = this;
-            if (s is OpenStorage open)
-            {
-                open.Add_product(ref Prod, rand.Next(1, 30));
-            }
-            else if (s is ClosedStorage closed)
-            {
-                closed.Add_product(ref Prod, rand.Next(1, 30));
-            }
-            storages.Add(s);
-            Program.list_prod.Add(Prod);
         }
     }
 }
