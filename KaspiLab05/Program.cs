@@ -9,75 +9,30 @@ using System.Threading.Tasks;
 
 namespace KaspiLab05
 {
+    enum Switch
+    {
+        Back,
+        Sirch,
+        Add,
+        Transfer,
+        Sum
+    }
+
 
     class Program
     {
-        static Random rand = new Random();
-
-        static Random S = new Random();
-        static Random N = new Random();
-        static Random P = new Random();
-        public static List<Product> list_prod = new List<Product>();
+        
         static int cursor_L;
         static int cursor_T;
 
-       
+        public static List<Product> list_prod = new List<Product>();
+
+        public static List<Storage> storages = new List<Storage>();
+        
         static void Main(string[] args)
         {
 
-
-            string[] surname = new string[5] {"Букин", "Софиулин","Кузнецов","Ледошляп","Захаранс"};
-            string[] name = new string[5] { "Генадий", "Анатолий", "Игорь", "Артем", "Максим" };
-            string[] patronymic = new string[5] { "Артемович", "Михайлович", "Алесандрович", "Русланович", "Павлович" };
-
-
-
-            Storage Damu_Logistic = new ClosedStorage() { sqгare = 230, name = "Damu_Logistic" };
-            Storage ZIP_Logistic = new OpenStorage() { sqгare = 530, name = "ZIP_Logistic" };
-            Storage Admart = new ClosedStorage() {  sqгare = 320, name = "Admart" };
-
-
-
-            List <Storage> storages = new List<Storage>() { Damu_Logistic,ZIP_Logistic,Admart };
-
-
-
-            Damu_Logistic.Set_Manager(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
-            ZIP_Logistic.Set_Manager(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
-            Admart.Set_Manager(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)]);
-
-
-            for (int i=0;i<storages.Count();i++)
-            {
-                for (int j = 1; j < 4; j++) 
-                {
-                    storages[i].Set_Employee(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)], (post)j);
-                }
-            }
-
-            for (int i = 0; i < storages.Count(); i++)
-            {
-                storages[i].adress = new Adress((City)i, (Street)i, rand.Next(10,150));
-                for (int j = 0; j < 4; j++)
-                {
-                    storages[i].Set_Employee(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)], (post)j);
-                }
-            }
-
-            Product whater = new Liquid(123412, "BonAqua", 100, "Водичка",ref ZIP_Logistic);
-            Product cola = new Liquid(123945,"Coca-Cola", 150 , "Счастье к нам приходит",ref Damu_Logistic);
-
-
-
-            Product buckwheat = new Granular( 62356, "King buckwheat",  110,"Греча простая",ref Admart) ;
-            Product rice = new Granular( 68932, "King rice", 120 , "Рис королей",ref  Damu_Logistic) { };
-
-
-
-            Product cookies= new Solid(823949, "Nestle Oreo", 330, "Оторви, обмакни, лизни",ref ZIP_Logistic);
-            Product chips = new Solid(67654, "Lays chips", 420, "Чепсики",ref Admart) ;
-            Product burger = new Solid(42069, "Burger king", 990, "Women belongs in the kitchen",ref ZIP_Logistic);// Sorry, i just like memes
-
+            ItemCreator.AddStorage();
 
             while (true)
             {
@@ -132,10 +87,10 @@ namespace KaspiLab05
                     storages[select].AddProd += Storage_event.TransferProductHandler;
                     switch (check)
                     {
-                        case 0:
+                        case (int)Switch.Back:
                             Console.Clear();
                             break;
-                        case 1:
+                        case (int)Switch.Sirch:
                             {
                                 Console.Clear();
                                 foreach (Product prod in list_prod)
@@ -183,7 +138,7 @@ namespace KaspiLab05
                                 }
                                 break;
                             }
-                        case 2:
+                        case (int)Switch.Add:
                             {
                                 Console.Clear();
                                 foreach (Product prod in list_prod)
@@ -203,21 +158,13 @@ namespace KaspiLab05
                                         count = Convert.ToInt32(Console.ReadLine());
                                         Console.WriteLine(storages[select].Add_product(P, count) == true ? ("Товар добавлен") : ("ошибка"));
 
-
-                                        // KeyValuePair<Product, int> pro = Damu_Logistic.products.Last();
-
-                                        // Console.WriteLine(pro.Key.cost);
-                                        // burger.cost = 10;
-                                        // Console.WriteLine(pro.Key.cost);
-                                        // Console.ReadLine();
-                                        // Закоменчена проверка на то, что класс склада хранит только ссылку на объект
                                         break;
                                     }
 
                                 }
                                 break;
                             }
-                        case 3:
+                        case (int)Switch.Transfer:
                             {
                                 Console.WriteLine("Введите SKU товара:");
                                 SKU = Convert.ToInt32(Console.ReadLine());
@@ -231,10 +178,9 @@ namespace KaspiLab05
                                 check = Convert.ToInt32(Console.ReadLine()) - 1;
                                
                                 storages[select].Transfer(storages[check], storages[select].Search_SKU(SKU).Item1, count);
-                                storages[select].AddProd -= Storage_event.TransferProductHandler;
                                 break;
                             }
-                        case 4:
+                        case (int)Switch.Sum:
                             {
                                 decimal sum = 0;
                                 Console.Write("\nСумма всех складов равна: ");

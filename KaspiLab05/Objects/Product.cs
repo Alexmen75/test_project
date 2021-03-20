@@ -14,7 +14,7 @@ namespace KaspiLab05.Objects
         Pc
     }
     
-    class Product
+   class Product
     {
 
         public static Random rand = new Random();
@@ -22,27 +22,10 @@ namespace KaspiLab05.Objects
         public string name;
         public decimal cost;
         public string description;
-        public Storage storage;
-        public List<Storage> storages = new List<Storage>();
         public Unit unit;
-        public Product(int code, string n, decimal c, string d, ref Storage s)
+        public Product()
         {
-            unit = Unit.L;
-            this.SKU = code;
-            this.name = n;
-            this.cost = c;
-            this.description = d;
-            this.storage = s;
             Product Prod = this;
-            if (s is OpenStorage open)
-            {
-                open.Add_product(ref Prod, rand.Next(0, 30));
-            }
-            else if (s is ClosedStorage closed)
-            {
-                closed.Add_product(ref Prod, rand.Next(0, 30));
-            }
-            storages.Add(s);
             Program.list_prod.Add(Prod);
         }
 
@@ -50,20 +33,24 @@ namespace KaspiLab05.Objects
     }
     class Liquid : Product
     {
-        public Liquid(int code, string n, decimal c, string d, ref Storage s) : base(code, n, c, d, ref s)
+        public Liquid()
         {
+            unit = Unit.L;
         }
     }
     class Granular : Product
     {
-        public Granular(int code, string n, decimal c, string d, ref Storage s) : base(code, n, c, d, ref s)
+        public Granular()
         {
+            unit = Unit.Kg;
         }
     }
     class Solid : Product
     {
-        public Solid(int code, string n, decimal c, string d, ref Storage s) : base(code, n, c, d, ref s)
+        public Solid()
         {
+            unit = Unit.Pc;
         }
     }
+    
 }
