@@ -1,5 +1,6 @@
 ﻿using KaspiLab05.Exceptions;
 using KaspiLab05.Objects;
+using KaspiLab05.Report;
 using KaspiLab05.Storage_Event;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace KaspiLab05
     enum Switch
     {
         Back,
-        Sirch,
+        search,
         Add,
         Transfer,
-        Sum
+        Sum,
+        Compare,
+        Balans
     }
 
 
@@ -34,11 +37,12 @@ namespace KaspiLab05
 
             ItemCreator.AddStorage();
 
+            //list_prod.AverageQuantity();
+
             while (true)
             {
                 try
                 {
-
                     Console.WriteLine("Выберите склад");
                     Console.WriteLine("1-Damu Logistic\n2-ZIP Logistic\n3 Admart");
                     int select = Convert.ToInt32(Console.ReadLine()) - 1;
@@ -90,12 +94,12 @@ namespace KaspiLab05
                         case (int)Switch.Back:
                             Console.Clear();
                             break;
-                        case (int)Switch.Sirch:
+                        case (int)Switch.search:
                             {
                                 Console.Clear();
                                 foreach (Product prod in list_prod)
                                 {
-                                    Console.WriteLine(prod.SKU + " " + prod.name);
+                                    Console.WriteLine(prod.GetInfo());
                                 }
                                 Console.WriteLine("\nВведите SKU товара, который хотите найти");
                                 SKU = Convert.ToInt32(Console.ReadLine());
@@ -143,7 +147,7 @@ namespace KaspiLab05
                                 Console.Clear();
                                 foreach (Product prod in list_prod)
                                 {
-                                    Console.WriteLine(prod.SKU + " " + prod.name);
+                                    Console.WriteLine(prod.GetInfo());
                                 }
                                 Console.WriteLine("Введите SKU товара, который хотите добавить");
                                 SKU = Convert.ToInt32(Console.ReadLine());
@@ -191,6 +195,31 @@ namespace KaspiLab05
                                 Console.Write(sum + "\n");
 
                                 sum = 0;
+                                break;
+                            }
+                        case (int)Switch.Compare:
+                            {
+                                Console.WriteLine("Выберите склад");
+                                for (int i = 0; i < storages.Count(); i++)
+                                {
+                                    Console.WriteLine(i + 1 + " " + storages[i].name);
+                                }
+                                check = Convert.ToInt32(Console.ReadLine());
+                                foreach (var P in storages[select].Compare(storages[check-1]))
+                                {
+                                    Console.WriteLine(P.name);
+                                }
+                                break;
+                            }
+                        case (int)Switch.Balans:
+                            {
+                                Console.WriteLine("Выберите склад");
+                                for (int i = 0; i<storages.Count(); i++)
+                                {
+                                    Console.WriteLine(i + 1 + " " + storages[i].name);
+                                }
+                                check = Convert.ToInt32(Console.ReadLine());
+                                storages[select].Balans(storages[check-1]);
                                 break;
                             }
                     }
