@@ -34,6 +34,8 @@ namespace KaspiLab05.Objects
                 }
             }
             products.Add(prod,count);
+         
+            prod.storages.Add(this);
             return true;
         }
 

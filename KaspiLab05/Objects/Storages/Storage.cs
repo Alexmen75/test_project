@@ -75,6 +75,12 @@ namespace KaspiLab05.Objects
                         if (storage.Add_product(ref prod, count) == true)
                         {
                             AddProd?.Invoke($"на склад {storage.name} перемещен товар {prod.name} в количестве {count}{prod.unit}");
+                            if (products[P.Key]==0)
+                            {
+
+                                P.Key.storages.Remove(this);
+                                products.Remove(P.Key);
+                            }
                             return true;
                         }
                         else
@@ -88,7 +94,32 @@ namespace KaspiLab05.Objects
             }
             AddProd?.Invoke($"На складе {this.name} нет нужного количества товара");
             return false;
-            
+        }
+    }
+
+
+
+    static class CompareStorages
+    {
+        public static List<Product> Compare(this Storage storage1, Storage storage2)
+        {
+            var stor = storage2.products.Keys
+                .Where(s => storage1.products.ContainsKey(s))
+                .ToList();
+            return stor;
+        }
+    }
+    static class BalansProduct
+    {
+        public static void Balans(this Storage storage1, Storage storage2)
+        {
+            var stor = storage1.products
+                .Where(s=> !storage2.products.ContainsKey(s.Key))
+                .ToList();
+            foreach(KeyValuePair<Product,int> p in stor)
+            {
+                storage1.Transfer(storage2, p.Key, p.Value/2);
+            }
         }
     }
 }

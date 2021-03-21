@@ -14,11 +14,12 @@ namespace KaspiLab05.Objects
             {
                 if (prod.SKU == P.Key.SKU)
                 {
-                    
                     products[P.Key] += count;
                     return true;
                 }
             }
+            prod.storages.Add(this);
+            
             products.Add(prod, count);
             return true;
         }

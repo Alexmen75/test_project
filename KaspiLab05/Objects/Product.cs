@@ -23,13 +23,12 @@ namespace KaspiLab05.Objects
         public decimal cost;
         public string description;
         public Unit unit;
+        public List<Storage> storages = new List<Storage>();
         public Product()
         {
             Product Prod = this;
             Program.list_prod.Add(Prod);
         }
-
-
     }
     class Liquid : Product
     {
@@ -52,5 +51,11 @@ namespace KaspiLab05.Objects
             unit = Unit.Pc;
         }
     }
-    
+    static class ProductInfo
+    {
+        public static string GetInfo(this Product product)
+        {
+            return $"{product.SKU} {product.name}";
+        }
+    }
 }
