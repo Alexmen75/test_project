@@ -28,10 +28,6 @@ namespace KaspiLab05.Builders
             return this;
         }
 
-        internal object storage(ref object zIP_Logistic)
-        {
-            throw new NotImplementedException();
-        }
 
         public ProductBuilder<T> cost(decimal cost)
         {
@@ -46,6 +42,7 @@ namespace KaspiLab05.Builders
         public ProductBuilder<T> storage(ref Storage storage)
         {
             storage.Add_product(ref product, rand.Next(10, 100));
+            //product.storages.Add(storage);
             return this;
         }
 
