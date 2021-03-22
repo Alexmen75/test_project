@@ -15,7 +15,7 @@ namespace KaspiLab05.Report
             var report = storage.products
                 .OrderBy(s => s.Value)
                 .ThenBy(s=> s.Value)
-                .Where(s => s.Value < 10).ToList();
+                .Where(s => s.Value < 20).ToList();
             Console.WriteLine("недостающих товаров на складе "+ report.Count());
             foreach(var rep in report)
             {
@@ -26,20 +26,35 @@ namespace KaspiLab05.Report
         public static void ProductList(this Storage storage)//я понял, что надо использовать Distinct, но у меня автоматом убирваются дубликаты при добавлении товаров на склад
         {
             var report = storage.products
-                .OrderBy(s => s.Key)
-                .ThenBy(s => s.Key.name)
+                .OrderBy(s => s.Key.name)
                 .ToList();
             foreach (var rep in report)
             {
-                Console.WriteLine(rep.Key.SKU+" "+rep.Key.name + " " + rep.Value + rep.Key.unit);
+                Console.Write("\t " + rep.Key.SKU);
+                Console.Write("\t " + rep.Key.name);
+                Console.Write("\t " + rep.Key.cost + "тнг");
+                if (rep.Key is Liquid liquid)
+                {
+                    Console.Write("/" + liquid.unit);
+                }
+                else if (rep.Key is Solid solid)
+                {
+                    Console.Write("/" + solid.unit);
+                }
+                else if (rep.Key is Granular granular)
+                {
+                    Console.Write("/" + granular.unit);
+                }
+                Console.Write("\t " + rep.Value);
+                Console.Write("\t\t " + rep.Key.description + "\n");
             }
         }
 
         public static void MaxProduct(this Storage storage)
         {
             var report = storage.products
-                .OrderBy(s => s.Value)
-                .ThenByDescending(s => s.Value)
+                .OrderByDescending(s => s.Value)
+                //.ThenByDescending(s => s.Value)
                 .Take(3)
                 .ToList();
             foreach (var rep in report)
@@ -70,7 +85,7 @@ namespace KaspiLab05.Report
                int count = 0;
                 foreach(var S in P.storages)
                 {
-                    report = S.products.Where(p=> p.Key == P).Select(p=> p.Value).ToList();
+                    report = S.products.Where(prod=> prod.Key == P).Select(prod=> prod.Value).ToList();
                 }
                 foreach(int rep in report)
                 {
