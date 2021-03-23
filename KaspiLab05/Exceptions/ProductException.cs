@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 namespace KaspiLab05.Exceptions
 {
     
-    class Product_exception : Exception
+    class ProductException : Exception
       
     {
-        public Product_exception(string massage) : base (massage)
+        public ProductException(string massage) : base (massage)
         {
-            throw this;
         }
     }
-    class Exception_type
+    class ExceptionType
     {
         
         public static bool Check_type(Product P)

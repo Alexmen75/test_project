@@ -12,19 +12,12 @@ namespace KaspiLab05.Objects
         public static Predicate<Product> check;
         override public bool Add_product(ref Product prod, int count)
         {
-            check = Exception_type.Check_type;
+            check = ExceptionType.Check_type;
             if (check(prod))
             {
-                return false;
+                throw new ProductException("Нельзя добавлять сыпучие объекты на склад" + this.name);
+                //return false;
             }
-            //Exception_type ex = new Exception_type(prod,this.name);
-
-            /*Exception_type check = new Exception_type();
-            if (check.Check_type(prod))
-            {
-                return false;
-            }*/
-
             foreach (KeyValuePair<Product, int> P in products)
             {
                 if (prod.SKU==P.Key.SKU )

@@ -1,4 +1,4 @@
-﻿using KaspiLab05.Storage_Event;
+﻿using KaspiLab05.StorageHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +21,8 @@ namespace KaspiLab05.Objects
         public Employee[] employees = new Employee[4];
         public Dictionary<Product,int> products = new Dictionary<Product,int>();
 
-
-
         abstract public bool Add_product(ref Product prod, int count);
         abstract public bool Add_product(Product prod, int count);
-
-
-
         public decimal Cost_ptoduct()
         {
             decimal sum = 0;
@@ -37,7 +32,6 @@ namespace KaspiLab05.Objects
             }
             return sum;
         }
-
         public Tuple<Product, int> Search_SKU(int SKU)
         {
             foreach (KeyValuePair<Product, int> prod in products)
@@ -55,12 +49,10 @@ namespace KaspiLab05.Objects
             manager = new Employee(S, N, P, 0);
             employees[0] = (Employee)manager;
         }
-
         public void Set_Employee(string S, string N, string P, post pos)
         {
             employees[(int)pos] = new Employee(S, N, P, pos);
         }
-
 
         public bool Transfer(Storage storage,Product prod, int count) 
         {
@@ -96,8 +88,6 @@ namespace KaspiLab05.Objects
             return false;
         }
     }
-
-
 
     static class CompareStorages
     {

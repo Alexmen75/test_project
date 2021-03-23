@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KaspiLab05.Storage_Event
+namespace KaspiLab05.StorageHandler
 {
     
-    class Storage_event
+    class StorageHelper
     {
         public static void TransferProductHandler(string massage)
         {

@@ -22,7 +22,6 @@ namespace KaspiLab05.Report
                 Console.WriteLine(rep.Key.name+" "+ rep.Value+rep.Key.unit);
             }
         }
-
         public static void ProductList(this Storage storage)//я понял, что надо использовать Distinct, но у меня автоматом убирваются дубликаты при добавлении товаров на склад
         {
             var report = storage.products
@@ -67,7 +66,7 @@ namespace KaspiLab05.Report
 
         public static void MissGranular(this List<Storage> storages)
         {
-            check = Exception_type.Check_type;
+            check = ExceptionType.Check_type;
             var report = storages
                 .Where(s => s.products
                 .All(P => !check(P.Key)))
