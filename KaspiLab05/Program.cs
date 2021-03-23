@@ -40,32 +40,32 @@ namespace KaspiLab05
                     int select = Convert.ToInt32(Console.ReadLine()) - 1;
                     ConsoleWriter.ShowStorage(select);
                     ConsoleWriter.ShowProducts(select);
-                    int check = Convert.ToInt32(Console.ReadLine());
+                    Switch check = (Switch) Convert.ToInt32(Console.ReadLine());
                     storages[select].AddProd += StorageHelper.TransferProductHandler;
                     switch (check)
                     {
-                        case (int)Switch.Back:
+                        case Switch.Back:
                             Console.Clear();
                             break;
-                        case (int)Switch.search:
+                        case Switch.search:
                                 ConsoleWriter.Search(select);
                                 break;
-                        case (int)Switch.Add:
+                        case Switch.Add:
                                 ConsoleWriter.Add(select);
                                 break;
-                        case (int)Switch.Transfer:
+                        case Switch.Transfer:
                                 ConsoleWriter.Transfer(select);
                                 break;
-                        case (int)Switch.Sum:
+                        case Switch.Sum:
                                 ConsoleWriter.Sum();
                                 break;
-                        case (int)Switch.Compare:
+                        case Switch.Compare:
                                 ConsoleWriter.Compare(select);
                                 break;
-                        case (int)Switch.Balans:
+                        case Switch.Balans:
                                 ConsoleWriter.Balans(select);
                                 break;
-                        case (int)Switch.Reports:
+                        case Switch.Reports:
                                 ConsoleWriter.ShowReports(select);
                                 break;
                     }
