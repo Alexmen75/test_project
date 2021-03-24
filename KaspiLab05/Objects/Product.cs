@@ -27,7 +27,7 @@ namespace KaspiLab05.Objects
         public Product()
         {
             Product Prod = this;
-            Program.list_prod.Add(Prod);
+            //Program.list_prod.Add(Prod);
         }
     }
     class Liquid : Product
