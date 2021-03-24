@@ -10,7 +10,7 @@ namespace KaspiLab05.Objects
     class OpenStorage : Storage
     {
         public static Predicate<Product> check;
-        override public bool Add_product(ref Product prod, int count)
+        override public bool Add_product(Product prod, int count)
         {
             check = ExceptionType.Check_type;
             if (check(prod))
@@ -29,12 +29,9 @@ namespace KaspiLab05.Objects
             products.Add(prod,count);
          
             prod.storages.Add(this);
+            
             return true;
         }
 
-        public override bool Add_product(Product prod, int count)
-        {
-            return Add_product(ref prod, count);
-        }
     }
 }

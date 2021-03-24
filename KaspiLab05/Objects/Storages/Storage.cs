@@ -19,9 +19,8 @@ namespace KaspiLab05.Objects
         internal Adress adress;
         public Person manager;
         public Employee[] employees = new Employee[4];
-        public Dictionary<Product,int> products = new Dictionary<Product,int>();
+        public Dictionary<Product,int> products = new Dictionary<Product,int>();//Изменю на int int <SKU,count>
 
-        abstract public bool Add_product(ref Product prod, int count);
         abstract public bool Add_product(Product prod, int count);
         public decimal Cost_ptoduct()
         {
@@ -64,7 +63,7 @@ namespace KaspiLab05.Objects
                     {
                         
                         products[P.Key] -= count;
-                        if (storage.Add_product(ref prod, count) == true)
+                        if (storage.Add_product(prod, count) == true)
                         {
                             AddProd?.Invoke($"на склад {storage.name} перемещен товар {prod.name} в количестве {count}{prod.unit}");
                             if (products[P.Key]==0)

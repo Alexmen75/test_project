@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Builders\ProductBuilder.cs" />
     <Compile Include="ConsoleWriter.cs" />
+    <Compile Include="CSV\CsvCreator.cs" />
     <Compile Include="Exceptions\ProductException.cs" />
     <Compile Include="IStorage.cs" />
     <Compile Include="ItemCreator.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Objects\Person.cs" />
     <Compile Include="Objects\Product.cs" />
     <Compile Include="Objects\Storages\Storage.cs" />
+    <Compile Include="ProductList\ProductList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Storage Event\StorageHandler.cs" />

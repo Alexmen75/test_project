@@ -53,7 +53,7 @@ namespace KaspiLab05
         public static void Search(int select)
         {
             Console.Clear();
-            foreach (Product prod in Program.list_prod)
+            foreach (Product prod in Program.list_prod)//изменить
             {
                 Console.WriteLine(prod.GetInfo());
             }
@@ -110,7 +110,7 @@ namespace KaspiLab05
             }
             Console.WriteLine("Введите SKU товара, который хотите добавить");
             SKU = Convert.ToInt32(Console.ReadLine());
-            foreach (Product P in Program.list_prod)
+            foreach (Product P in Program.list_prod)//изменить
             {
                 if (P.SKU == SKU)
                 {
@@ -204,7 +204,7 @@ namespace KaspiLab05
                     }
                 case (int)Reports.AverageQuantity:
                     {
-                        Program.list_prod.AverageQuantity();
+                        Program.list_prod.AverageQuantity();//изменить
                         break;
                     }
 

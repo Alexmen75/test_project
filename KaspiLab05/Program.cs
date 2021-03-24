@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace KaspiLab05
 {
@@ -19,7 +20,8 @@ namespace KaspiLab05
         Sum,
         Compare,
         Balans,
-        Reports
+        Reports,
+        CSV
     }
 
 
@@ -27,8 +29,14 @@ namespace KaspiLab05
     {
         public static List<Product> list_prod = new List<Product>();
         public static List<Storage> storages = new List<Storage>();
+        public static string directory = Directory.GetCurrentDirectory();
         static void Main(string[] args)
         {
+            string path = "./CSV";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory("./CSV");
+            }
             ItemCreator.AddStorage();
             //list_prod.AverageQuantity();
             while (true)
@@ -68,6 +76,9 @@ namespace KaspiLab05
                         case Switch.Reports:
                                 ConsoleWriter.ShowReports(select);
                                 break;
+                        case Switch.CSV:
+                            CSV.CsvCreator.CreateStorageInfo(storages[select]);
+                            break;
                     }
                     storages[select].AddProd -= StorageHelper.TransferProductHandler;
                 }
