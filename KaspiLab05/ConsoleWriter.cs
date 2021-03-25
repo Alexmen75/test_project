@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KaspiLab05.Report;
+using KaspiLab05.Catalog;
 
 namespace KaspiLab05
 {
@@ -50,10 +51,12 @@ namespace KaspiLab05
 
         }
 
+        private static List<Product> AllProducts = ProductList.Instance.ProductCatalog;
+
         public static void Search(int select)
         {
             Console.Clear();
-            foreach (Product prod in Program.list_prod)//изменить
+            foreach (Product prod in AllProducts)
             {
                 Console.WriteLine(prod.GetInfo());
             }
@@ -104,19 +107,19 @@ namespace KaspiLab05
         public static void Add(int select)
         {
             Console.Clear();
-            foreach (Product prod in Program.list_prod)
+            foreach (Product prod in AllProducts)
             {
                 Console.WriteLine(prod.GetInfo());
             }
             Console.WriteLine("Введите SKU товара, который хотите добавить");
             SKU = Convert.ToInt32(Console.ReadLine());
-            foreach (Product P in Program.list_prod)//изменить
+            foreach (Product P in AllProducts)//изменить
             {
                 if (P.SKU == SKU)
                 {
                     Console.WriteLine(P.name + " Введите количество");
                     count = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(Program.storages[select].Add_product(P, count) == true ? ("Товар добавлен") : ("ошибка"));
+                    Console.WriteLine(Program.storages[select].Add_product(P.SKU, count) == true ? ("Товар добавлен") : ("ошибка"));
                     break;
                 }
             }
@@ -157,10 +160,12 @@ namespace KaspiLab05
             {
                 Console.WriteLine(i + 1 + " " + Program.storages[i].name);
             }
-            check = Convert.ToInt32(Console.ReadLine());
-            foreach (var P in Program.storages[select].Compare(Program.storages[check - 1]))
+            check = Convert.ToInt32(Console.ReadLine())-1;
+            foreach (var P in Program.storages[select].Compare(Program.storages[check]))
             {
-                Console.WriteLine(P.name);
+                string foundProd = AllProducts.Where(Prod=>Prod.SKU == P).Select(Prod=>Prod.name).First();
+                Console.WriteLine(foundProd);
+                foundProd = null;
             }
         }
 
@@ -204,7 +209,7 @@ namespace KaspiLab05
                     }
                 case (int)Reports.AverageQuantity:
                     {
-                        Program.list_prod.AverageQuantity();//изменить
+                        AllProducts.AverageQuantity();//изменить
                         break;
                     }
 

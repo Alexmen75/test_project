@@ -44,8 +44,8 @@ namespace KaspiLab05
                     Program.storages[i].Set_Employee(surname[S.Next(0, 5)], name[N.Next(0, 5)], patronymic[P.Next(0, 5)], (post)j);
                }
            }
-            Damu_Logistic.Add_product(chips,30);
-            Admart.Add_product(cola, 40);
+           // Damu_Logistic.Add_product(chips.SKU,30);
+            //Admart.Add_product(cola.SKU, 40);
 
            for (int i = 0; i < Program.storages.Count(); i++)
            {

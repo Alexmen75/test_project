@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KaspiLab05.Catalog;
 
 namespace KaspiLab05.Exceptions
 {
@@ -17,10 +18,11 @@ namespace KaspiLab05.Exceptions
     }
     class ExceptionType
     {
-        
-        public static bool Check_type(Product P)
+        protected static List<Product> AllProducts = ProductList.Instance.ProductCatalog;
+        public static bool Check_type(int SKU)
         {
-            return P is Granular;
+            Product foundProd = AllProducts.Where(p => p.SKU == SKU).First();
+            return foundProd is Granular;
         }
             
     }

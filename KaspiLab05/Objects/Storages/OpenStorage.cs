@@ -9,27 +9,28 @@ namespace KaspiLab05.Objects
 {
     class OpenStorage : Storage
     {
-        public static Predicate<Product> check;
-        override public bool Add_product(Product prod, int count)
+        public static Predicate<int> check;
+        override public bool Add_product(int SKU, int count)
         {
             check = ExceptionType.Check_type;
-            if (check(prod))
+            if (check(SKU))
             {
                 throw new ProductException("Нельзя добавлять сыпучие объекты на склад" + this.name);
                 //return false;
             }
-            foreach (KeyValuePair<Product, int> P in products)
+            foreach (KeyValuePair<int, int> P in products)
             {
-                if (prod.SKU==P.Key.SKU )
+                if (SKU == P.Key)
                 {
                     products[P.Key] += count;
                     return true;
                 }
             }
-            products.Add(prod,count);
-         
-            prod.storages.Add(this);
-            
+            Product foundProd = AllProducts.Where(p => p.SKU == SKU).First();
+            foundProd.storages.Add(this);
+
+            products.Add(SKU, count);
+
             return true;
         }
 

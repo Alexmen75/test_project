@@ -27,11 +27,13 @@ namespace KaspiLab05
 
     class Program
     {
-        public static List<Product> list_prod = new List<Product>();
+       // public static List<Product> list_prod = new List<Product>();
         public static List<Storage> storages = new List<Storage>();
+       
         public static string directory = Directory.GetCurrentDirectory();
         static void Main(string[] args)
         {
+            List<Product> prod = Catalog.ProductList.Instance.ProductCatalog;
             string path = "./CSV";
             if (!Directory.Exists(path))
             {
@@ -82,7 +84,7 @@ namespace KaspiLab05
                     }
                     storages[select].AddProd -= StorageHelper.TransferProductHandler;
                 }
-                catch(ArgumentException ex)
+                /*catch(ArgumentException ex)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(ex.Message);
@@ -93,7 +95,7 @@ namespace KaspiLab05
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(ex.Message);
                     Console.ForegroundColor = ConsoleColor.Gray;
-                }
+                }*/
                 finally//Нашел применение этой функции ))
                 {
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
@@ -102,7 +104,5 @@ namespace KaspiLab05
                 }
             }
         }
-
- 
     }
 }

@@ -10,6 +10,7 @@ namespace KaspiLab05.CSV
 {
     class CsvCreator
     {
+        static List<Product> AllProducts = Catalog.ProductList.Instance.ProductCatalog;
         public static void CreateStorageInfo(Storage storage)
         {
             using (StreamWriter info = new StreamWriter(Program.directory+"/CSV/" + storage.name + ".csv", false))
@@ -18,15 +19,18 @@ namespace KaspiLab05.CSV
                 info.WriteLine("Adress;" + storage.adress.city + storage.adress.street + storage.adress.num);
                 //info.WriteLine("Manager;" + storage.manager.surname +";"+ storage.manager.name + ";" + storage.manager.patronymic);
                 //кирилицу не принимает
-                info.WriteLine();
+                info.WriteLine("Список товаров:");
                 info.WriteLine("SKU;Name;Count");
-                foreach (var product in storage.products)
+                List<Product> products = AllProducts.Where(P => storage.products.ContainsKey(P.SKU) ).ToList();
+                var prodList = products
+                    .OrderBy(s => s.name)
+                    .ToList();
+                foreach (var product in prodList)
                 {
-                    var productKey = product.Key;
                     info.Write(
-                        productKey.SKU + ";"
-                        + productKey.name + ";" 
-                        + product.Value + productKey.unit);
+                        product.SKU + ";"
+                        + product.name + ";" 
+                        + storage.products[product.SKU] + product.unit);
                     info.WriteLine();
                 }
                 

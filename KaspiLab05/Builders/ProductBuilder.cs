@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using KaspiLab05.ProductList;
+using KaspiLab05.Catalog;
 
 namespace KaspiLab05.Builders
 {
@@ -16,6 +16,7 @@ namespace KaspiLab05.Builders
         private Product product;
         public ProductBuilder()
         {
+            
             product = new T();
         }
         public ProductBuilder<T> SKU(int SKU)
@@ -42,14 +43,15 @@ namespace KaspiLab05.Builders
         }
         public ProductBuilder<T> storage(ref Storage storage)
         {
-            storage.Add_product(product, rand.Next(10, 100));
+            ProductList.Instance.ProductCatalog.Add(product);
+            storage.Add_product(product.SKU, rand.Next(10, 100));
             //product.storages.Add(storage);
             return this;
         }
 
         public Product Build()
         {
-            ProductList.ProductList.Instance.ProductCatalog.Add(product);
+            
             return product;
         }
 
