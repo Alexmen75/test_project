@@ -23,6 +23,7 @@ namespace KaspiLab05.Objects
                 if (SKU == P.Key)
                 {
                     products[P.Key] += count;
+                    
                     return true;
                 }
             }

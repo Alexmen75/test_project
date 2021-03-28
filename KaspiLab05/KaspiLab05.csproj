@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\ProductBuilder.cs" />
+    <Compile Include="Comand\StorageComand.cs" />
     <Compile Include="ConsoleWriter.cs" />
     <Compile Include="CSV\CsvCreator.cs" />
     <Compile Include="Exceptions\ProductException.cs" />
