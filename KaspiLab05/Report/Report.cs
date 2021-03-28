@@ -25,12 +25,20 @@ namespace KaspiLab05.Report
                 Console.WriteLine(foundProd.name+" "+ rep.Value+foundProd.unit);
             }
         }
-        public static void ProductList(this Storage storage)//я понял, что надо использовать Distinct, но у меня автоматом убирваются дубликаты при добавлении товаров на склад
+        public static void ProductList<T>(this T Item)
         {
-            List<Product> product = AllProducts.Where(P => storage.products.ContainsKey(P.SKU) ).ToList();
-            var report = product
-                .OrderBy(s => s.name)
-                .ToList();
+            List<Product> report = null;
+            if (Item is Storage storage)
+            {
+                List<Product> product = AllProducts.Where(P => storage.products.ContainsKey(P.SKU)).ToList();
+                  report = product
+                    .OrderBy(s => s.name)
+                    .ToList();
+            }
+            else if (Item is List<Product> products)
+            {
+                report = products;
+            }
             foreach (var rep in report)
             {
                 Console.Write("\t " + rep.SKU);
@@ -48,8 +56,13 @@ namespace KaspiLab05.Report
                 {
                     Console.Write("/" + granular.unit);
                 }
-                Console.Write("\t " + storage.products[rep.SKU]);
-                Console.Write("\t\t " + rep.description + "\n");
+                if (Item is Storage stor)
+                {
+                    Console.Write("\t " + stor.products[rep.SKU]);
+                    Console.Write("\t\t " + rep.description );
+                }
+                Console.WriteLine();
+                
             }
         }
 
@@ -98,6 +111,12 @@ namespace KaspiLab05.Report
                 }
                 Console.WriteLine(P.name+"  "+count/report.Count()+P.unit);
             }
+        }
+
+        public static bool Check(this List<Product> products,int SKU)
+        {
+            var report = products.Contains(products.Where(P => P.SKU == SKU).First());
+            return report;
         }
     }
 }
