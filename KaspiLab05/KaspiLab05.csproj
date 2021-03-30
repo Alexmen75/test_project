@@ -50,6 +50,7 @@
     <Compile Include="Exceptions\ProductException.cs" />
     <Compile Include="IStorage.cs" />
     <Compile Include="ItemCreator.cs" />
+    <Compile Include="Objects\Storage Event\ComandHandler.cs" />
     <Compile Include="Objects\Storages\Adress.cs" />
     <Compile Include="Objects\Storages\ClosedStorage.cs" />
     <Compile Include="Objects\Employee.cs" />

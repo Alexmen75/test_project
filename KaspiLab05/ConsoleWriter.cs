@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KaspiLab05.Report;
 using KaspiLab05.Catalog;
+using KaspiLab05.Comand;
 
 namespace KaspiLab05
 {
@@ -113,13 +114,13 @@ namespace KaspiLab05
             }
             Console.WriteLine("Введите SKU товара, который хотите добавить");
             SKU = Convert.ToInt32(Console.ReadLine());
-            foreach (Product P in AllProducts)//изменить
+            foreach (Product P in AllProducts)
             {
                 if (P.SKU == SKU)
                 {
                     Console.WriteLine(P.name + " Введите количество");
                     count = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(Program.storages[select].Add_product(P.SKU, count) == true ? ("Товар добавлен") : ("ошибка"));
+                    Program.productMovings.Enqueue(new ProductMoving(Program.storages[select]) { SKU = SKU, count = count });
                     break;
                 }
             }
