@@ -1,13 +1,16 @@
 ﻿using KaspiLab05.Catalog;
+using KaspiLab05.Exceptions;
 using KaspiLab05.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NLog;
 
 namespace KaspiLab05.Comand
 {
+    
     public delegate void AddHandler(string massage);
     interface IStorageComand
     {
@@ -17,8 +20,8 @@ namespace KaspiLab05.Comand
 
     class ProductMoving : IStorageComand
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         protected static List<Product> AllProducts = ProductList.Instance.ProductCatalog;
-        public event AddHandler Info;
         Storage storage;
         public int SKU;
         public int count;
@@ -28,9 +31,15 @@ namespace KaspiLab05.Comand
         }
         public void Execute()
         {
-            storage.Add_product(SKU, count);
-            Product FoundProd = AllProducts.Where(Prod => Prod.SKU == SKU).First();
-            Info?.Invoke($"на склад {storage.name} добавлен продукт {FoundProd.name} в количестве {count}{FoundProd.unit}");
+            try
+            {
+                storage.Add_product(SKU, count);
+            }
+            catch(ProductException ex)
+            {
+                logger.Error(ex.Message);
+            }
+            
         }
         public void Undo()
         {

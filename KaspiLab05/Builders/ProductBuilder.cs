@@ -16,7 +16,6 @@ namespace KaspiLab05.Builders
         private Product product;
         public ProductBuilder()
         {
-            
             product = new T();
         }
         public ProductBuilder<T> SKU(int SKU)

@@ -57,7 +57,6 @@ namespace KaspiLab05
            }
         }
 
-
         static Product whater = new ProductBuilder<Liquid>()
               .SKU(123412)
               .name("BonAqua")

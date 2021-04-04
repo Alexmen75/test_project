@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace KaspiLab05.Objects.Storage_Event
@@ -12,14 +13,18 @@ namespace KaspiLab05.Objects.Storage_Event
     {
         public static void Handler(Queue<ProductMoving> productMovings)
         {
-            Invoker invoker = new Invoker();
-            while (productMovings.Count != 0)
-            {
-                productMovings.Peek().Info += StorageHelper.TransferProductHandler;
-                invoker.SetCommand(productMovings.Peek());
-                invoker.Run();
-                productMovings.Dequeue().Info -= StorageHelper.TransferProductHandler;
-            }
+            //await Task.Run(()=>
+            //{
+                Invoker invoker = new Invoker();
+                while (productMovings.Count != 0)
+                {
+                    //productMovings.Peek().Info += StorageHelper.TransferProductHandler;
+                    invoker.SetCommand(productMovings.Peek());
+                    invoker.Run();
+                    productMovings.Dequeue(); //.Info -= StorageHelper.TransferProductHandler;
+                }
+            //});
+            
         }
     }
 }

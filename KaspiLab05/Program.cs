@@ -1,16 +1,15 @@
-﻿using KaspiLab05.Exceptions;
+﻿using KaspiLab05.Catalog;
+using KaspiLab05.Comand;
+using KaspiLab05.Exceptions;
 using KaspiLab05.Objects;
+using KaspiLab05.Objects.Storage_Event;
 using KaspiLab05.Report;
 using KaspiLab05.StorageHandler;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using KaspiLab05.Comand;
-using KaspiLab05.Catalog;
-using KaspiLab05.Objects.Storage_Event;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace KaspiLab05
 {
@@ -37,13 +36,120 @@ namespace KaspiLab05
 
         public static Queue<ProductMoving> productMovings = new Queue<ProductMoving>();
 
+
         static void Main(string[] args)
         {
             Task task;
             task = new Task(() => ComandHandler.Handler(productMovings));
 
-            
+            //ProductMoving DamuComand = new ProductMoving(storages[0]);
+            //ProductMoving ZIPComand = new ProductMoving(storages[1]);
+            //ProductMoving AdmartComand = new ProductMoving(storages[2]);
+            ItemCreator.AddStorage();
+            Queue<ProductMoving> DamuComand = new Queue<ProductMoving>() ;
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
+            Queue<ProductMoving> ZIPComand = new Queue<ProductMoving>();
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+            ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 62356, count = 30 });
+            ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 62356, count = 30 });
+            ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 62356, count = 30 });
+            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
+
+
+            Queue<ProductMoving> AdmartComand = new Queue<ProductMoving>();
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
+
+
+            List<Queue<ProductMoving>> StoragesComand = new List<Queue<ProductMoving>>() { DamuComand, ZIPComand, AdmartComand };
+
             List<Product> Allproduct = ProductList.Instance.ProductCatalog;
+
             
             
             string path = "./CSV";
@@ -51,7 +157,7 @@ namespace KaspiLab05
             {
                 Directory.CreateDirectory("./CSV");
             }
-            ItemCreator.AddStorage();
+            
             while (true)
             {
                 try
@@ -63,8 +169,7 @@ namespace KaspiLab05
                     if (select + 1 == 4)
                     {
                         int check = -1;
-                        
-                        
+
                         while (check != 0)
                         {
                             Console.WriteLine("Ввеедите SKU продукта \n");
@@ -90,7 +195,9 @@ namespace KaspiLab05
                                 Console.WriteLine(stor.name);
                             }
                             select = Convert.ToInt32(Console.ReadLine());
-                            productMovings.Enqueue(new ProductMoving(storages[select]) { SKU = SKU, count = count });
+
+                            StoragesComand[select].Enqueue(new ProductMoving(storages[select]) { SKU = SKU, count = count });
+                            //productMovings.Enqueue(new ProductMoving(storages[select]) { SKU = SKU, count = count });
                         }
                         Console.Clear();
                         //Console.ReadKey();
@@ -98,8 +205,10 @@ namespace KaspiLab05
                     else
                     {
                         bool run = true;
-                        while (run==true)
+                        while (run == true)
                         {
+
+
                             ConsoleWriter.ShowStorage(select);
                             ConsoleWriter.ShowProducts(select);
                             Switch check = (Switch)Convert.ToInt32(Console.ReadLine());
@@ -129,17 +238,43 @@ namespace KaspiLab05
                                     ConsoleWriter.Balans(select);
                                     break;
                                 case Switch.Reports:
-                                    ConsoleWriter.ShowReports(select);
+                                    Console.Clear();
+                                    //ConsoleWriter.ShowReports(select);
+                                    Task avarage = new Task(() => Allproduct.AverageQuantity());
+                                    Task less = new Task(() => Report.Report.LesserAmount(storages[select]));
+                                    Task max = new Task(() => Report.Report.MaxProduct(storages[select]));
+                                    Task.Run(() => Parallel.Invoke(
+                                        () => avarage.Start(),
+                                        () => less.Start(),
+                                        () => max.Start()));
+                                    Task.WaitAll(avarage, less, max);
+                                    Console.WriteLine("Нажмите любую клавишу для продолжения");
+                                    Console.ReadKey();
+                                    Console.Clear();
                                     break;
-                                //case Switch.CSV:
-                                   // CSV.CsvCreator.CreateStorageInfo(storages[select]);
-                                   
-                                    //break;
                             }
+                        }
                             storages[select].AddProd -= StorageHelper.TransferProductHandler;
+                        CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+                        CancellationToken token = cancelTokenSource.Token;
+                        //new Task(() =>
+                        //{
+                        //    cancelTokenSource.Cancel();
+                        //}).Start();
+                        try
+                        {
+                            Parallel.ForEach(StoragesComand,
+                                        new ParallelOptions { CancellationToken = token }, ComandHandler.Handler);
+                        }
+                        catch (OperationCanceledException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        catch (ProductException ex)
+                        {
+                            Console.WriteLine( ex.Message);
                         }
                     }
-                    
                 }
                 catch(ArgumentException ex)
                 {
@@ -153,14 +288,8 @@ namespace KaspiLab05
                     Console.WriteLine(ex.Message);
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
-                finally//Нашел применение этой функции ))
+                finally
                 {
-                    if (productMovings != null && productMovings.Count != 0)
-                    {
-                        task.Start();
-                    }
-                    CSV.CsvCreator.sucsessCreat+= StorageHelper.TransferProductHandler;
-                    Parallel.ForEach(storages, CSV.CsvCreator.CreateStorageInfo); //Довольно удобно
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadKey();
                     Console.Clear();

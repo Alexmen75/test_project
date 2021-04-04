@@ -6,24 +6,31 @@ using System.Text;
 using System.Threading.Tasks;
 using KaspiLab05.Exceptions;
 using KaspiLab05.Catalog;
+using NLog;
 
 namespace KaspiLab05.Report
 {
    static class Report
     {
-         static List<Product> AllProducts = Catalog.ProductList.Instance.ProductCatalog;
-        public static void LesserAmount(this Storage storage)
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        static List<Product> AllProducts = Catalog.ProductList.Instance.ProductCatalog;
+        public static async Task LesserAmount(this Storage storage)
         {
-            var report = storage.products
-                .OrderBy(s => s.Value)
-                .ThenBy(s=> s.Value)
-                .Where(s => s.Value < 20).ToList();
-            Console.WriteLine("недостающих товаров на складе "+ report.Count());
-            foreach(var rep in report)
+            await Task.Run(() =>
             {
-                Product foundProd = AllProducts.Where(p => p.SKU == rep.Key).First();
-                Console.WriteLine(foundProd.name+" "+ rep.Value+foundProd.unit);
-            }
+                logger.Debug("поиск недостающих товаров на складе "+ storage.name);
+                var report = storage.products
+                    .OrderBy(s => s.Value)
+                    .ThenBy(s => s.Value)
+                    .Where(s => s.Value < 20).ToList();
+                Console.WriteLine("недостающих товаров на складе " + report.Count());
+                foreach (var rep in report)
+                {
+                    Product foundProd = AllProducts.Where(p => p.SKU == rep.Key).First();
+                    Console.WriteLine(foundProd.name + " " + rep.Value + foundProd.unit);
+                }
+                Console.WriteLine();
+            });
         }
         public static void ProductList<T>(this T Item)
         {
@@ -66,51 +73,65 @@ namespace KaspiLab05.Report
             }
         }
 
-        public static void MaxProduct(this Storage storage)
+        public static async Task MaxProduct(this Storage storage)
         {
-            var report = storage.products
-                .OrderByDescending(s => s.Value)
-                //.ThenByDescending(s => s.Value)
-                .Take(3)
-                .ToList();
-            foreach (var rep in report)
+            await Task.Run(() =>
             {
-                Product foundProd = AllProducts.Where(p => p.SKU == rep.Key).First();
-                Console.WriteLine(rep.Key + " " + foundProd.name + " " + rep.Value + foundProd.unit);
-            }
+                var report = storage.products
+                    .OrderByDescending(s => s.Value)
+                    //.ThenByDescending(s => s.Value)
+                    .Take(3)
+                    .ToList();
+                Console.WriteLine("Товаров с избытком");
+                foreach (var rep in report)
+                {
+                    Product foundProd = AllProducts.Where(p => p.SKU == rep.Key).First();
+                    Console.WriteLine(rep.Key + " " + foundProd.name + " " + rep.Value + foundProd.unit);
+                }
+                Console.WriteLine();
+            });
         }
 
         public static Predicate<int> check;
 
         public static void MissGranular(this List<Storage> storages)
         {
-            check = ExceptionType.Check_type;
+                check = ExceptionType.Check_type;
 
-            var report = storages
-                .Where(s => s.products
-                .All(P => !check(P.Key)))
-                .ToList();
-            foreach (var rep in report)
-            {
-                Console.WriteLine(rep.name);
-            }
+                var report = storages
+                    .Where(s => s.products
+                    .All(P => !check(P.Key)))
+                    .ToList();
+                foreach (var rep in report)
+                {
+                    Console.WriteLine(rep.name);
+                }
         }
-        public static void AverageQuantity(this List<Product> products)
+        public static async Task AverageQuantity(this List<Product> products)
         {
             List<int> report = new List<int>();
-            foreach (var P in products)
+
+            await Task.Run(() =>
             {
-               int count = 0;
-                foreach(var S in P.storages)
+                Console.WriteLine("Общее количество товаров на всех складах");
+                foreach (var P in products)
                 {
-                    report = S.products.Where(prod=> prod.Key == P.SKU).Select(prod=> prod.Value).ToList();
+                    int count = 0;
+                    foreach (var S in P.storages)
+                    {
+                        report = S.products.Where(prod => prod.Key == P.SKU).Select(prod => prod.Value).ToList();
+                    }
+                    foreach (int rep in report)
+                    {
+                        count += rep;
+                    }
+                    Console.WriteLine(P.name + "  " + count / report.Count() + P.unit);
                 }
-                foreach(int rep in report)
-                {
-                    count += rep;
-                }
-                Console.WriteLine(P.name+"  "+count/report.Count()+P.unit);
+                Console.WriteLine();
             }
+            );
+           
+            
         }
 
         public static bool Check(this List<Product> products,int SKU)

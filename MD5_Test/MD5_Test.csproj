@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{302AC552-3F22-414E-A73F-27241CEF9EDC}</ProjectGuid>
+    <ProjectGuid>{1C50C0BD-E16B-4D63-8B4B-4F3627234029}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>KaspiLab05</RootNamespace>
-    <AssemblyName>KaspiLab05</AssemblyName>
+    <RootNamespace>MD5_Test</RootNamespace>
+    <AssemblyName>MD5_Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,16 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.7.9\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,36 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\ProductBuilder.cs" />
-    <Compile Include="Comand\StorageComand.cs" />
-    <Compile Include="ConsoleWriter.cs" />
-    <Compile Include="CSV\CsvCreator.cs" />
-    <Compile Include="Exceptions\ProductException.cs" />
-    <Compile Include="IStorage.cs" />
-    <Compile Include="ItemCreator.cs" />
-    <Compile Include="Objects\Storage Event\ComandHandler.cs" />
-    <Compile Include="Objects\Storages\Adress.cs" />
-    <Compile Include="Objects\Storages\ClosedStorage.cs" />
-    <Compile Include="Objects\Employee.cs" />
-    <Compile Include="Objects\Storages\OpenStorage.cs" />
-    <Compile Include="Objects\Person.cs" />
-    <Compile Include="Objects\Product.cs" />
-    <Compile Include="Objects\Storages\Storage.cs" />
-    <Compile Include="Catalog\ProductList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Objects\Storage Event\StorageHandler.cs" />
-    <Compile Include="Report\Report.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

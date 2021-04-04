@@ -5,13 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KaspiLab05.Catalog;
-
+using KaspiLab05.Exceptions;
+using NLog;
 
 namespace KaspiLab05.Objects
 {
    
     abstract class Storage : IStorage
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public delegate void AddHandler(string massage);
         public event AddHandler AddProd;
 
@@ -69,7 +72,9 @@ namespace KaspiLab05.Objects
                         products[P.Key] -= count;
                         if (storage.Add_product(prod.SKU, count) == true)
                         {
-                            AddProd?.Invoke($"на склад {storage.name} перемещен товар {prod.name} в количестве {count}{prod.unit}");
+                            //AddProd?.Invoke($"на склад {storage.name} перемещен товар {prod.name} в количестве {count}{prod.unit}");
+                            logger.Info($"на склад {storage.name} перемещен товар {prod.name} в количестве {count}{prod.unit}");
+                            
                             if (products[P.Key]==0)
                             {
                                 Product foundProd = (Product)AllProducts.Where(p => p.SKU == P.Key);
@@ -80,14 +85,16 @@ namespace KaspiLab05.Objects
                         }
                         else
                         {
-                            AddProd?.Invoke($"на склад {storage.name} нельзя добавлять сыпучие товары");
+                            //AddProd?.Invoke($"на склад {storage.name} нельзя добавлять сыпучие товары");
+                            logger.Error($"попытка добавить на склад {storage.name} сыпучий товар({P.Key})");// по идее эта часть кода не запускается, так как метод добавления ничего не возвращает из-за ex
                             products[P.Key] += count;
                             return false;
                         }
                     }
                 }
             }
-            AddProd?.Invoke($"На складе {this.name} нет нужного количества товара");
+            //AddProd?.Invoke($"На складе {this.name} нет нужного количества товара");
+            logger.Error($"попытка перемесить на склад {storage.name} несуществующий товар");
             return false;
         }
     }
@@ -104,17 +111,28 @@ namespace KaspiLab05.Objects
     }
     static class BalansProduct
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private static List<Product> AllProducts = ProductList.Instance.ProductCatalog;
         public static void Balans(this Storage storage1, Storage storage2)
         {
             var stor = storage1.products
                 .Where(s=> !storage2.products.ContainsKey(s.Key))
                 .ToList();
+            logger.Debug("Запуск балансировки продуктов из склада "+ storage1.name + " на склад "+  storage2.name);
             foreach(KeyValuePair<int,int> P in stor)
             {
                 Product foundProd = AllProducts.Where(p => p.SKU == P.Key).First();
-                storage1.Transfer(storage2, foundProd, P.Value/2);
+                try
+                {
+                    storage1.Transfer(storage2, foundProd, P.Value / 2);
+                }
+                catch(ProductException ex)
+                {
+                    logger.Error(ex.Message);
+                }
+
             }
+            logger.Debug("Балансировка закончена");
         }
     }
 }
