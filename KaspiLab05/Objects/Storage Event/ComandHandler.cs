@@ -11,20 +11,16 @@ namespace KaspiLab05.Objects.Storage_Event
 {
     class ComandHandler
     {
-        public static void Handler(Queue<ProductMoving> productMovings)
+        public static void Handler(Storage storage)
         {
-            //await Task.Run(()=>
-            //{
                 Invoker invoker = new Invoker();
-                while (productMovings.Count != 0)
+                
+                while (storage.Comand.Count != 0)
                 {
-                    //productMovings.Peek().Info += StorageHelper.TransferProductHandler;
-                    invoker.SetCommand(productMovings.Peek());
+                    invoker.SetCommand(storage.Comand.Peek());
                     invoker.Run();
-                    productMovings.Dequeue(); //.Info -= StorageHelper.TransferProductHandler;
+                    storage.Comand.Dequeue();
                 }
-            //});
-            
         }
     }
 }

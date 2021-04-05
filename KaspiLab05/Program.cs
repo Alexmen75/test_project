@@ -8,6 +8,8 @@ using KaspiLab05.StorageHandler;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,114 +41,9 @@ namespace KaspiLab05
 
         static void Main(string[] args)
         {
-            Task task;
-            task = new Task(() => ComandHandler.Handler(productMovings));
 
-            //ProductMoving DamuComand = new ProductMoving(storages[0]);
-            //ProductMoving ZIPComand = new ProductMoving(storages[1]);
-            //ProductMoving AdmartComand = new ProductMoving(storages[2]);
             ItemCreator.AddStorage();
-            Queue<ProductMoving> DamuComand = new Queue<ProductMoving>() ;
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            DamuComand.Enqueue(new ProductMoving(storages[0]) { SKU = 123412, count = 20 });
-            Queue<ProductMoving> ZIPComand = new Queue<ProductMoving>();
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
-            ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 62356, count = 30 });
-            ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 62356, count = 30 });
-            ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 62356, count = 30 });
-            //ZIPComand.Enqueue(new ProductMoving(storages[1]) { SKU = 123412, count = 30 });
 
-
-            Queue<ProductMoving> AdmartComand = new Queue<ProductMoving>();
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-            AdmartComand.Enqueue(new ProductMoving(storages[2]) { SKU = 123412, count = 40 });
-
-
-            List<Queue<ProductMoving>> StoragesComand = new List<Queue<ProductMoving>>() { DamuComand, ZIPComand, AdmartComand };
 
             List<Product> Allproduct = ProductList.Instance.ProductCatalog;
 
@@ -157,7 +54,9 @@ namespace KaspiLab05
             {
                 Directory.CreateDirectory("./CSV");
             }
-            
+            Console.Clear();
+
+
             while (true)
             {
                 try
@@ -196,7 +95,7 @@ namespace KaspiLab05
                             }
                             select = Convert.ToInt32(Console.ReadLine());
 
-                            StoragesComand[select].Enqueue(new ProductMoving(storages[select]) { SKU = SKU, count = count });
+                            storages[select].Comand.Enqueue(new ProductMoving(storages[select]) { SKU = SKU, count = count });
                             //productMovings.Enqueue(new ProductMoving(storages[select]) { SKU = SKU, count = count });
                         }
                         Console.Clear();
@@ -252,9 +151,12 @@ namespace KaspiLab05
                                     Console.ReadKey();
                                     Console.Clear();
                                     break;
+                                case Switch.CSV:
+                                    CSV.CsvCreator.CreateStorageInfo(storages[select]);
+                                    break;
                             }
                         }
-                            storages[select].AddProd -= StorageHelper.TransferProductHandler;
+                        storages[select].AddProd -= StorageHelper.TransferProductHandler;
                         CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
                         CancellationToken token = cancelTokenSource.Token;
                         //new Task(() =>
@@ -263,7 +165,7 @@ namespace KaspiLab05
                         //}).Start();
                         try
                         {
-                            Parallel.ForEach(StoragesComand,
+                            Parallel.ForEach(storages,
                                         new ParallelOptions { CancellationToken = token }, ComandHandler.Handler);
                         }
                         catch (OperationCanceledException ex)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,17 @@ namespace KaspiLab05.Objects
     {
 
         public static Random rand = new Random();
-        public int SKU;
-        public string name;
-        public decimal cost;
-        public string description;
-        public Unit unit;
+
+        [DisplayAttribute(Name = "SKU")]
+        public int SKU { get; set; }
+        [DisplayAttribute(Name = "Name")]
+        public string name { get; set; }
+
+        [DisplayAttribute(Name = "Cost")]
+        public decimal cost { get; set; }
+
+        public string description { get; set; }
+        public Unit unit { get; set; }
         public List<Storage> storages = new List<Storage>();
         public Product()
         {

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using KaspiLab05.Catalog;
 using KaspiLab05.Exceptions;
 using NLog;
+using KaspiLab05.Comand;
+using System.Reflection;
+using System.ComponentModel.DataAnnotations;
 
 namespace KaspiLab05.Objects
 {
@@ -18,13 +21,17 @@ namespace KaspiLab05.Objects
         public delegate void AddHandler(string massage);
         public event AddHandler AddProd;
 
-        public string name; 
-        internal int sqгare;
-        internal Adress adress;
-        public Person manager;
+        [Display(Name = "name")]
+        public string name { get; set; }
+        
+        public int sqгare { get; set; }
+        public Adress adress { get; set; }
+        public Person manager { get; set; }
         public Employee[] employees = new Employee[4];
-        public Dictionary<int,int> products = new Dictionary<int,int>();//Изменю на int int <SKU,count>
+        public Dictionary<int,int> products = new Dictionary<int,int>();
         protected static List<Product> AllProducts = ProductList.Instance.ProductCatalog;
+
+        public Queue<ProductMoving> Comand = new Queue<ProductMoving>();
 
         abstract public bool Add_product(int SKU, int count);
         public decimal Cost_ptoduct()
