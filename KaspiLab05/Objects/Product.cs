@@ -21,15 +21,13 @@ namespace KaspiLab05.Objects
         public static Random rand = new Random();
 
         [DisplayAttribute(Name = "SKU")]
-        public int SKU { get; set; }
+        public int SKU;
         [DisplayAttribute(Name = "Name")]
-        public string name { get; set; }
-
+        public string name;
         [DisplayAttribute(Name = "Cost")]
-        public decimal cost { get; set; }
-
-        public string description { get; set; }
-        public Unit unit { get; set; }
+        public decimal cost;
+        public string description;
+        public Unit unit;
         public List<Storage> storages = new List<Storage>();
         public Product()
         {

@@ -37,16 +37,24 @@ namespace KaspiLab05.CSV
                     var att = T.GetCustomAttributes(typeof(DisplayAttribute), false);
                     if(att.FirstOrDefault() != null)
                     {
+                        Console.WriteLine(((DisplayAttribute)att.FirstOrDefault()).GetName());
                         info.Write(((DisplayAttribute)att.FirstOrDefault()).GetName() + ";");
                     }
                 }
-
+                info.WriteLine();
                 foreach (var product in prodList)
                 {
-                    info.Write("\n"+
-                        product.SKU + ";"
-                        + product.name + ";" 
-                        + storage.products[product.SKU] + product.unit);
+                    foreach(var field in membersInfo)
+                    {
+                        var att = field.GetCustomAttributes(typeof(DisplayAttribute), false);
+                        if (att.FirstOrDefault() != null)
+                        {
+                            var p1 = product.GetType();
+                            var p2 = p1.GetField(field.Name);
+                            var p3 = p2.GetValue(product);
+                            info.Write(p3+";");
+                        }
+                    }
                     info.WriteLine();
                 }
             }
