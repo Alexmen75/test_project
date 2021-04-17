@@ -27,19 +27,19 @@ namespace ADO_NET_TEST
                 "JOIN Accaunt ACC on AGR.AccauntID  = ACC.ID " +
                 "JOIN Customer CUST on AGR.CustomerID = CUST.ID " +
                 "where CUST.UIN = @UIN ";
-        //"join Accaunt on Accaunt.ID = Agreement.AccauntID"+
-        //"join Customer on Customer.ID = Agreement.CustomerID " +
+            //"join Accaunt on Accaunt.ID = Agreement.AccauntID"+
+            //"join Customer on Customer.ID = Agreement.CustomerID " +
             using (SqlConnection connect = new SqlConnection(ConectString))
             {
                 SqlCommand command = new SqlCommand(GetInfo, connect);
                 try
                 {
                     connect.Open();
-                    command.Parameters.AddWithValue("@UIN" , UIN);
+                    command.Parameters.AddWithValue("@UIN", UIN);
                     SqlDataReader read = command.ExecuteReader();
-                   while(read.Read())
+                    while (read.Read())
                     {
-                       for(int i = 0; i<read.FieldCount;  i++)
+                        for (int i = 0; i < read.FieldCount; i++)
                         {
                             Console.Write(read[i] + "\t");
                         }
@@ -47,7 +47,7 @@ namespace ADO_NET_TEST
                     }
                     read.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
