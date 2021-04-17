@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MD5_Test", "MD5_Test\MD5_Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionTest", "ReflectionTest\ReflectionTest.csproj", "{28F6FE17-F3BA-4C50-932A-8115D40421DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO NET TEST", "ADO NET TEST\ADO NET TEST.csproj", "{4F080DD1-56A1-426D-BC69-92A2098DC1C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{28F6FE17-F3BA-4C50-932A-8115D40421DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28F6FE17-F3BA-4C50-932A-8115D40421DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28F6FE17-F3BA-4C50-932A-8115D40421DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F080DD1-56A1-426D-BC69-92A2098DC1C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F080DD1-56A1-426D-BC69-92A2098DC1C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F080DD1-56A1-426D-BC69-92A2098DC1C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F080DD1-56A1-426D-BC69-92A2098DC1C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
