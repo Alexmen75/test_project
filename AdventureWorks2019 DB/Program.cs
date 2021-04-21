@@ -1,9 +1,12 @@
-﻿using AdventureWorks;
+﻿using AdventureWorks.DataBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdventureWorks.Repository.Production;
+using AdventureWorks.Repository;
+using System.Data.Entity;
 
 namespace AdventureWorks2019_Console
 {
@@ -11,21 +14,11 @@ namespace AdventureWorks2019_Console
     {
         static void Main(string[] args)
         {
-            using (var DB = new Model1())
+            var Prod = new ProductRep();
+            var p = Prod.GetList();
+            foreach (var a in p)
             {
-                try
-                {
-                    Console.WriteLine("Code    \tName\n");
-                    foreach (var Prod in DB.Product)
-                    {
-                        Console.WriteLine(Prod.ProductNumber + "    \t" + Prod.Name);
-                    }
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                
+                Console.WriteLine(a.Name);
             }
         }
     }
