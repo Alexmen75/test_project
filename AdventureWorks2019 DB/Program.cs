@@ -14,11 +14,18 @@ namespace AdventureWorks2019_Console
     {
         static void Main(string[] args)
         {
-            var Prod = new ProductRep();
-            var p = Prod.GetList();
-            foreach (var a in p)
+            ModelAW db = new ModelAW();
+            //var Prod = new ProductRep();
+            //var p = Prod.GetList();
+            //foreach (var a in p)
+            //{
+            //    Console.WriteLine(a.Name);
+            //}
+            var Prod = from Product Pro in db.Products
+                       select Pro.ProductModel;
+            foreach (var P in Prod)
             {
-                Console.WriteLine(a.Name);
+                Console.WriteLine(P);
             }
         }
     }
