@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebStartUp.Models;
 using System.Data.Entity;
+using WebStartUp.kaspi.lab.service;
 
 namespace WebStartUp.Controllers
 {
@@ -13,10 +14,9 @@ namespace WebStartUp.Controllers
     {
         public ActionResult ProductList()
         {
-            ModelAW db = new ModelAW();
-            var ProdInfo = db.ProductProductPhotoes.Include(c => c.Product).Include(c=>c.ProductPhoto).AsEnumerable();
-            
-            return View(ProdInfo);
+            WebService1SoapClient Product = new WebService1SoapClient();
+            IEnumerable<ProductDTO> p = Product.GetProductList().AsEnumerable();
+            return View(p);
         }
     }
 }

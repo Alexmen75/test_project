@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using WebStartUp.kaspi.lab.service;
 
 namespace WebStartUp.Controllers
 {
@@ -14,12 +15,9 @@ namespace WebStartUp.Controllers
         [HttpGet]
         public ActionResult ShowProduct(int id)
         {
-            ModelAW db = new ModelAW();
-            var ProdInfo = db.ProductProductPhotoes.Include(c => c.Product).Include(c => c.ProductPhoto).AsEnumerable();
-            ViewBag.Product = db.Products.Find(id).Name;
-            var info = db.ProductProductPhotoes.First(t => t.ProductID == id).ProductPhotoID;
-            ViewBag.Photo = db.ProductPhotoes.Find(info).LargePhoto;
-            return View();
+            WebService1SoapClient Product = new WebService1SoapClient();
+            var p = Product.GetProduct(id);
+            return View(p);
         }
     }
 }

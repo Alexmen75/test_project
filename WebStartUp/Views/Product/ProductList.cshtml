@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AdventureWorks.DataBase.ProductProductPhoto>
+﻿@model IEnumerable<WebStartUp.kaspi.lab.service.ProductDTO>
 @{
     ViewBag.Title = "ProductList";
 }
@@ -14,14 +14,15 @@
     {
 <tr>
     <td>
-        @Html.Raw(item.Product.Name)
+        @Html.Raw(item.ProductID)
+        @Html.Raw(item.ProductName)
     </td>
     <td>
         @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
-             + Convert.ToBase64String(item.ProductPhoto.ThumbNailPhoto) + "\" />")
+             + Convert.ToBase64String(item.ThumbNailPhoto) + "\" />")
     </td>
     <td>
-        @Html.ActionLink("Подробно", "ShowProduct", "CurrentProduct", new { id = item.Product.ProductID }, null);
+        @Html.ActionLink("Подробно", "ShowProduct", "CurrentProduct", new { id = item.ProductID }, null);
     </td>
 </tr>
     }
