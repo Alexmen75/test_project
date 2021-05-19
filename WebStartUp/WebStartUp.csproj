@@ -225,6 +225,10 @@
     <Content Include="Connected Services\kaspi.lab.service\WebStartUp.kaspi.lab.service.ProductDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Compile Include="DTO\CurrentProductDTO.cs" />
+    <Content Include="Connected Services\kaspi.lab.service\WebStartUp.kaspi.lab.service.CurrentProductDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

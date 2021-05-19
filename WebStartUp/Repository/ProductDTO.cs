@@ -13,7 +13,6 @@ namespace WebStartUp.Repository
 {
    public class RProductDTO : Repository<ProductDTO>
     {
-
         public void Ceate(ProductDTO item)
         {
             throw new NotImplementedException();
@@ -24,28 +23,43 @@ namespace WebStartUp.Repository
             throw new NotImplementedException();
         }
 
-        public ProductDTO Get(int id)
+        public CurrentProductDTO Get(int id)
         {
-            //var prod = db.Products.Find(id).Name;
-            //var PhotoId = db.ProductProductPhotoes.Find(id).ProductPhotoID;
-            //var PhotoInfo = db.ProductPhotoes.Find(PhotoId);
-            //var ProdInfo = new ProductDTO() {ProductID=id, ProductName=prod,PhotoName=PhotoInfo.LargePhotoFileName,Photo = PhotoInfo.LargePhoto };
-            //return ProdInfo;
-
-            var product = from ProductProductPhoto PPI in db.ProductProductPhotoes
-                                              join Product Prod in db.Products on PPI.ProductID equals Prod.ProductID
-                                              join ProductPhoto Photo in db.ProductPhotoes on PPI.ProductPhotoID equals Photo.ProductPhotoID
-                                              join ProductModelProductDescriptionCulture info in db.ProductModelProductDescriptionCultures on Prod.ProductModelID equals info.ProductModelID
-                                              join ProductDescription desk in db.ProductDescriptions on info.ProductDescriptionID equals desk.ProductDescriptionID
-                                              where Prod.ProductID == id
-                                              select new ProductDTO
-                                              {
-                                                  ProductID = Prod.ProductID,
-                                                  ProductName = Prod.Name,
-                                                  LargePhoto = Photo.LargePhoto,
-                                                  Description = desk.Description
+            IEnumerable<CurrentProductDTO> product = from ProductProductPhoto PPI in db.ProductProductPhotoes
+                                                     join Product Prod in db.Products on PPI.ProductID equals Prod.ProductID
+                                                     join ProductPhoto Photo in db.ProductPhotoes on PPI.ProductPhotoID equals Photo.ProductPhotoID
+                                                     where Prod.ProductID == id
+                                                     select new CurrentProductDTO
+                                                     {
+                                                         ProductID = Prod.ProductID,
+                                                         ProductName = Prod.Name,
+                                                         LargePhoto = Photo.LargePhoto,
+                                                         ModelID = Prod.ProductModelID,
+                                                         Class = Prod.Class,
+                                                         Size = Prod.Size,
+                                                         Color = Prod.Color,
+                                                         ProductNumber = Prod.ProductNumber,
+                                                         SizeUnit = Prod.SizeUnitMeasureCode,
+                                                         ProductLine = Prod.ProductLine,
+                                                         Weight = Prod.Weight,
+                                                         Style = Prod.Style
                                               };
-            return product.FirstOrDefault();
+            CurrentProductDTO fullInfo = product.FirstOrDefault();
+            if (fullInfo.ModelID != null)
+            {
+                IEnumerable<CurrentProductDTO> Model = from ProductModelProductDescriptionCulture info in db.ProductModelProductDescriptionCultures
+                          join ProductModel model in db.ProductModels on info.ProductModelID equals model.ProductModelID
+                          join ProductDescription desk in db.ProductDescriptions on info.ProductDescriptionID equals desk.ProductDescriptionID
+                          where model.ProductModelID == fullInfo.ModelID && info.CultureID == "en"
+                          select new CurrentProductDTO
+                          {
+                              Model = model.Name,
+                              Description = desk.Description
+                          };
+                fullInfo.Model = Model.Select(m=>m.Model).FirstOrDefault();
+                fullInfo.Description = Model.Select(m => m.Description).FirstOrDefault();
+            }
+            return fullInfo;
         }
 
         public IEnumerable<ProductDTO> GetList()
@@ -54,12 +68,12 @@ namespace WebStartUp.Repository
             IEnumerable<ProductDTO> product = from ProductProductPhoto PPI in db.ProductProductPhotoes
                                               join Product Prod in db.Products on PPI.ProductID equals Prod.ProductID
                                               join ProductPhoto Photo in db.ProductPhotoes on PPI.ProductPhotoID equals Photo.ProductPhotoID
+                                              orderby Prod.ProductID
                                               select new ProductDTO
                                               {
                                                   ProductID = Prod.ProductID,
                                                   ProductName = Prod.Name,
                                                   ThumbNailPhoto = Photo.ThumbNailPhoto
-                                                  
                                               };
             return product;
         }
