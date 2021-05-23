@@ -1,43 +1,64 @@
 ﻿@model  WebStartUp.kaspi.lab.service.CurrentProductDTO
 @{
-    ViewBag.Title = "ShowProduct";
+    ViewBag.Title = "Product";
 }
 
 <h2>@Model.ProductName</h2>
 @Html.Raw("<img style='width:200px; height:180px;' src=\"data:image/jpeg;base64,"
             + Convert.ToBase64String(@Model.LargePhoto) + "\" />")
-<h2> @Model.Description</h2>
-@if (Model.Model != null)
+<label for="@Model.Count">Count:</label>
+
+
+
+@using (Html.BeginForm("AddToCart", "CurrentProduct", FormMethod.Post))
 {
-    <h2>Model: @Model.Model </h2>
+    <table>
+        <tr>
+            <td>
+                <input type="hidden" name="ProductName" value="@Model.ProductName" />
+                <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                <input type="number" name="Count"
+                       min="1" max="100">
+                <input type="submit" value="To Cart" />
+            </td>
+        </tr>
+    </table>
 }
-@if (Model.ProductLine != null)
-{
-    <h2>Product Line: @Model.Model </h2>
-}
-@if (Model.ProductNumber != null)
-{
-    <h2>Number: @Model.ProductNumber </h2>
-}
-@if (Model.Size != null)
-{
-    <h2>Size: @Model.Size @Model.SizeUnit </h2>
-}
-@if (Model.Weight != null)
-{
-    <h2>Weigh: @Model.Weight </h2>
-}
-@if (Model.Style != null)
-{
-    <h2>Style: @Model.Model </h2>
-}
-@if (Model.Color != null)
-{
-    <h2>Color: @Model.Color</h2>
-}
-@if (Model.Class != null)
-{
-    <h2>Calss: @Model.Class </h2>
-}
+
+
+
+    <h2> @Model.Description</h2>
+    @if (Model.Model != null)
+    {
+        <h2>Model: @Model.Model </h2>
+    }
+    @if (Model.ProductLine != null)
+    {
+        <h2>Product Line: @Model.Model </h2>
+    }
+    @if (Model.ProductNumber != null)
+    {
+        <h2>Number: @Model.ProductNumber </h2>
+    }
+    @if (Model.Size != null)
+    {
+        <h2>Size: @Model.Size @Model.SizeUnit </h2>
+    }
+    @if (Model.Weight != null)
+    {
+        <h2>Weigh: @Model.Weight </h2>
+    }
+    @if (Model.Style != null)
+    {
+        <h2>Style: @Model.Model </h2>
+    }
+    @if (Model.Color != null)
+    {
+        <h2>Color: @Model.Color</h2>
+    }
+    @if (Model.Class != null)
+    {
+        <h2>Calss: @Model.Class </h2>
+    }
 
 

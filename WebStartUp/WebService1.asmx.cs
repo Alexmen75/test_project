@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdventureWorks.DataBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,10 +21,10 @@ namespace WebStartUp
     {
 
         [WebMethod]
-        public List<ProductDTO> GetProductList()
+        public List<ProductDTO> GetProductList(int PageNum)
         {
-            RProductDTO prod = new RProductDTO();
-            return prod.GetList().ToList();
+            RProductDTO products = new RProductDTO();
+            return products.GetList(PageNum).ToList();
         }
         [WebMethod]
         public CurrentProductDTO GetProduct(int id)

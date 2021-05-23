@@ -23,6 +23,7 @@ namespace WebStartUp.DTO
 		public string ProductLine { get; set; }
 		public string Class { get; set; }
 		public string Style { get; set; }
+		public int Count { get; set; }
 
 	}
 }

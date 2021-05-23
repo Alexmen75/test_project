@@ -12,11 +12,13 @@ namespace WebStartUp.Controllers
 {
     public class ProductController : Controller
     {
-        public ActionResult ProductList()
+        public ActionResult ProductList(int PageNum)
         {
-            WebService1SoapClient Product = new WebService1SoapClient();
-            IEnumerable<ProductDTO> p = Product.GetProductList().AsEnumerable();
-            return View(p);
+            ModelAW db = new ModelAW();
+            WebService1SoapClient Products = new WebService1SoapClient();
+            IEnumerable<ProductDTO> P = Products.GetProductList(PageNum);
+            ViewBag.Pages =(int) db.Products.Count()/50;
+            return View(P);
         }
     }
 }

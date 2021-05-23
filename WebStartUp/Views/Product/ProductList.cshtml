@@ -4,6 +4,14 @@
 }
 
 <h2>ProductList</h2>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        @for (int i = 0; i <= ViewBag.Pages; i++)
+        {
+            <li>@Html.ActionLink((1+i).ToString(), "ProductList", "Product", new { PageNum = i }, null)</li>
+        }
+    </ul>
+</div>
 <table>
     <tr>
         <th>Название</th>
@@ -12,19 +20,27 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.Raw(item.ProductID)
-        @Html.Raw(item.ProductName)
-    </td>
-    <td>
-        @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
-             + Convert.ToBase64String(item.ThumbNailPhoto) + "\" />")
-    </td>
-    <td>
-        @Html.ActionLink("Подробно", "ShowProduct", "CurrentProduct", new { id = item.ProductID }, null);
-    </td>
-</tr>
+        <tr>
+            <td>
+                @Html.Raw(item.ProductID)
+                @Html.Raw(item.ProductName)
+            </td>
+            <td>
+                @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
+                     + Convert.ToBase64String(item.ThumbNailPhoto) + "\" />")
+            </td>
+            <td />
+            <td>
+                @Html.ActionLink("Подробно", "ShowProduct", "CurrentProduct", new { id = item.ProductID }, null);
+            </td>
+        </tr>
     }
-
 </table>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        @for (int i = 1; i <= ViewBag.Pages; i++)
+        {
+            <li>@Html.ActionLink((1 + i).ToString(), "ProductList", "Product", new { PageNum = i }, null)</li>
+        }
+    </ul>
+</div>

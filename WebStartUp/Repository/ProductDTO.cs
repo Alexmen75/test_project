@@ -62,20 +62,26 @@ namespace WebStartUp.Repository
             return fullInfo;
         }
 
-        public IEnumerable<ProductDTO> GetList()
+        public IEnumerable<ProductDTO> GetList(int PageNum)
         {
 
-            IEnumerable<ProductDTO> product = from ProductProductPhoto PPI in db.ProductProductPhotoes
-                                              join Product Prod in db.Products on PPI.ProductID equals Prod.ProductID
-                                              join ProductPhoto Photo in db.ProductPhotoes on PPI.ProductPhotoID equals Photo.ProductPhotoID
-                                              orderby Prod.ProductID
-                                              select new ProductDTO
-                                              {
-                                                  ProductID = Prod.ProductID,
-                                                  ProductName = Prod.Name,
-                                                  ThumbNailPhoto = Photo.ThumbNailPhoto
-                                              };
-            return product;
+            //IEnumerable<ProductDTO> product = from ProductProductPhoto PPI in db.ProductProductPhotoes
+            //                                  join Product Prod in db.Products on PPI.ProductID equals Prod.ProductID
+            //                                  join ProductPhoto Photo in db.ProductPhotoes on PPI.ProductPhotoID equals Photo.ProductPhotoID
+            //                                  orderby Photo.ThumbNailPhoto
+            //                                  select new ProductDTO
+            //                                  {
+            //                                      ProductID = Prod.ProductID,
+            //                                      ProductName = Prod.Name,
+            //                                      ThumbNailPhoto = Photo.ThumbNailPhoto
+            //                                  };
+            var start = PageNum * 50;
+            var products = db.ProductProductPhotoes.Include(u => u.Product).Include(u => u.ProductPhoto).OrderByDescending(t => t.ProductID)
+                .Skip(start)
+                .Take(50)
+                .Select(prod => new ProductDTO { ProductName = prod.Product.Name, ProductID = prod.ProductID, ThumbNailPhoto = prod.ProductPhoto.ThumbNailPhoto })
+                .ToList();
+            return products;
         }
     }
 }

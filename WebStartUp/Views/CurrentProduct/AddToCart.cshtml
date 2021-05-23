@@ -1,0 +1,8 @@
+﻿@model WebStartUp.kaspi.lab.service.CurrentProductDTO
+@{
+    ViewBag.Title = "AddToCart";
+}
+
+<h2>В корзину добавлен @Model.ProductName в количестве @Model.Count</h2>
+<li>@Html.ActionLink("Products", "ProductList", "Product", new { PageNum = 0 }, null)</li>
+

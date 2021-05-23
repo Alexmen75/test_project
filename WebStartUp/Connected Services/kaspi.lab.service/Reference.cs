@@ -156,6 +156,8 @@ namespace WebStartUp.kaspi.lab.service {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string StyleField;
         
+        private int CountField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -361,6 +363,19 @@ namespace WebStartUp.kaspi.lab.service {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=15)]
+        public int Count {
+            get {
+                return this.CountField;
+            }
+            set {
+                if ((this.CountField.Equals(value) != true)) {
+                    this.CountField = value;
+                    this.RaisePropertyChanged("Count");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -410,10 +425,17 @@ namespace WebStartUp.kaspi.lab.service {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
     public partial class GetProductListRequestBody {
         
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int PageNum;
+        
         public GetProductListRequestBody() {
+        }
+        
+        public GetProductListRequestBody(int PageNum) {
+            this.PageNum = PageNum;
         }
     }
     
@@ -551,9 +573,10 @@ namespace WebStartUp.kaspi.lab.service {
             return base.Channel.GetProductList(request);
         }
         
-        public WebStartUp.kaspi.lab.service.ProductDTO[] GetProductList() {
+        public WebStartUp.kaspi.lab.service.ProductDTO[] GetProductList(int PageNum) {
             WebStartUp.kaspi.lab.service.GetProductListRequest inValue = new WebStartUp.kaspi.lab.service.GetProductListRequest();
             inValue.Body = new WebStartUp.kaspi.lab.service.GetProductListRequestBody();
+            inValue.Body.PageNum = PageNum;
             WebStartUp.kaspi.lab.service.GetProductListResponse retVal = ((WebStartUp.kaspi.lab.service.WebService1Soap)(this)).GetProductList(inValue);
             return retVal.Body.GetProductListResult;
         }
@@ -563,9 +586,10 @@ namespace WebStartUp.kaspi.lab.service {
             return base.Channel.GetProductListAsync(request);
         }
         
-        public System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetProductListResponse> GetProductListAsync() {
+        public System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetProductListResponse> GetProductListAsync(int PageNum) {
             WebStartUp.kaspi.lab.service.GetProductListRequest inValue = new WebStartUp.kaspi.lab.service.GetProductListRequest();
             inValue.Body = new WebStartUp.kaspi.lab.service.GetProductListRequestBody();
+            inValue.Body.PageNum = PageNum;
             return ((WebStartUp.kaspi.lab.service.WebService1Soap)(this)).GetProductListAsync(inValue);
         }
         
