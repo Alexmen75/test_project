@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Globalization;
 using System.Linq;
@@ -10,7 +11,9 @@ using AdventureWorks.DataBase;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WebStartUp.DTO;
 using WebStartUp.Models;
+
 
 namespace WebStartUp.Models.Controllers
 {
@@ -141,6 +144,14 @@ namespace WebStartUp.Models.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ModelAW db = new ModelAW();
+            IEnumerable<TerritoryDTO> territories = from SalesTerritory ter in db.SalesTerritories
+                                                    select new TerritoryDTO
+                                                    {
+                                                        Territory = ter.Name,
+                                                        TerritoryID = ter.TerritoryID
+                                                    };
+            ViewBag.Terr= territories;
             return View();
         }
 
@@ -167,32 +178,17 @@ namespace WebStartUp.Models.Controllers
                     BusinessEntity b = new BusinessEntity() { rowguid = Guid.NewGuid(), ModifiedDate = DateTime.Now };
                     ModelAW db = new ModelAW();
                     db.BusinessEntities.Add(b);
-                    db.SaveChanges();
-                    db.Dispose();
-                    ModelAW db2 = new ModelAW();
+                    await Task.Run(()=>db.SaveChanges());
+                    db.Entry(b).Reload();
                     int id = b.BusinessEntityID;
                     Person P = new Person() { rowguid = Guid.NewGuid(), FirstName = model.Name, LastName = model.LastName, BusinessEntityID = id, ModifiedDate = DateTime.Now };
                     EmailAddress E = new EmailAddress() { rowguid = Guid.NewGuid(), BusinessEntityID = id, EmailAddress1 = model.Email, ModifiedDate = DateTime.Now };
-                    db2.People.Add(P);
-                    db2.EmailAddresses.Add(E);
-                    db2.SaveChanges();
-                    db2.Dispose();
-                    try
-                    {
-                        
-                    }
-                    catch (DbUpdateException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        foreach (var a in ex.Entries)
-                        {
-                            Console.WriteLine(a.Entity);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex);
-                    }
+                    Customer C = new Customer() { PersonID = id, TerritoryID = model.territoryID , rowguid = Guid.NewGuid(), ModifiedDate = DateTime.Now };
+                    db.People.Add(P);
+                    db.EmailAddresses.Add(E);
+                    db.Customers.Add(C);
+                    db.SaveChanges();
+                    db.Dispose();
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

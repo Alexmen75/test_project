@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using AdventureWorks.DataBase;
+using WebStartUp.DTO;
+using System.Linq;
 
 namespace WebStartUp.Models
 {
@@ -86,6 +89,9 @@ namespace WebStartUp.Models
         [Display(Name = "Подтверждение пароля")]
         [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "Выберите территорию")]
+        public int territoryID { get; set; }
     }
 
     public class ResetPasswordViewModel

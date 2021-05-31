@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AdventureWorks.DataBase;
@@ -8,7 +9,7 @@ using AdventureWorks.Intrface;
 
 namespace AdventureWorks.Repository.Sales
 {
-    class ShoppingCartItemRep : Repository<ShoppingCartItem>, IRepository<ShoppingCartItem>
+    public class ShoppingCartItemRep : Repository<ShoppingCartItem>, IRepository<ShoppingCartItem>
     {
         public void Ceate(ShoppingCartItem item)
         {
@@ -21,6 +22,7 @@ namespace AdventureWorks.Repository.Sales
             if (Items != null)
             {
                 db.ShoppingCartItems.Remove(Items);
+                db.SaveChanges();
             }
         }
 
@@ -28,10 +30,14 @@ namespace AdventureWorks.Repository.Sales
         {
             return db.ShoppingCartItems.Find(id);
         }
-
         public IEnumerable<ShoppingCartItem> GetList()
         {
             return db.ShoppingCartItems;
+        }
+
+        public IEnumerable<ShoppingCartItem> GetList(Expression<Func<ShoppingCartItem, bool>> predicate)
+        {
+            return db.ShoppingCartItems.Where(predicate);
         }
     }
 }

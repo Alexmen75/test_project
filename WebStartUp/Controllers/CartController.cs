@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AdventureWorks.DataBase;
@@ -32,6 +33,18 @@ namespace WebStartUp.Controllers
                 Products.Add(Product.GetProduct(i));
             }
             return View(Products.AsEnumerable());
+        }
+        [HttpGet]
+        public ActionResult CreateOrder()
+        {
+            ModelAW db = new ModelAW();
+            OrderService order = new OrderService();
+            string Email = User.Identity.Name;
+            int UserID = db.EmailAddresses
+                .Where(m => m.EmailAddress1 == Email)
+                .First().BusinessEntityID;
+            order.CreateOrder(UserID);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

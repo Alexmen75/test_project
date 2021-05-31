@@ -17,15 +17,17 @@ namespace AdventureWorks.DataBase
 
         [Key]
         public int PurchaseOrderID { get; set; }
+        public int PersonID { get; set; }
 
         public byte RevisionNumber { get; set; }
 
-        public byte Status { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 
+        public byte Status { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EmployeeID { get; set; }
 
         public int VendorID { get; set; }
-
         public int ShipMethodID { get; set; }
 
         public DateTime OrderDate { get; set; }
@@ -46,6 +48,7 @@ namespace AdventureWorks.DataBase
         public decimal TotalDue { get; set; }
 
         public DateTime ModifiedDate { get; set; }
+                [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 
         public virtual Employee Employee { get; set; }
 

@@ -13,9 +13,9 @@ namespace AdventureWorks.DataBase
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int BusinessEntityID { get; set; }
-
-        [Key]
+        
         [Column(Order = 1)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EmailAddressID { get; set; }
 
         [Column("EmailAddress")]

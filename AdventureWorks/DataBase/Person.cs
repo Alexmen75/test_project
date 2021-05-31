@@ -23,7 +23,7 @@ namespace AdventureWorks.DataBase
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int BusinessEntityID { get; set; }
 
-        [Required]
+     
         [StringLength(2)]
         public string PersonType { get; set; }
 
@@ -57,7 +57,7 @@ namespace AdventureWorks.DataBase
         public Guid rowguid { get; set; }
 
         public DateTime ModifiedDate { get; set; }
-        [Required]
+        
         public virtual Employee Employee { get; set; }
 
         public virtual BusinessEntity BusinessEntity { get; set; }
@@ -67,7 +67,7 @@ namespace AdventureWorks.DataBase
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmailAddress> EmailAddresses { get; set; }
-        [Required]
+        
         public virtual Password Password { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

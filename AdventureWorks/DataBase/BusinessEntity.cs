@@ -15,9 +15,8 @@ namespace AdventureWorks.DataBase
             BusinessEntityAddresses = new HashSet<BusinessEntityAddress>();
             BusinessEntityContacts = new HashSet<BusinessEntityContact>();
         }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BusinessEntityID { get; set; }
-
         public Guid rowguid { get; set; }
 
         public DateTime ModifiedDate { get; set; }
@@ -27,11 +26,11 @@ namespace AdventureWorks.DataBase
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BusinessEntityContact> BusinessEntityContacts { get; set; }
-        [Required]
+        
         public virtual Person Person { get; set; }
-        [Required]
+        
         public virtual Store Store { get; set; }
-        [Required]
+        
         public virtual Vendor Vendor { get; set; }
     }
 }

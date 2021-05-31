@@ -9,9 +9,7 @@ namespace AdventureWorks.DataBase
     [Table("Purchasing.PurchaseOrderDetail")]
     public partial class PurchaseOrderDetail
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         public int PurchaseOrderID { get; set; }
 
         [Key]

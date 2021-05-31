@@ -19,7 +19,7 @@ namespace AdventureWorks.DataBase
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         public int BusinessEntityID { get; set; }
 
         [Required]

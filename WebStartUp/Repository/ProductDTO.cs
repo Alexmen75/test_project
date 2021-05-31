@@ -64,17 +64,6 @@ namespace WebStartUp.Repository
 
         public IEnumerable<ProductDTO> GetList(int PageNum)
         {
-
-            //IEnumerable<ProductDTO> product = from ProductProductPhoto PPI in db.ProductProductPhotoes
-            //                                  join Product Prod in db.Products on PPI.ProductID equals Prod.ProductID
-            //                                  join ProductPhoto Photo in db.ProductPhotoes on PPI.ProductPhotoID equals Photo.ProductPhotoID
-            //                                  orderby Photo.ThumbNailPhoto
-            //                                  select new ProductDTO
-            //                                  {
-            //                                      ProductID = Prod.ProductID,
-            //                                      ProductName = Prod.Name,
-            //                                      ThumbNailPhoto = Photo.ThumbNailPhoto
-            //                                  };
             var start = PageNum * 50;
             var products = db.ProductProductPhotoes.Include(u => u.Product).Include(u => u.ProductPhoto).OrderByDescending(t => t.ProductID)
                 .Skip(start)
@@ -83,5 +72,6 @@ namespace WebStartUp.Repository
                 .ToList();
             return products;
         }
+        
     }
 }

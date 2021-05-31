@@ -172,6 +172,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Connected Services\kaspi.lab.Order\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\kaspi.lab.service\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -182,14 +187,21 @@
     <Compile Include="Controllers\CurrentProductController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Order\CreateOrder.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
+    <Compile Include="DTO\TerritoryDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="OrderService.asmx.cs">
+      <DependentUpon>OrderService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ProductDTO.cs" />
     <Compile Include="Startup.cs" />
@@ -199,9 +211,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\kaspi.lab.Order\OrderService.wsdl" />
     <None Include="Connected Services\kaspi.lab.service\configuration91.svcinfo" />
     <None Include="Connected Services\kaspi.lab.service\configuration.svcinfo" />
     <None Include="Connected Services\kaspi.lab.service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\kaspi.lab.Order\configuration91.svcinfo" />
+    <None Include="Connected Services\kaspi.lab.Order\configuration.svcinfo" />
+    <None Include="Connected Services\kaspi.lab.Order\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -213,6 +232,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="OrderService.asmx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="WebService1.asmx" />
@@ -279,6 +299,8 @@
     <Content Include="Views\CurrentProduct\ShowProduct.cshtml" />
     <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\CurrentProduct\AddToCart.cshtml" />
+    <Content Include="Views\Cart\CreateOrdet.cshtml" />
+    <Content Include="Views\Cart\CreateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -300,6 +322,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\kaspi.lab.Order\" />
     <WCFMetadataStorage Include="Connected Services\kaspi.lab.service\" />
   </ItemGroup>
   <PropertyGroup>

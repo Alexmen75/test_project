@@ -126,6 +126,7 @@
     <Compile Include="Repository\Person\AddressRep.cs" />
     <Compile Include="Repository\Person\BusinessEntityAddressRep.cs" />
     <Compile Include="Repository\Person\BusinessEntityRep.cs" />
+    <Compile Include="Repository\Person\EmailAdressRep.cs" />
     <Compile Include="Repository\Person\PersonPhoneRep.cs" />
     <Compile Include="Repository\Person\StateProvinceRep.cs" />
     <Compile Include="Repository\Production\CategoryRep.cs" />
