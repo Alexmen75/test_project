@@ -21,6 +21,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks", "Adventure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStartUp", "WebStartUp\WebStartUp.csproj", "{1853DA8C-660F-49B3-813A-20415A6902C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManageOrder", "ManageOrder\ManageOrder.csproj", "{886C3A1D-67AF-4360-8582-59BC21A48A21}"
+	ProjectSection(ProjectDependencies) = postProject
+		{20F1EFB3-50CB-45F3-B050-45C7AB7A903F} = {20F1EFB3-50CB-45F3-B050-45C7AB7A903F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManager", "OrderManager\OrderManager.csproj", "{20F1EFB3-50CB-45F3-B050-45C7AB7A903F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +70,14 @@ Global
 		{1853DA8C-660F-49B3-813A-20415A6902C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1853DA8C-660F-49B3-813A-20415A6902C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1853DA8C-660F-49B3-813A-20415A6902C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{886C3A1D-67AF-4360-8582-59BC21A48A21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{886C3A1D-67AF-4360-8582-59BC21A48A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{886C3A1D-67AF-4360-8582-59BC21A48A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{886C3A1D-67AF-4360-8582-59BC21A48A21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20F1EFB3-50CB-45F3-B050-45C7AB7A903F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20F1EFB3-50CB-45F3-B050-45C7AB7A903F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20F1EFB3-50CB-45F3-B050-45C7AB7A903F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20F1EFB3-50CB-45F3-B050-45C7AB7A903F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

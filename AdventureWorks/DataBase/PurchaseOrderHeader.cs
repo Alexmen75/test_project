@@ -20,9 +20,7 @@ namespace AdventureWorks.DataBase
         public int PersonID { get; set; }
 
         public byte RevisionNumber { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public byte Status { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EmployeeID { get; set; }
