@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.Text;
 using AdventureWorks.DataBase;
+using System.Data.Entity;
+using OrderManager.DTO;
+using System.Messaging;
 
 namespace OrderManager
 {
@@ -32,6 +34,7 @@ namespace OrderManager
             {
                 ord.Status = 3;
                 ord.ShipDate = DateTime.Now;
+                SendMessage(ord.PersonID,ord.PurchaseOrderID);
             }
             
             string massege = "Отправленно заказов:" + Order.Count();
@@ -63,6 +66,42 @@ namespace OrderManager
             db.SaveChanges();
             db.Dispose();
             return massege;
+        }
+        public static void SendMessage(int personID, int OrderID)
+        {
+            ModelAW db = new ModelAW();
+            var email = db.EmailAddresses.Where(m => m.BusinessEntityID == personID).FirstOrDefault().EmailAddress1;
+            
+                CustomerDTO customer = db.Customers.Include(m => m.SalesTerritory).Where(m => m.PersonID == personID)
+                .Select(m => new CustomerDTO
+                {
+                    Name = m.Person.FirstName,
+                    Email = email,
+                    Adress = m.SalesTerritory.Name
+                }).First();
+            
+            
+            var Products = db.PurchaseOrderDetails.Include(m => m.Product)
+                .Where(m => m.PurchaseOrderID ==OrderID)
+                .Select(m => new ProductDTO
+                {
+                    ProductID = m.ProductID,
+                    Name = m.Product.Name,
+                    Price = m.UnitPrice,
+                    Quantity = m.OrderQty,
+                    TotalPrice = m.LineTotal
+                }).AsEnumerable().ToList();
+            
+            OrderDTO order = new OrderDTO()
+            {
+                //Customer = customer,
+                OrderID = OrderID,
+                Products = Products,
+                TotalPrice = db.PurchaseOrderDetails.Where(m => m.PurchaseOrderID == OrderID).Sum(m => m.LineTotal),
+                Customer = customer
+            };
+            MessageQueue queue = new MessageQueue(@".\private$\MQtest");
+            queue.Send(order);
         }
     }
 }

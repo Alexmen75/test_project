@@ -32,5 +32,11 @@ namespace WebStartUp
             RProductDTO prod = new RProductDTO();
             return prod.Get(id);
         }
+        [WebMethod]
+        public int Pages()
+        {
+            RProductDTO prod = new RProductDTO();
+            return prod.Pages();
+        }
     }
 }

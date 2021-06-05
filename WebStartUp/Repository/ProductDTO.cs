@@ -65,13 +65,28 @@ namespace WebStartUp.Repository
         public IEnumerable<ProductDTO> GetList(int PageNum)
         {
             var start = PageNum * 50;
-            var products = db.ProductProductPhotoes.Include(u => u.Product).Include(u => u.ProductPhoto).OrderByDescending(t => t.ProductID)
+            var products = db.ProductProductPhotoes
+                .Include(m => m.Product)
+                .Include(m => m.Product.ProductInventories)
+                .Include(m => m.ProductPhoto)
+                .Where(m => m.Product.ProductInventories.Sum(c => c.Quantity) > 1)
+                .OrderBy(m => m.ProductID)
                 .Skip(start)
                 .Take(50)
-                .Select(prod => new ProductDTO { ProductName = prod.Product.Name, ProductID = prod.ProductID, ThumbNailPhoto = prod.ProductPhoto.ThumbNailPhoto })
-                .ToList();
+                .Select(m => new ProductDTO
+                {
+                    ProductName = m.Product.Name,
+                    ThumbNailPhoto = m.ProductPhoto.ThumbNailPhoto,
+                    ThumbNailPhotoFileName = m.ProductPhoto.ThumbnailPhotoFileName,
+                    ProductID = m.ProductID
+                });
+            
             return products;
         }
-        
+        public int Pages()
+        {
+            int PageCount = db.ProductInventories.Where(m => m.Quantity > 1).Select(m=>m.Product.Name).Distinct().Count();
+            return PageCount/50;
+        }        
     }
 }

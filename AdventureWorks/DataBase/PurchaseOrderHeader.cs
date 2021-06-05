@@ -20,7 +20,7 @@ namespace AdventureWorks.DataBase
         public int PersonID { get; set; }
 
         public byte RevisionNumber { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+
         public byte Status { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EmployeeID { get; set; }
@@ -30,6 +30,7 @@ namespace AdventureWorks.DataBase
 
         public DateTime OrderDate { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public DateTime? ShipDate { get; set; }
 
         [Column(TypeName = "money")]

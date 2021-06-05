@@ -14,10 +14,10 @@ namespace WebStartUp.Controllers
     {
         public ActionResult ProductList(int PageNum)
         {
-            ModelAW db = new ModelAW();
             WebService1SoapClient Products = new WebService1SoapClient();
             IEnumerable<ProductDTO> P = Products.GetProductList(PageNum);
-            ViewBag.Pages =(int) db.Products.Count()/50;
+            ViewBag.Pages =Products.Pages();
+            ViewBag.Page = PageNum+1;
             return View(P);
         }
     }

@@ -9,17 +9,248 @@
 //------------------------------------------------------------------------------
 
 namespace WebStartUp.kaspi.lab.Order {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProductDTO", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class ProductDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int ProductIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] ThumbNailPhotoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ThumbNailPhotoFileNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int ProductID {
+            get {
+                return this.ProductIDField;
+            }
+            set {
+                if ((this.ProductIDField.Equals(value) != true)) {
+                    this.ProductIDField = value;
+                    this.RaisePropertyChanged("ProductID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string ProductName {
+            get {
+                return this.ProductNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductNameField, value) != true)) {
+                    this.ProductNameField = value;
+                    this.RaisePropertyChanged("ProductName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public byte[] ThumbNailPhoto {
+            get {
+                return this.ThumbNailPhotoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ThumbNailPhotoField, value) != true)) {
+                    this.ThumbNailPhotoField = value;
+                    this.RaisePropertyChanged("ThumbNailPhoto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string ThumbNailPhotoFileName {
+            get {
+                return this.ThumbNailPhotoFileNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ThumbNailPhotoFileNameField, value) != true)) {
+                    this.ThumbNailPhotoFileNameField = value;
+                    this.RaisePropertyChanged("ThumbNailPhotoFileName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="kaspi.lab.Order.OrderServiceSoap")]
     public interface OrderServiceSoap {
         
+        // CODEGEN: Контракт генерации сообщений с именем Email из пространства имен http://tempuri.org/ не отмечен как обнуляемый
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateOrder", ReplyAction="*")]
-        void CreateOrder(int CustomerID);
+        WebStartUp.kaspi.lab.Order.CreateOrderResponse CreateOrder(WebStartUp.kaspi.lab.Order.CreateOrderRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateOrder", ReplyAction="*")]
-        System.Threading.Tasks.Task CreateOrderAsync(int CustomerID);
+        System.Threading.Tasks.Task<WebStartUp.kaspi.lab.Order.CreateOrderResponse> CreateOrderAsync(WebStartUp.kaspi.lab.Order.CreateOrderRequest request);
+        
+        // CODEGEN: Контракт генерации сообщений с именем UserEmail из пространства имен http://tempuri.org/ не отмечен как обнуляемый
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetCart", ReplyAction="*")]
+        WebStartUp.kaspi.lab.Order.GetCartResponse GetCart(WebStartUp.kaspi.lab.Order.GetCartRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetCart", ReplyAction="*")]
+        System.Threading.Tasks.Task<WebStartUp.kaspi.lab.Order.GetCartResponse> GetCartAsync(WebStartUp.kaspi.lab.Order.GetCartRequest request);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CreateOrderRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CreateOrder", Namespace="http://tempuri.org/", Order=0)]
+        public WebStartUp.kaspi.lab.Order.CreateOrderRequestBody Body;
+        
+        public CreateOrderRequest() {
+        }
+        
+        public CreateOrderRequest(WebStartUp.kaspi.lab.Order.CreateOrderRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class CreateOrderRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string Email;
+        
+        public CreateOrderRequestBody() {
+        }
+        
+        public CreateOrderRequestBody(string Email) {
+            this.Email = Email;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CreateOrderResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CreateOrderResponse", Namespace="http://tempuri.org/", Order=0)]
+        public WebStartUp.kaspi.lab.Order.CreateOrderResponseBody Body;
+        
+        public CreateOrderResponse() {
+        }
+        
+        public CreateOrderResponse(WebStartUp.kaspi.lab.Order.CreateOrderResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class CreateOrderResponseBody {
+        
+        public CreateOrderResponseBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetCartRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetCart", Namespace="http://tempuri.org/", Order=0)]
+        public WebStartUp.kaspi.lab.Order.GetCartRequestBody Body;
+        
+        public GetCartRequest() {
+        }
+        
+        public GetCartRequest(WebStartUp.kaspi.lab.Order.GetCartRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetCartRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string UserEmail;
+        
+        public GetCartRequestBody() {
+        }
+        
+        public GetCartRequestBody(string UserEmail) {
+            this.UserEmail = UserEmail;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetCartResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetCartResponse", Namespace="http://tempuri.org/", Order=0)]
+        public WebStartUp.kaspi.lab.Order.GetCartResponseBody Body;
+        
+        public GetCartResponse() {
+        }
+        
+        public GetCartResponse(WebStartUp.kaspi.lab.Order.GetCartResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetCartResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public WebStartUp.kaspi.lab.Order.ProductDTO[] GetCartResult;
+        
+        public GetCartResponseBody() {
+        }
+        
+        public GetCartResponseBody(WebStartUp.kaspi.lab.Order.ProductDTO[] GetCartResult) {
+            this.GetCartResult = GetCartResult;
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +280,53 @@ namespace WebStartUp.kaspi.lab.Order {
                 base(binding, remoteAddress) {
         }
         
-        public void CreateOrder(int CustomerID) {
-            base.Channel.CreateOrder(CustomerID);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WebStartUp.kaspi.lab.Order.CreateOrderResponse WebStartUp.kaspi.lab.Order.OrderServiceSoap.CreateOrder(WebStartUp.kaspi.lab.Order.CreateOrderRequest request) {
+            return base.Channel.CreateOrder(request);
         }
         
-        public System.Threading.Tasks.Task CreateOrderAsync(int CustomerID) {
-            return base.Channel.CreateOrderAsync(CustomerID);
+        public void CreateOrder(string Email) {
+            WebStartUp.kaspi.lab.Order.CreateOrderRequest inValue = new WebStartUp.kaspi.lab.Order.CreateOrderRequest();
+            inValue.Body = new WebStartUp.kaspi.lab.Order.CreateOrderRequestBody();
+            inValue.Body.Email = Email;
+            WebStartUp.kaspi.lab.Order.CreateOrderResponse retVal = ((WebStartUp.kaspi.lab.Order.OrderServiceSoap)(this)).CreateOrder(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<WebStartUp.kaspi.lab.Order.CreateOrderResponse> WebStartUp.kaspi.lab.Order.OrderServiceSoap.CreateOrderAsync(WebStartUp.kaspi.lab.Order.CreateOrderRequest request) {
+            return base.Channel.CreateOrderAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<WebStartUp.kaspi.lab.Order.CreateOrderResponse> CreateOrderAsync(string Email) {
+            WebStartUp.kaspi.lab.Order.CreateOrderRequest inValue = new WebStartUp.kaspi.lab.Order.CreateOrderRequest();
+            inValue.Body = new WebStartUp.kaspi.lab.Order.CreateOrderRequestBody();
+            inValue.Body.Email = Email;
+            return ((WebStartUp.kaspi.lab.Order.OrderServiceSoap)(this)).CreateOrderAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WebStartUp.kaspi.lab.Order.GetCartResponse WebStartUp.kaspi.lab.Order.OrderServiceSoap.GetCart(WebStartUp.kaspi.lab.Order.GetCartRequest request) {
+            return base.Channel.GetCart(request);
+        }
+        
+        public WebStartUp.kaspi.lab.Order.ProductDTO[] GetCart(string UserEmail) {
+            WebStartUp.kaspi.lab.Order.GetCartRequest inValue = new WebStartUp.kaspi.lab.Order.GetCartRequest();
+            inValue.Body = new WebStartUp.kaspi.lab.Order.GetCartRequestBody();
+            inValue.Body.UserEmail = UserEmail;
+            WebStartUp.kaspi.lab.Order.GetCartResponse retVal = ((WebStartUp.kaspi.lab.Order.OrderServiceSoap)(this)).GetCart(inValue);
+            return retVal.Body.GetCartResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<WebStartUp.kaspi.lab.Order.GetCartResponse> WebStartUp.kaspi.lab.Order.OrderServiceSoap.GetCartAsync(WebStartUp.kaspi.lab.Order.GetCartRequest request) {
+            return base.Channel.GetCartAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<WebStartUp.kaspi.lab.Order.GetCartResponse> GetCartAsync(string UserEmail) {
+            WebStartUp.kaspi.lab.Order.GetCartRequest inValue = new WebStartUp.kaspi.lab.Order.GetCartRequest();
+            inValue.Body = new WebStartUp.kaspi.lab.Order.GetCartRequestBody();
+            inValue.Body.UserEmail = UserEmail;
+            return ((WebStartUp.kaspi.lab.Order.OrderServiceSoap)(this)).GetCartAsync(inValue);
         }
     }
 }

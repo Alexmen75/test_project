@@ -20,11 +20,36 @@ namespace AdventureWorks2019_Console
     {
         static void Main(string[] args)
         {
+            int id = GetNewID();
             ModelAW db = new ModelAW();
-            var Order = db.PurchaseOrderHeaders.Where(m => m.PurchaseOrderID == 4027).First();
-            Order.Status = 2;
+            EmailAddress E = new EmailAddress() { rowguid = Guid.NewGuid(), BusinessEntityID = id, EmailAddress1 = "4753829@mail.ru", ModifiedDate = DateTime.Now };
+            Customer C = new Customer() { PersonID = id, TerritoryID = 3, rowguid = Guid.NewGuid(), ModifiedDate = DateTime.Now };
+            Person P = new Person()
+            {
+                rowguid = Guid.NewGuid(),
+                FirstName = "test",
+                LastName = "test",
+                BusinessEntityID = id,
+                ModifiedDate = DateTime.Now,
+            };
+            db.People.Add(P);
+            db.Customers.Add(C);
+            db.EmailAddresses.Add(E);
             db.SaveChanges();
         }
-       
+        public static int GetNewID()
+        {
+            ModelAW db = new ModelAW();
+            int ID;
+            BusinessEntity b = new BusinessEntity() { rowguid = Guid.NewGuid(), ModifiedDate = DateTime.Now };
+            db.BusinessEntities.Add(b);
+            //db.BusinessEntities.Reload(b);
+            db.SaveChanges();
+            ID = b.BusinessEntityID;
+                //DataLog.Debug("Добавлена Сущьность BEntity: ID - " + ID);
+
+            db.Dispose();
+            return ID;
+        }
     }
 }

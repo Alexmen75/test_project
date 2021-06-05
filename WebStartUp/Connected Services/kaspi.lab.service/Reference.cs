@@ -403,6 +403,12 @@ namespace WebStartUp.kaspi.lab.service {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetProduct", ReplyAction="*")]
         System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetProductResponse> GetProductAsync(WebStartUp.kaspi.lab.service.GetProductRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Pages", ReplyAction="*")]
+        int Pages();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Pages", ReplyAction="*")]
+        System.Threading.Tasks.Task<int> PagesAsync();
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -616,6 +622,14 @@ namespace WebStartUp.kaspi.lab.service {
             inValue.Body = new WebStartUp.kaspi.lab.service.GetProductRequestBody();
             inValue.Body.id = id;
             return ((WebStartUp.kaspi.lab.service.WebService1Soap)(this)).GetProductAsync(inValue);
+        }
+        
+        public int Pages() {
+            return base.Channel.Pages();
+        }
+        
+        public System.Threading.Tasks.Task<int> PagesAsync() {
+            return base.Channel.PagesAsync();
         }
     }
 }

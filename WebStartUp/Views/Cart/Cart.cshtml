@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebStartUp.kaspi.lab.service.CurrentProductDTO>
+﻿@model IEnumerable<WebStartUp.kaspi.lab.CartService.ProductDTO>
 @{
     ViewBag.Title = "Cart";
 }
@@ -11,12 +11,22 @@
         <tr>
             <td>
                 @Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64,"
-                     + Convert.ToBase64String(item.LargePhoto) + "\" />")
+                     + Convert.ToBase64String(item.ThumbNailPhoto) + "\" />")
             </td>
             <td>
                 @Html.Raw(item.ProductName)
+            </td>
+            <td>
+                @using (Html.BeginForm("DeleteCartItem", "Cart", FormMethod.Post))
+                {
+                    <input type="hidden" name="ProductID" value="@item.ProductID" />
+                    <input type="submit" value="убрать" />
+                }
+            </td>
         </tr>
     }
 </table>
-
 <input type="button" value="Оформить заказ" onclick="location.href='@Url.Action("CreateOrder", "Cart")'" />
+<input type="button" value="Отчистить корзину" onclick="location.href='@Url.Action("DeleteCart", "Cart")'" />
+
+

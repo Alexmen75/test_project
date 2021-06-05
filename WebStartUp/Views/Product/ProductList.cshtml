@@ -4,6 +4,7 @@
 }
 
 <h2>ProductList</h2>
+<h2>Page: @ViewBag.Page</h2>
 <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
         @for (int i = 0; i <= ViewBag.Pages; i++)
@@ -38,7 +39,7 @@
 </table>
 <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-        @for (int i = 1; i <= ViewBag.Pages; i++)
+        @for (int i = 0; i <= ViewBag.Pages; i++)
         {
             <li>@Html.ActionLink((1 + i).ToString(), "ProductList", "Product", new { PageNum = i }, null)</li>
         }

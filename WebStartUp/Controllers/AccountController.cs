@@ -13,7 +13,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebStartUp.DTO;
 using WebStartUp.Models;
-
+using WebStartUp.kaspi.lab.CustomerService;
+using NLog;
 
 namespace WebStartUp.Models.Controllers
 {
@@ -144,13 +145,8 @@ namespace WebStartUp.Models.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ModelAW db = new ModelAW();
-            IEnumerable<TerritoryDTO> territories = from SalesTerritory ter in db.SalesTerritories
-                                                    select new TerritoryDTO
-                                                    {
-                                                        Territory = ter.Name,
-                                                        TerritoryID = ter.TerritoryID
-                                                    };
+            CustomerServiceClient territory = new CustomerServiceClient();
+            IEnumerable<kaspi.lab.CustomerService.TerritoryDTO> territories = territory.GetTerritories();
             ViewBag.Terr= territories;
             return View();
         }
@@ -175,20 +171,25 @@ namespace WebStartUp.Models.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
-                    BusinessEntity b = new BusinessEntity() { rowguid = Guid.NewGuid(), ModifiedDate = DateTime.Now };
-                    ModelAW db = new ModelAW();
-                    db.BusinessEntities.Add(b);
-                    await Task.Run(()=>db.SaveChanges());
-                    db.Entry(b).Reload();
-                    int id = b.BusinessEntityID;
-                    Person P = new Person() { rowguid = Guid.NewGuid(), FirstName = model.Name, LastName = model.LastName, BusinessEntityID = id, ModifiedDate = DateTime.Now };
-                    EmailAddress E = new EmailAddress() { rowguid = Guid.NewGuid(), BusinessEntityID = id, EmailAddress1 = model.Email, ModifiedDate = DateTime.Now };
-                    Customer C = new Customer() { PersonID = id, TerritoryID = model.territoryID , rowguid = Guid.NewGuid(), ModifiedDate = DateTime.Now };
-                    db.People.Add(P);
-                    db.EmailAddresses.Add(E);
-                    db.Customers.Add(C);
-                    db.SaveChanges();
-                    db.Dispose();
+                    kaspi.lab.CustomerService.RegisterViewModel RegModel = new kaspi.lab.CustomerService.RegisterViewModel()
+                    {
+                        Name = model.Name,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        territoryID = model.territoryID
+                    };
+                    Logger ErrorLog = LogManager.GetLogger("fileError");
+                    Logger DataLog = LogManager.GetLogger("fileData");
+                    CustomerServiceClient customer = new CustomerServiceClient();
+                    DataLog.Debug("Регистрация пользователя: Email - {0}", model.Email);
+                    try
+                    {
+                       customer.CreateCustomer(RegModel);
+                    }
+                    catch(Exception ex)
+                    {
+                        ErrorLog.Error(ex.Message);
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

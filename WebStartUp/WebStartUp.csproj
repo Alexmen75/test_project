@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,11 +50,19 @@
       <HintPath>..\AdventureWorks\bin\Debug\AdventureWorks.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.10\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.Web.4.12.0\lib\net35\NLog.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -172,6 +181,16 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Connected Services\kaspi.lab.CartService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\kaspi.lab.CustomerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\kaspi.lab.Order\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,7 +206,6 @@
     <Compile Include="Controllers\CurrentProductController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\Order\CreateOrder.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
@@ -204,6 +222,14 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ProductDTO.cs" />
+    <Compile Include="Service\Cart\CartService.svc.cs">
+      <DependentUpon>CartService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Cart\ICartService.cs" />
+    <Compile Include="Service\Customer\CustomerService.svc.cs">
+      <DependentUpon>CustomerService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Customer\ICustomerService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebService1.asmx.cs">
       <DependentUpon>WebService1.asmx</DependentUpon>
@@ -211,7 +237,57 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\kaspi.lab.CartService\CartService.wsdl" />
+    <None Include="Connected Services\kaspi.lab.CartService\CartService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\kaspi.lab.CartService\CartService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\kaspi.lab.CartService\CartService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Connected Services\kaspi.lab.CartService\WebStartUp.kaspi.lab.CartService.ProductDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\kaspi.lab.CustomerService\CustomerService.wsdl" />
+    <None Include="Connected Services\kaspi.lab.CustomerService\CustomerService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\kaspi.lab.CustomerService\CustomerService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\kaspi.lab.CustomerService\CustomerService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\kaspi.lab.CustomerService\CustomerService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\kaspi.lab.CartService\configuration91.svcinfo" />
+    <None Include="Connected Services\kaspi.lab.CartService\configuration.svcinfo" />
+    <None Include="Connected Services\kaspi.lab.CartService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Connected Services\kaspi.lab.CustomerService\WebStartUp.kaspi.lab.CustomerService.TerritoryDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Connected Services\kaspi.lab.Order\OrderService.wsdl" />
+    <None Include="Connected Services\kaspi.lab.CustomerService\configuration91.svcinfo" />
+    <None Include="Connected Services\kaspi.lab.CustomerService\configuration.svcinfo" />
+    <None Include="Connected Services\kaspi.lab.CustomerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Connected Services\kaspi.lab.Order\WebStartUp.kaspi.lab.Order.CreateOrderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\kaspi.lab.Order\WebStartUp.kaspi.lab.Order.GetCartResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\kaspi.lab.Order\WebStartUp.kaspi.lab.Order.ProductDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Connected Services\kaspi.lab.service\configuration91.svcinfo" />
     <None Include="Connected Services\kaspi.lab.service\configuration.svcinfo" />
     <None Include="Connected Services\kaspi.lab.service\Reference.svcmap">
@@ -235,6 +311,8 @@
     <Content Include="OrderService.asmx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Service\Cart\CartService.svc" />
+    <Content Include="Service\Customer\CustomerService.svc" />
     <Content Include="WebService1.asmx" />
     <None Include="Connected Services\kaspi.lab.service\WebService1.wsdl" />
     <Content Include="Connected Services\kaspi.lab.service\WebStartUp.kaspi.lab.service.GetProductListResponse.datasource">
@@ -250,6 +328,12 @@
     <Content Include="Connected Services\kaspi.lab.service\WebStartUp.kaspi.lab.service.CurrentProductDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -301,6 +385,8 @@
     <Content Include="Views\CurrentProduct\AddToCart.cshtml" />
     <Content Include="Views\Cart\CreateOrdet.cshtml" />
     <Content Include="Views\Cart\CreateOrder.cshtml" />
+    <Content Include="Views\Cart\DeleteCartItem.cshtml" />
+    <Content Include="Views\Cart\DeletCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -322,6 +408,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\kaspi.lab.CartService\" />
+    <WCFMetadataStorage Include="Connected Services\kaspi.lab.CustomerService\" />
     <WCFMetadataStorage Include="Connected Services\kaspi.lab.Order\" />
     <WCFMetadataStorage Include="Connected Services\kaspi.lab.service\" />
   </ItemGroup>

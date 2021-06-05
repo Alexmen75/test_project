@@ -63,6 +63,16 @@
           <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="Pages">
+        <s:complexType />
+      </s:element>
+      <s:element name="PagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PagesResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetProductListSoapIn">
@@ -77,6 +87,12 @@
   <wsdl:message name="GetProductSoapOut">
     <wsdl:part name="parameters" element="tns:GetProductResponse" />
   </wsdl:message>
+  <wsdl:message name="PagesSoapIn">
+    <wsdl:part name="parameters" element="tns:Pages" />
+  </wsdl:message>
+  <wsdl:message name="PagesSoapOut">
+    <wsdl:part name="parameters" element="tns:PagesResponse" />
+  </wsdl:message>
   <wsdl:portType name="WebService1Soap">
     <wsdl:operation name="GetProductList">
       <wsdl:input message="tns:GetProductListSoapIn" />
@@ -85,6 +101,10 @@
     <wsdl:operation name="GetProduct">
       <wsdl:input message="tns:GetProductSoapIn" />
       <wsdl:output message="tns:GetProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Pages">
+      <wsdl:input message="tns:PagesSoapIn" />
+      <wsdl:output message="tns:PagesSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
@@ -107,6 +127,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Pages">
+      <soap:operation soapAction="http://tempuri.org/Pages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -121,6 +150,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetProduct">
       <soap12:operation soapAction="http://tempuri.org/GetProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Pages">
+      <soap12:operation soapAction="http://tempuri.org/Pages" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

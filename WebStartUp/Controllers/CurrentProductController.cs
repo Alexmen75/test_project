@@ -8,6 +8,7 @@ using System.Data.Entity;
 using WebStartUp.kaspi.lab.service;
 using AdventureWorks.Repository.Person;
 using Microsoft.AspNet.Identity;
+using WebStartUp.kaspi.lab.CartService;
 
 namespace WebStartUp.Controllers
 {
@@ -22,16 +23,19 @@ namespace WebStartUp.Controllers
             return View(p);
         }
         [HttpPost]
-        public ActionResult AddToCart(CurrentProductDTO prod)
+        public ActionResult AddToCart(kaspi.lab.service.CurrentProductDTO prod)
         {
             int ID;
             ModelAW db = new ModelAW();
             EmailAdressRep email = new EmailAdressRep();
             ID = email.GetID(User.Identity.GetUserName());
-            ShoppingCartItem cart = new ShoppingCartItem() { ProductID = prod.ProductID, ShoppingCartID = ID.ToString() , ModifiedDate = DateTime.Now, DateCreated = DateTime.Now , Quantity = prod.Count};
-            db.ShoppingCartItems.Add(cart);
-            db.SaveChanges();
+            kaspi.lab.CartService.CartServiceClient cart = new kaspi.lab.CartService.CartServiceClient();
+            kaspi.lab.CartService.CurrentProductDTO product = new kaspi.lab.CartService.CurrentProductDTO();
+            product.ProductID = prod.ProductID;
+            product.Count = prod.Count;
+            cart.AddToCart(product,ID);
             return View(prod);
         }
+
     }
 }

@@ -8,6 +8,7 @@ using System.Web;
 using System.Data.Entity;
 using System.Web.Services;
 using WebStartUp.DTO;
+using NLog;
 
 namespace WebStartUp
 {
@@ -21,6 +22,8 @@ namespace WebStartUp
     // [System.Web.Script.Services.ScriptService]
     public class OrderService : System.Web.Services.WebService
     {
+        private static  Logger DataLog = LogManager.GetLogger("serviceData");
+        private static  Logger ErrorLog = LogManager.GetLogger("serviceError");
         public static void GetPrice(OrderDTO order)
         {
             ModelAW db = new ModelAW();
@@ -35,6 +38,7 @@ namespace WebStartUp
             catch (System.InvalidOperationException ex)
             {
                 order.UnitPrice = 20;
+                ErrorLog.Error(ex.Message);
             }
         }
 
@@ -43,24 +47,33 @@ namespace WebStartUp
             ModelAW db = new ModelAW();
             try
             {
-                int vendor = db.ProductVendors
-                    .Where(m => m.ProductID == order.ProductID)
-                    .FirstOrDefault().BusinessEntityID;
-                order.Vendor = vendor;
+                var vendor = db.ProductVendors
+                    .Where(m => m.ProductID == order.ProductID);
+                if (vendor.Count() == 0)
+                {
+                    order.Vendor = 1552;
+                }
+                else
+                {
+                    order.Vendor = vendor.First().BusinessEntityID;
+                }
             }
-            catch(System.NullReferenceException ex)
+            catch(Exception ex)
             {
-                order.Vendor = 1522;
+                ErrorLog.Error(ex.Message);
             }
             
             
         }
         [WebMethod]
-        public void CreateOrder(int CustomerID)
+        public void CreateOrder(string Email)
         {
             ModelAW db = new ModelAW();
+            int UserID = db.EmailAddresses
+               .Where(m => m.EmailAddress1 == Email)
+               .First().BusinessEntityID;
             var orders = (from ShoppingCartItem Cart in db.ShoppingCartItems
-                         where Cart.ShoppingCartID == CustomerID.ToString()
+                         where Cart.ShoppingCartID == UserID.ToString()
                           select new OrderDTO
                           {
                               ProductID = Cart.ProductID,
@@ -73,16 +86,16 @@ namespace WebStartUp
                 GetPrice(order);
             }
             var ord = orders.GroupBy(m => m.Vendor);
-
             foreach (var O in ord)
             {
                 PurchaseOrderHeader newOrder = new PurchaseOrderHeader()
                 {
-                    PersonID = CustomerID,
+                    PersonID = UserID,
                     VendorID = O.Key,
                     ModifiedDate = DateTime.Now,
                     OrderDate = DateTime.Now,
-                    ShipMethodID = 1
+                    ShipMethodID = 1,
+                    Status = 1
                 };
                 db.PurchaseOrderHeaders.Add(newOrder);
                 db.SaveChanges();
@@ -104,10 +117,11 @@ namespace WebStartUp
                     db.PurchaseOrderDetails.Add(Order);
                     ShoppingCartItemRep cartItemRep = new ShoppingCartItemRep();
                     cartItemRep.Delete(i.CartID);
-                    db.SaveChanges();
+                    DataLog.Info("Добавлен Заказ:  OrderID - " + id);
                 }
+                db.SaveChanges();
             }
+            
         }
-        
     }
 }

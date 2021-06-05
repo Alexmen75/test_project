@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://localhost:44349/Service/Customer/CustomerService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WebStartUp.Models" />
+  <xs:import schemaLocation="https://localhost:44349/Service/Customer/CustomerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WebStartUp.DTO" />
+  <xs:element name="CreateCustomer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WebStartUp.Models" minOccurs="0" name="model" nillable="true" type="q1:RegisterViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateCustomerResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTerritories">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTerritoriesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WebStartUp.DTO" minOccurs="0" name="GetTerritoriesResult" nillable="true" type="q2:ArrayOfTerritoryDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
