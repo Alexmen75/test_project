@@ -72,14 +72,23 @@ namespace WebStartUp
             int UserID = db.EmailAddresses
                .Where(m => m.EmailAddress1 == Email)
                .First().BusinessEntityID;
-            var orders = (from ShoppingCartItem Cart in db.ShoppingCartItems
-                         where Cart.ShoppingCartID == UserID.ToString()
-                          select new OrderDTO
-                          {
-                              ProductID = Cart.ProductID,
-                              Quantity = Cart.Quantity,
-                              CartID = Cart.ShoppingCartItemID
-                          }).ToArray();
+            var orders = db.ShoppingCartItems
+                .Include(m => m.Product.ProductInventories)
+                .Where(m => m.Product.ProductInventories.Sum(c => c.Quantity) > 1 && UserID.ToString() == m.ShoppingCartID)
+                .Select(m => new OrderDTO
+                {
+                    ProductID = m.ProductID,
+                    Quantity = m.Quantity,
+                    CartID = m.ShoppingCartItemID
+                }).ToArray();
+            //var orders = (from ShoppingCartItem Cart in db.ShoppingCartItems
+            //             where Cart.ShoppingCartID == UserID.ToString()
+            //              select new OrderDTO
+            //              {
+            //                  ProductID = Cart.ProductID,
+            //                  Quantity = Cart.Quantity,
+            //                  CartID = Cart.ShoppingCartItemID
+            //              }).ToArray();
             foreach (var order in orders)
             {
                 GetVendor(order);

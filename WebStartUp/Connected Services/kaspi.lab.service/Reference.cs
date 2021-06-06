@@ -173,6 +173,8 @@ namespace WebStartUp.kaspi.lab.service {
         
         private int CountField;
         
+        private int InventoryQField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -387,6 +389,19 @@ namespace WebStartUp.kaspi.lab.service {
                 if ((this.CountField.Equals(value) != true)) {
                     this.CountField = value;
                     this.RaisePropertyChanged("Count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=16)]
+        public int InventoryQ {
+            get {
+                return this.InventoryQField;
+            }
+            set {
+                if ((this.InventoryQField.Equals(value) != true)) {
+                    this.InventoryQField = value;
+                    this.RaisePropertyChanged("InventoryQ");
                 }
             }
         }

@@ -190,6 +190,7 @@ namespace WebStartUp.Models.Controllers
                     {
                         ErrorLog.Error(ex.Message);
                     }
+                    customer.Close();
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

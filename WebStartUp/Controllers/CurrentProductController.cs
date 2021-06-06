@@ -34,6 +34,7 @@ namespace WebStartUp.Controllers
             product.ProductID = prod.ProductID;
             product.Count = prod.Count;
             cart.AddToCart(product,ID);
+            cart.Close();
             return View(prod);
         }
 

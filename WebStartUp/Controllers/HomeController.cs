@@ -14,6 +14,7 @@ namespace WebStartUp.Models.Controllers
             WebService1SoapClient Products = new WebService1SoapClient();
             ViewBag.TopProduct = Products.GetTopProduct().AsEnumerable();
             ViewBag.MinProduct = Products.GetMinProduct().AsEnumerable();
+            Products.Close();
             return View();
         }
 

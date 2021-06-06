@@ -18,6 +18,7 @@ namespace WebStartUp.Controllers
             IEnumerable<ProductDTO> P = Products.GetProductList(PageNum);
             ViewBag.Pages =Products.Pages();
             ViewBag.Page = PageNum+1;
+            Products.Close();
             return View(P);
         }
         

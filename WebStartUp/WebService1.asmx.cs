@@ -24,7 +24,7 @@ namespace WebStartUp
         public List<ProductDTO> GetProductList(int PageNum)
         {
             RProductDTO products = new RProductDTO();
-            return products.GetList(PageNum).ToList();
+            return products.GetList(PageNum);
         }
         [WebMethod]
         public CurrentProductDTO GetProduct(int id)

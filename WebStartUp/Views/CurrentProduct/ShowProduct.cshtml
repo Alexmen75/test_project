@@ -18,7 +18,7 @@
                 <input type="hidden" name="ProductName" value="@Model.ProductName" />
                 <input type="hidden" name="ProductID" value="@Model.ProductID" />
                 <input type="number" name="Count"
-                       min="1" max="100", placeholder="1", value="1">
+                       min="1" max="@Model.InventoryQ", placeholder="1", value="1">
                 <input type="submit" value="To Cart" />
             </td>
         </tr>

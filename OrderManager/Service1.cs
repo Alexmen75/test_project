@@ -47,6 +47,7 @@ namespace OrderManager
         {
             ModelAW db = new ModelAW();
             ModelAW db2 = new ModelAW();
+            ModelAW db3 = new ModelAW();
             var Order = db.PurchaseOrderHeaders.Where(m => m.EmployeeID == 0);
             var Customer = db.Customers;
             foreach (var Ord in Order)

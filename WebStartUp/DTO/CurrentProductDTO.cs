@@ -24,6 +24,7 @@ namespace WebStartUp.DTO
 		public string Class { get; set; }
 		public string Style { get; set; }
 		public int Count { get; set; }
+		public int InventoryQ { get; set; }
 
 	}
 }
