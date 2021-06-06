@@ -11,7 +11,7 @@ using AdventureWorks.Repository;
 
 namespace WebStartUp.Repository
 {
-   public class RProductDTO : Repository<ProductDTO>
+    public class RProductDTO : Repository<ProductDTO>
     {
         public void Ceate(ProductDTO item)
         {
@@ -43,20 +43,20 @@ namespace WebStartUp.Repository
                                                          ProductLine = Prod.ProductLine,
                                                          Weight = Prod.Weight,
                                                          Style = Prod.Style
-                                              };
+                                                     };
             CurrentProductDTO fullInfo = product.FirstOrDefault();
             if (fullInfo.ModelID != null)
             {
                 IEnumerable<CurrentProductDTO> Model = from ProductModelProductDescriptionCulture info in db.ProductModelProductDescriptionCultures
-                          join ProductModel model in db.ProductModels on info.ProductModelID equals model.ProductModelID
-                          join ProductDescription desk in db.ProductDescriptions on info.ProductDescriptionID equals desk.ProductDescriptionID
-                          where model.ProductModelID == fullInfo.ModelID && info.CultureID == "en"
-                          select new CurrentProductDTO
-                          {
-                              Model = model.Name,
-                              Description = desk.Description
-                          };
-                fullInfo.Model = Model.Select(m=>m.Model).FirstOrDefault();
+                                                       join ProductModel model in db.ProductModels on info.ProductModelID equals model.ProductModelID
+                                                       join ProductDescription desk in db.ProductDescriptions on info.ProductDescriptionID equals desk.ProductDescriptionID
+                                                       where model.ProductModelID == fullInfo.ModelID && info.CultureID == "en"
+                                                       select new CurrentProductDTO
+                                                       {
+                                                           Model = model.Name,
+                                                           Description = desk.Description
+                                                       };
+                fullInfo.Model = Model.Select(m => m.Model).FirstOrDefault();
                 fullInfo.Description = Model.Select(m => m.Description).FirstOrDefault();
             }
             return fullInfo;
@@ -66,27 +66,74 @@ namespace WebStartUp.Repository
         {
             var start = PageNum * 50;
             var products = db.ProductProductPhotoes
-                .Include(m => m.Product)
-                .Include(m => m.Product.ProductInventories)
-                .Include(m => m.ProductPhoto)
-                .Where(m => m.Product.ProductInventories.Sum(c => c.Quantity) > 1)
-                .OrderBy(m => m.ProductID)
-                .Skip(start)
-                .Take(50)
-                .Select(m => new ProductDTO
-                {
-                    ProductName = m.Product.Name,
-                    ThumbNailPhoto = m.ProductPhoto.ThumbNailPhoto,
-                    ThumbNailPhotoFileName = m.ProductPhoto.ThumbnailPhotoFileName,
-                    ProductID = m.ProductID
-                });
-            
+                   .Include(m => m.Product)
+                   .Include(m => m.Product.ProductInventories)
+                   .Include(m => m.ProductPhoto)
+                   .Where(m => (m.Product.ProductInventories.Sum(c => c.Quantity) -
+                   (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                    join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                    where Detail.ProductID == m.ProductID && Header.Status == 1
+                    select Detail.OrderQty).Sum(v => v)
+                   ) > 1 || (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                             join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                             where Header.Status == 1 && Detail.ProductID == m.ProductID
+                             select Detail.PurchaseOrderDetailID).Count() == 0)
+                   .OrderBy(m => m.ProductID)
+                   .Skip(0 * 50)
+                   .Take(50)
+                   .Select(m => new ProductDTO
+                   {
+                       ProductName = m.Product.Name,
+                       ThumbNailPhoto = m.ProductPhoto.ThumbNailPhoto,
+                       ThumbNailPhotoFileName = m.ProductPhoto.ThumbnailPhotoFileName,
+                       ProductID = m.ProductID,
+                       ProductOnInventory = m.Product.ProductInventories.Sum(c => c.Quantity)
+                   });
+
             return products;
         }
         public int Pages()
         {
-            int PageCount = db.ProductInventories.Where(m => m.Quantity > 1).Select(m=>m.Product.Name).Distinct().Count();
-            return PageCount/50;
-        }        
+            int PageCount = db.ProductInventories.Where(m => m.Quantity > 1).Select(m => m.Product.Name).Distinct().Count();
+            return PageCount / 50;
+        }
+        public IEnumerable<ProductDTO> GetTopProduct()
+        {
+            var products = db.ProductProductPhotoes
+                 .Include(m => m.Product)
+                 .Include(m => m.Product.ProductInventories)
+                 .Include(m => m.ProductPhoto)
+                 .Where(m => m.Product.ProductInventories.Sum(c => c.Quantity) > 1)
+                 .OrderBy(m => m.Product.ProductInventories.Sum(c => c.Quantity))
+                 .Take(5)
+                 .Select(m => new ProductDTO
+                 {
+                     ProductName = m.Product.Name,
+                     ThumbNailPhoto = m.ProductPhoto.ThumbNailPhoto,
+                     ThumbNailPhotoFileName = m.ProductPhoto.ThumbnailPhotoFileName,
+                     ProductID = m.ProductID
+                 });
+
+            return products;
+        }
+        public IEnumerable<ProductDTO> GetMinProduct()
+        {
+            var products = db.ProductProductPhotoes
+                 .Include(m => m.Product)
+                 .Include(m => m.Product.ProductInventories)
+                 .Include(m => m.ProductPhoto)
+                 .Where(m => m.Product.ProductInventories.Sum(c => c.Quantity) > 1)
+                 .OrderByDescending(m => m.Product.ProductInventories.Sum(c => c.Quantity))
+                 .Take(5)
+                 .Select(m => new ProductDTO
+                 {
+                     ProductName = m.Product.Name,
+                     ThumbNailPhoto = m.ProductPhoto.ThumbNailPhoto,
+                     ThumbNailPhotoFileName = m.ProductPhoto.ThumbnailPhotoFileName,
+                     ProductID = m.ProductID
+                 });
+
+            return products;
+        }
     }
 }

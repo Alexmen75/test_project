@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebStartUp.kaspi.lab.service;
 
 namespace WebStartUp.Models.Controllers
 {
@@ -10,6 +11,9 @@ namespace WebStartUp.Models.Controllers
     {
         public ActionResult Index()
         {
+            WebService1SoapClient Products = new WebService1SoapClient();
+            ViewBag.TopProduct = Products.GetTopProduct().AsEnumerable();
+            ViewBag.MinProduct = Products.GetMinProduct().AsEnumerable();
             return View();
         }
 

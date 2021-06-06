@@ -38,5 +38,17 @@ namespace WebStartUp
             RProductDTO prod = new RProductDTO();
             return prod.Pages();
         }
+        [WebMethod]
+        public List<ProductDTO> GetTopProduct()
+        {
+            RProductDTO prod = new RProductDTO();
+            return prod.GetTopProduct().ToList();
+        }
+        [WebMethod]
+        public List<ProductDTO> GetMinProduct()
+        {
+            RProductDTO prod = new RProductDTO();
+            return prod.GetMinProduct().ToList();
+        }
     }
 }

@@ -33,6 +33,8 @@ namespace WebStartUp.kaspi.lab.service {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ThumbNailPhotoFileNameField;
         
+        private int ProductOnInventoryField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -91,6 +93,19 @@ namespace WebStartUp.kaspi.lab.service {
                 if ((object.ReferenceEquals(this.ThumbNailPhotoFileNameField, value) != true)) {
                     this.ThumbNailPhotoFileNameField = value;
                     this.RaisePropertyChanged("ThumbNailPhotoFileName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
+        public int ProductOnInventory {
+            get {
+                return this.ProductOnInventoryField;
+            }
+            set {
+                if ((this.ProductOnInventoryField.Equals(value) != true)) {
+                    this.ProductOnInventoryField = value;
+                    this.RaisePropertyChanged("ProductOnInventory");
                 }
             }
         }
@@ -409,6 +424,20 @@ namespace WebStartUp.kaspi.lab.service {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Pages", ReplyAction="*")]
         System.Threading.Tasks.Task<int> PagesAsync();
+        
+        // CODEGEN: Контракт генерации сообщений с именем GetTopProductResult из пространства имен http://tempuri.org/ не отмечен как обнуляемый
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTopProduct", ReplyAction="*")]
+        WebStartUp.kaspi.lab.service.GetTopProductResponse GetTopProduct(WebStartUp.kaspi.lab.service.GetTopProductRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTopProduct", ReplyAction="*")]
+        System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetTopProductResponse> GetTopProductAsync(WebStartUp.kaspi.lab.service.GetTopProductRequest request);
+        
+        // CODEGEN: Контракт генерации сообщений с именем GetMinProductResult из пространства имен http://tempuri.org/ не отмечен как обнуляемый
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMinProduct", ReplyAction="*")]
+        WebStartUp.kaspi.lab.service.GetMinProductResponse GetMinProduct(WebStartUp.kaspi.lab.service.GetMinProductRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMinProduct", ReplyAction="*")]
+        System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetMinProductResponse> GetMinProductAsync(WebStartUp.kaspi.lab.service.GetMinProductRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -547,6 +576,128 @@ namespace WebStartUp.kaspi.lab.service {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetTopProductRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetTopProduct", Namespace="http://tempuri.org/", Order=0)]
+        public WebStartUp.kaspi.lab.service.GetTopProductRequestBody Body;
+        
+        public GetTopProductRequest() {
+        }
+        
+        public GetTopProductRequest(WebStartUp.kaspi.lab.service.GetTopProductRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class GetTopProductRequestBody {
+        
+        public GetTopProductRequestBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetTopProductResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetTopProductResponse", Namespace="http://tempuri.org/", Order=0)]
+        public WebStartUp.kaspi.lab.service.GetTopProductResponseBody Body;
+        
+        public GetTopProductResponse() {
+        }
+        
+        public GetTopProductResponse(WebStartUp.kaspi.lab.service.GetTopProductResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetTopProductResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public WebStartUp.kaspi.lab.service.ProductDTO[] GetTopProductResult;
+        
+        public GetTopProductResponseBody() {
+        }
+        
+        public GetTopProductResponseBody(WebStartUp.kaspi.lab.service.ProductDTO[] GetTopProductResult) {
+            this.GetTopProductResult = GetTopProductResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetMinProductRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetMinProduct", Namespace="http://tempuri.org/", Order=0)]
+        public WebStartUp.kaspi.lab.service.GetMinProductRequestBody Body;
+        
+        public GetMinProductRequest() {
+        }
+        
+        public GetMinProductRequest(WebStartUp.kaspi.lab.service.GetMinProductRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class GetMinProductRequestBody {
+        
+        public GetMinProductRequestBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetMinProductResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetMinProductResponse", Namespace="http://tempuri.org/", Order=0)]
+        public WebStartUp.kaspi.lab.service.GetMinProductResponseBody Body;
+        
+        public GetMinProductResponse() {
+        }
+        
+        public GetMinProductResponse(WebStartUp.kaspi.lab.service.GetMinProductResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetMinProductResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public WebStartUp.kaspi.lab.service.ProductDTO[] GetMinProductResult;
+        
+        public GetMinProductResponseBody() {
+        }
+        
+        public GetMinProductResponseBody(WebStartUp.kaspi.lab.service.ProductDTO[] GetMinProductResult) {
+            this.GetMinProductResult = GetMinProductResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface WebService1SoapChannel : WebStartUp.kaspi.lab.service.WebService1Soap, System.ServiceModel.IClientChannel {
     }
@@ -630,6 +781,52 @@ namespace WebStartUp.kaspi.lab.service {
         
         public System.Threading.Tasks.Task<int> PagesAsync() {
             return base.Channel.PagesAsync();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WebStartUp.kaspi.lab.service.GetTopProductResponse WebStartUp.kaspi.lab.service.WebService1Soap.GetTopProduct(WebStartUp.kaspi.lab.service.GetTopProductRequest request) {
+            return base.Channel.GetTopProduct(request);
+        }
+        
+        public WebStartUp.kaspi.lab.service.ProductDTO[] GetTopProduct() {
+            WebStartUp.kaspi.lab.service.GetTopProductRequest inValue = new WebStartUp.kaspi.lab.service.GetTopProductRequest();
+            inValue.Body = new WebStartUp.kaspi.lab.service.GetTopProductRequestBody();
+            WebStartUp.kaspi.lab.service.GetTopProductResponse retVal = ((WebStartUp.kaspi.lab.service.WebService1Soap)(this)).GetTopProduct(inValue);
+            return retVal.Body.GetTopProductResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetTopProductResponse> WebStartUp.kaspi.lab.service.WebService1Soap.GetTopProductAsync(WebStartUp.kaspi.lab.service.GetTopProductRequest request) {
+            return base.Channel.GetTopProductAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetTopProductResponse> GetTopProductAsync() {
+            WebStartUp.kaspi.lab.service.GetTopProductRequest inValue = new WebStartUp.kaspi.lab.service.GetTopProductRequest();
+            inValue.Body = new WebStartUp.kaspi.lab.service.GetTopProductRequestBody();
+            return ((WebStartUp.kaspi.lab.service.WebService1Soap)(this)).GetTopProductAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WebStartUp.kaspi.lab.service.GetMinProductResponse WebStartUp.kaspi.lab.service.WebService1Soap.GetMinProduct(WebStartUp.kaspi.lab.service.GetMinProductRequest request) {
+            return base.Channel.GetMinProduct(request);
+        }
+        
+        public WebStartUp.kaspi.lab.service.ProductDTO[] GetMinProduct() {
+            WebStartUp.kaspi.lab.service.GetMinProductRequest inValue = new WebStartUp.kaspi.lab.service.GetMinProductRequest();
+            inValue.Body = new WebStartUp.kaspi.lab.service.GetMinProductRequestBody();
+            WebStartUp.kaspi.lab.service.GetMinProductResponse retVal = ((WebStartUp.kaspi.lab.service.WebService1Soap)(this)).GetMinProduct(inValue);
+            return retVal.Body.GetMinProductResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetMinProductResponse> WebStartUp.kaspi.lab.service.WebService1Soap.GetMinProductAsync(WebStartUp.kaspi.lab.service.GetMinProductRequest request) {
+            return base.Channel.GetMinProductAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<WebStartUp.kaspi.lab.service.GetMinProductResponse> GetMinProductAsync() {
+            WebStartUp.kaspi.lab.service.GetMinProductRequest inValue = new WebStartUp.kaspi.lab.service.GetMinProductRequest();
+            inValue.Body = new WebStartUp.kaspi.lab.service.GetMinProductRequestBody();
+            return ((WebStartUp.kaspi.lab.service.WebService1Soap)(this)).GetMinProductAsync(inValue);
         }
     }
 }

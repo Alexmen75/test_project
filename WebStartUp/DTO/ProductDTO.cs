@@ -12,5 +12,6 @@ namespace WebStartUp.DTO
         public string ProductName { get; set; }
         public byte[] ThumbNailPhoto { get; set; }
         public string ThumbNailPhotoFileName { get; set; }
+        public int ProductOnInventory { get; set; }
     }
 }

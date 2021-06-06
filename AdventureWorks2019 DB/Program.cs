@@ -20,36 +20,41 @@ namespace AdventureWorks2019_Console
     {
         static void Main(string[] args)
         {
-            int id = GetNewID();
             ModelAW db = new ModelAW();
-            EmailAddress E = new EmailAddress() { rowguid = Guid.NewGuid(), BusinessEntityID = id, EmailAddress1 = "4753829@mail.ru", ModifiedDate = DateTime.Now };
-            Customer C = new Customer() { PersonID = id, TerritoryID = 3, rowguid = Guid.NewGuid(), ModifiedDate = DateTime.Now };
-            Person P = new Person()
+            var products = db.ProductProductPhotoes
+                  .Include(m => m.Product)
+                  .Include(m => m.Product.ProductInventories)
+                  .Include(m => m.ProductPhoto)
+                  .Where(m => (m.Product.ProductInventories.Sum(c => c.Quantity) -
+                  (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                   join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                   where Detail.ProductID == m.ProductID && Header.Status == 1
+                   select Detail.OrderQty).Sum(v => v)
+                  ) > 1 || (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                            join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                            where Header.Status == 1 && Detail.ProductID == m.ProductID
+                            select Detail.PurchaseOrderDetailID).Count()==0)
+                  .OrderBy(m => m.ProductID)
+                  .Skip(0 * 50)
+                  .Take(50)
+                  .Select(m => new ProductDTO
+                  {
+                      ProductName = m.Product.Name,
+                      ThumbNailPhoto = m.ProductPhoto.ThumbNailPhoto,
+                      ThumbNailPhotoFileName = m.ProductPhoto.ThumbnailPhotoFileName,
+                      ProductID = m.ProductID,
+                      ProductOnInventory = m.Product.ProductInventories.Sum(c => c.Quantity)
+                  });
+            var prod = (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                        join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                        where Detail.ProductID == 1 && Header.Status == 1
+                        select Detail.OrderQty).Sum(v => v);
+            Console.WriteLine(prod);
+            foreach(var i in products)
             {
-                rowguid = Guid.NewGuid(),
-                FirstName = "test",
-                LastName = "test",
-                BusinessEntityID = id,
-                ModifiedDate = DateTime.Now,
-            };
-            db.People.Add(P);
-            db.Customers.Add(C);
-            db.EmailAddresses.Add(E);
-            db.SaveChanges();
+                Console.WriteLine(i.ProductID + "    "+i.ProductName + " Количество  " + i.ProductOnInventory);
+            }
         }
-        public static int GetNewID()
-        {
-            ModelAW db = new ModelAW();
-            int ID;
-            BusinessEntity b = new BusinessEntity() { rowguid = Guid.NewGuid(), ModifiedDate = DateTime.Now };
-            db.BusinessEntities.Add(b);
-            //db.BusinessEntities.Reload(b);
-            db.SaveChanges();
-            ID = b.BusinessEntityID;
-                //DataLog.Debug("Добавлена Сущьность BEntity: ID - " + ID);
-
-            db.Dispose();
-            return ID;
-        }
+      
     }
 }

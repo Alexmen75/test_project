@@ -27,6 +27,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="ProductName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ThumbNailPhoto" type="s:base64Binary" />
           <s:element minOccurs="0" maxOccurs="1" name="ThumbNailPhotoFileName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProductOnInventory" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetProduct">
@@ -73,6 +74,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTopProduct">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTopProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTopProductResult" type="tns:ArrayOfProductDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMinProduct">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMinProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMinProductResult" type="tns:ArrayOfProductDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetProductListSoapIn">
@@ -93,6 +114,18 @@
   <wsdl:message name="PagesSoapOut">
     <wsdl:part name="parameters" element="tns:PagesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTopProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTopProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetTopProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTopProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMinProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMinProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetMinProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMinProductResponse" />
+  </wsdl:message>
   <wsdl:portType name="WebService1Soap">
     <wsdl:operation name="GetProductList">
       <wsdl:input message="tns:GetProductListSoapIn" />
@@ -105,6 +138,14 @@
     <wsdl:operation name="Pages">
       <wsdl:input message="tns:PagesSoapIn" />
       <wsdl:output message="tns:PagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTopProduct">
+      <wsdl:input message="tns:GetTopProductSoapIn" />
+      <wsdl:output message="tns:GetTopProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMinProduct">
+      <wsdl:input message="tns:GetMinProductSoapIn" />
+      <wsdl:output message="tns:GetMinProductSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
@@ -136,6 +177,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTopProduct">
+      <soap:operation soapAction="http://tempuri.org/GetTopProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMinProduct">
+      <soap:operation soapAction="http://tempuri.org/GetMinProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -159,6 +218,24 @@
     </wsdl:operation>
     <wsdl:operation name="Pages">
       <soap12:operation soapAction="http://tempuri.org/Pages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetTopProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMinProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetMinProduct" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

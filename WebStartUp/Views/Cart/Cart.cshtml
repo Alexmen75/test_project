@@ -26,7 +26,13 @@
         </tr>
     }
 </table>
+@if (Model.Count() != 0)
+{
 <input type="button" value="Оформить заказ" onclick="location.href='@Url.Action("CreateOrder", "Cart")'" />
 <input type="button" value="Отчистить корзину" onclick="location.href='@Url.Action("DeleteCart", "Cart")'" />
-
+}
+else
+{
+<h2> список пуст</h2>
+}
 
