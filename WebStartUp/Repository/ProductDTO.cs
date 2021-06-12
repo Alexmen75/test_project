@@ -67,32 +67,31 @@ namespace WebStartUp.Repository
         {
             var start = PageNum * 50;
             var products = db.ProductProductPhotoes
-                   .Include(m => m.Product)
-                   .Include(m => m.Product.ProductInventories)
-                   .Include(m => m.ProductPhoto)
-                   .Where(m => (m.Product.ProductInventories.Sum(c => c.Quantity) -
-                   (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
-                    join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
-                    where Detail.ProductID == m.ProductID && Header.Status == 1
-                    select Detail.OrderQty).Sum(v => v)
-                   ) > 1 || m.Product.ProductInventories.Where(c => c.ProductID == m.ProductID).Sum(c => c.Quantity) > 0)
-                   .OrderBy(m => m.ProductID)
-                   .Skip(start)
-                   .Take(50)
-                   .Select(m => new ProductDTO
-                   {
-                       ProductName = m.Product.Name,
-                       ThumbNailPhoto = m.ProductPhoto.ThumbNailPhoto,
-                       ThumbNailPhotoFileName = m.ProductPhoto.ThumbnailPhotoFileName,
-                       ProductID = m.ProductID,
-                   });
-            List<ProductDTO> Prod = new List<ProductDTO>();
-            foreach (var p in products)
-            {
-                Prod.Add(p);
-            }
+                               .Include(m => m.Product)
+                               .Include(m => m.Product.ProductInventories)
+                               .Include(m => m.ProductPhoto)
+                               .Where(m => ((m.Product.ProductInventories.Sum(c => c.Quantity) -
+                               (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                                join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                                where Detail.ProductID == m.ProductID && Header.Status == 1
+                                select Detail.OrderQty).Sum(v => v)
+                               ) > 1) || (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                                          join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                                          where Detail.ProductID == m.ProductID && Header.Status == 1
+                                          select Detail.Product.Name).FirstOrDefault() == null
+                                          && (m.Product.ProductInventories.Sum(c => c.Quantity) > 0))
+                               .OrderBy(m => m.ProductID)
+                               .Skip(start)
+                               .Take(50)
+                               .Select(m => new ProductDTO
+                               {
+                                   ProductName = m.Product.Name,
+                                   ThumbNailPhoto = m.ProductPhoto.ThumbNailPhoto,
+                                   ThumbNailPhotoFileName = m.ProductPhoto.ThumbnailPhotoFileName,
+                                   ProductID = m.ProductID,
+                               }).ToList();
             db.Dispose();
-            return Prod;
+            return products;
         }
         public int Pages()
         {
@@ -102,15 +101,19 @@ namespace WebStartUp.Repository
         public IEnumerable<ProductDTO> GetTopProduct()
         {
             var products = db.ProductProductPhotoes
-                   .Include(m => m.Product)
-                   .Include(m => m.Product.ProductInventories)
-                   .Include(m => m.ProductPhoto)
-                   .Where(m => (m.Product.ProductInventories.Sum(c => c.Quantity) -
-                   (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
-                    join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
-                    where Detail.ProductID == m.ProductID && Header.Status == 1
-                    select Detail.OrderQty).Sum(v => v)
-                   ) > 1 || m.Product.ProductInventories.Where(c => c.ProductID == m.ProductID).Sum(c => c.Quantity) > 0)
+                               .Include(m => m.Product)
+                               .Include(m => m.Product.ProductInventories)
+                               .Include(m => m.ProductPhoto)
+                               .Where(m => ((m.Product.ProductInventories.Sum(c => c.Quantity) -
+                               (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                                join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                                where Detail.ProductID == m.ProductID && Header.Status == 1
+                                select Detail.OrderQty).Sum(v => v)
+                               ) > 1) || (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                                          join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                                          where Detail.ProductID == m.ProductID && Header.Status == 1
+                                          select Detail.Product.Name).FirstOrDefault() == null
+                                          && (m.Product.ProductInventories.Sum(c => c.Quantity) > 0))
                  .OrderBy(m => m.Product.ProductInventories.Sum(c => c.Quantity))
                  .Take(5)
                  .Select(m => new ProductDTO
@@ -127,15 +130,19 @@ namespace WebStartUp.Repository
         public IEnumerable<ProductDTO> GetMinProduct()
         {
             var products = db.ProductProductPhotoes
-                   .Include(m => m.Product)
-                   .Include(m => m.Product.ProductInventories)
-                   .Include(m => m.ProductPhoto)
-                   .Where(m => (m.Product.ProductInventories.Sum(c => c.Quantity) -
-                   (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
-                    join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
-                    where Detail.ProductID == m.ProductID && Header.Status == 1
-                    select Detail.OrderQty).Sum(v => v)
-                   ) > 1 || m.Product.ProductInventories.Where(c => c.ProductID == m.ProductID).Sum(c => c.Quantity) > 0)
+                               .Include(m => m.Product)
+                               .Include(m => m.Product.ProductInventories)
+                               .Include(m => m.ProductPhoto)
+                               .Where(m => ((m.Product.ProductInventories.Sum(c => c.Quantity) -
+                               (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                                join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                                where Detail.ProductID == m.ProductID && Header.Status == 1
+                                select Detail.OrderQty).Sum(v => v)
+                               ) > 1) || (from PurchaseOrderDetail Detail in db.PurchaseOrderDetails
+                                          join PurchaseOrderHeader Header in db.PurchaseOrderHeaders on Detail.PurchaseOrderID equals Header.PurchaseOrderID
+                                          where Detail.ProductID == m.ProductID && Header.Status == 1
+                                          select Detail.Product.Name).FirstOrDefault() == null
+                                          && (m.Product.ProductInventories.Sum(c => c.Quantity) > 0))
                  .OrderByDescending(m => m.Product.ProductInventories.Sum(c => c.Quantity))
                  .Take(5)
                  .Select(m => new ProductDTO
